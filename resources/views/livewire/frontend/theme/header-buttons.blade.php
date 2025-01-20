@@ -1,0 +1,31 @@
+<div class="ec-header-bottons">
+
+    <!-- Header User Start -->
+    <a href="" class="ec-header-user">
+        <div class="header-icon"><i class="fi-rr-user"></i></div>
+    </a>
+    <!-- Header User End -->
+    <!-- Header wishlist Start -->
+    <a href="wishlist.html" class="ec-header-btn ec-header-wishlist">
+        <div class="header-icon"><i class="fi-rr-heart"></i></div>
+        <span class="ec-header-count">4</span>
+    </a>
+    <!-- Header wishlist End -->
+    <!-- Header Cart Start -->
+    <a href="#ec-side-cart" class="ec-header-btn ec-side-toggle">
+        <div class="header-icon"><i class="fi-rr-shopping-bag"></i></div>
+        <span class="ec-header-count cart-count-lable">3</span>
+    </a>
+
+    @if($isMobile == true)
+    <!-- Header Cart End -->
+    <!-- <a href="javascript:void(0)" class="ec-header-btn ec-sidebar-toggle">
+        <i class="fi fi-rr-apps"></i>
+    </a> -->
+    <!-- Header menu Start -->
+    <a href="#ec-mobile-menu" class="ec-header-btn ec-side-toggle d-lg-none">
+        <i class="fi fi-rr-menu-burger"></i>
+    </a>
+    <!-- Header menu End -->
+    @endif
+</div>
