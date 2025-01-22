@@ -27,4 +27,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     // color
     Route::get('/colors', [App\Http\Controllers\Backend\ColorController::class, 'index'])->name('color.index');
+
+
+    // product
+    Route::get('/products', [App\Http\Controllers\Backend\ProductController::class, 'index'])->name('product.index');
+    Route::get('/products/create', [App\Http\Controllers\Backend\ProductController::class, 'create'])->name('product.create');
+    Route::get('/products/{id}/edit', [App\Http\Controllers\Backend\ProductController::class, 'edit'])->name('product.edit');
 });
