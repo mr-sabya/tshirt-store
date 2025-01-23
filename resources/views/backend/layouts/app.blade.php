@@ -22,6 +22,10 @@
     <link href="{{ asset('assets/backend/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
     <link href="{{ asset('assets/backend/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <!-- Include Bubble Theme -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
     <!-- App Css-->
     <link href="{{ asset('assets/backend/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/backend/css/custom.css') }}" id="app-style" rel="stylesheet" type="text/css" />
@@ -68,7 +72,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- end page title --> 
+                    <!-- end page title -->
 
                     <!-- conten start -->
                     @yield('content')
@@ -94,6 +98,8 @@
     <script src="{{ asset('assets/backend/libs/simplebar/simplebar.min.js') }}"></script>
     <script src="{{ asset('assets/backend/libs/node-waves/waves.min.js') }}"></script>
 
+    <!-- Include the Quill library -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
 
     <!-- App js -->

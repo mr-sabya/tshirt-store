@@ -33,4 +33,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/products', [App\Http\Controllers\Backend\ProductController::class, 'index'])->name('product.index');
     Route::get('/products/create', [App\Http\Controllers\Backend\ProductController::class, 'create'])->name('product.create');
     Route::get('/products/{id}/edit', [App\Http\Controllers\Backend\ProductController::class, 'edit'])->name('product.edit');
+
+
+    // tshirt category
+    Route::get('/tshirt-categories', [App\Http\Controllers\Backend\Tshirt\CategoryController::class, 'index'])->name('tshirt.category.index');
+
+    // design
+    Route::get('/designs', [App\Http\Controllers\Backend\Tshirt\DesignController::class, 'index'])->name('design.index');
+    
+    // tshirt
+    Route::get('/tshirts', [App\Http\Controllers\Backend\Tshirt\TshirtController::class, 'index'])->name('tshirt.index');
 });
