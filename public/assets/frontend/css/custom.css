@@ -1,0 +1,8 @@
+.custom-design .img-draggable {
+    cursor: move;
+    position: absolute;
+}
+
+.custom-design .selected {
+    border: 2px solid blue;
+}

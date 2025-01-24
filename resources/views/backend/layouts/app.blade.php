@@ -24,11 +24,13 @@
     <link href="{{ asset('assets/backend/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
 
     <!-- Include Bubble Theme -->
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
 
     <!-- App Css-->
     <link href="{{ asset('assets/backend/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/backend/css/custom.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+
+    @livewireStyles
 
 </head>
 
@@ -92,18 +94,20 @@
 
 
     <!-- JAVASCRIPT -->
-    <script src="{{ asset('assets/backend/libs/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/backend/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/backend/libs/metismenu/metisMenu.min.js') }}"></script>
-    <script src="{{ asset('assets/backend/libs/simplebar/simplebar.min.js') }}"></script>
-    <script src="{{ asset('assets/backend/libs/node-waves/waves.min.js') }}"></script>
+    <script data-navigate-once src="{{ asset('assets/backend/libs/jquery/jquery.min.js') }}"></script>
+    <script data-navigate-once src="{{ asset('assets/backend/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script data-navigate-once src="{{ asset('assets/backend/libs/metismenu/metisMenu.min.js') }}"></script>
+    <script data-navigate-once src="{{ asset('assets/backend/libs/simplebar/simplebar.min.js') }}"></script>
+    <script data-navigate-once src="{{ asset('assets/backend/libs/node-waves/waves.min.js') }}"></script>
 
     <!-- Include the Quill library -->
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script data-navigate-once src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 
 
     <!-- App js -->
-    <script src="{{ asset('assets/backend/js/app.js') }}"></script>
+    <script data-navigate-once src="{{ asset('assets/backend/js/app.js') }}"></script>
+
+    @livewireScripts
 </body>
 
 

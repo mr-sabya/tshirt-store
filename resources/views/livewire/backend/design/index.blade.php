@@ -64,55 +64,42 @@
             </div>
 
             <div class="card-body">
+                <!-- Search Input -->
                 <div class="mb-3">
                     <input type="text" wire:model="search" class="form-control w-50" placeholder="Search Designs..." />
                 </div>
 
-                <table class="table table-bordered table-striped">
-                    <thead class="table-light">
-                        <tr>
-                            <th>
-                                <a href="#" wire:click.prevent="toggleSort('id')" class="text-decoration-none text-dark d-flex justify-content-between">
-                                    <span>ID</span>
-                                    @if ($sortBy === 'id')
-                                    <i class="fas fa-sort-{{ $sortDirection === 'asc' ? 'up' : 'down' }}"></i>
-                                    @endif
-                                </a>
-                            </th>
-                            <th>
-                                <a href="#" wire:click.prevent="toggleSort('name')" class="text-decoration-none text-dark d-flex justify-content-between">
-                                    <span>Name</span>
-                                    @if ($sortBy === 'name')
-                                    <i class="fas fa-sort-{{ $sortDirection === 'asc' ? 'up' : 'down' }}"></i>
-                                    @endif
-                                </a>
-                            </th>
-                            <th>Slug</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($designs as $design)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $design->name }}</td>
-                            <td>{{ $design->slug }}</td>
-                            <td>
+                <!-- Card View -->
+                <div class="row">
+                    @forelse ($designs as $design)
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 shadow-sm border-light">
+                            <!-- Image Section -->
+                            <img src="{{ url('storage/', $design->image) }}" alt="{{ $design->name }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+
+                            <!-- Card Content -->
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $design->name }}</h5>
+                                <p class="card-text text-muted">Slug: {{ $design->slug }}</p>
+                            </div>
+
+                            <!-- Card Actions -->
+                            <div class="card-footer d-flex justify-content-between">
                                 <button wire:click="edit({{ $design->id }})" class="btn btn-primary btn-sm">
                                     <i class="ri-pencil-line"></i> Edit
                                 </button>
                                 <button wire:click="delete({{ $design->id }})" class="btn btn-danger btn-sm">
                                     <i class="ri-delete-bin-line"></i> Delete
                                 </button>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="4" class="text-center">No designs found!</td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                            </div>
+                        </div>
+                    </div>
+                    @empty
+                    <div class="col-12">
+                        <p class="text-center">No designs found!</p>
+                    </div>
+                    @endforelse
+                </div>
 
                 <!-- Pagination Section -->
                 <div class="mt-3">
@@ -121,4 +108,5 @@
             </div>
         </div>
     </div>
+
 </div>

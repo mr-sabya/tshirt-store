@@ -8,3 +8,8 @@
     justify-content: center;
 }
 
+
+
+.auth-body-bg .card input {
+    color: #fff;
+}

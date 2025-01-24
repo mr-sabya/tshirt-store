@@ -33,9 +33,12 @@
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/demo1.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/responsive.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/frontend/css/custom.css') }}" />
 
     <!-- Background css -->
     <link rel="stylesheet" id="bg-switcher-css" href="{{ asset('assets/frontend/css/backgrounds/bg-4.css') }}" />
+
+    @livewireStyles
 </head>
 
 <body>
@@ -677,25 +680,28 @@
 
 
     <!-- Vendor JS -->
-    <script src="{{ asset('assets/frontend/js/vendor/jquery-3.5.1.min.js') }}"></script>
-    <script src="{{ asset('assets/frontend/js/vendor/popper.min.js') }}"></script>
-    <script src="{{ asset('assets/frontend/js/vendor/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/frontend/js/vendor/jquery-migrate-3.3.0.min.js') }}"></script>
-    <script src="{{ asset('assets/frontend/js/vendor/modernizr-3.11.2.min.js') }}"></script>
+    <script data-navigate-once src="{{ asset('assets/frontend/js/vendor/jquery-3.5.1.min.js') }}"></script>
+    <script data-navigate-once src="{{ asset('assets/frontend/js/vendor/popper.min.js') }}"></script>
+    <script data-navigate-once src="{{ asset('assets/frontend/js/vendor/bootstrap.min.js') }}"></script>
+    <script data-navigate-once src="{{ asset('assets/frontend/js/vendor/jquery-migrate-3.3.0.min.js') }}"></script>
+    <script data-navigate-once src="{{ asset('assets/frontend/js/vendor/modernizr-3.11.2.min.js') }}"></script>
 
     <!--Plugins JS-->
-    <script src="{{ asset('assets/frontend/js/plugins/swiper-bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/frontend/js/plugins/countdownTimer.min.js') }}"></script>
-    <script src="{{ asset('assets/frontend/js/plugins/scrollup.js') }}"></script>
-    <script src="{{ asset('assets/frontend/js/plugins/jquery.zoom.min.js') }}"></script>
-    <script src="{{ asset('assets/frontend/js/plugins/slick.min.js') }}"></script>
-    <script src="{{ asset('assets/frontend/js/plugins/infiniteslidev2.js') }}"></script>
-    <script src="{{ asset('assets/frontend/js/vendor/jquery.magnific-popup.min.js') }}"></script>
-    <script src="{{ asset('assets/frontend/js/plugins/jquery.sticky-sidebar.js') }}"></script>
+    <script data-navigate-once src="{{ asset('assets/frontend/js/plugins/swiper-bundle.min.js') }}"></script>
+    <script data-navigate-once src="{{ asset('assets/frontend/js/plugins/countdownTimer.min.js') }}"></script>
+    <script data-navigate-once src="{{ asset('assets/frontend/js/plugins/scrollup.js') }}"></script>
+    <script data-navigate-once src="{{ asset('assets/frontend/js/plugins/jquery.zoom.min.js') }}"></script>
+    <script data-navigate-once src="{{ asset('assets/frontend/js/plugins/slick.min.js') }}"></script>
+    <script data-navigate-once src="{{ asset('assets/frontend/js/plugins/infiniteslidev2.js') }}"></script>
+    <script data-navigate-once src="{{ asset('assets/frontend/js/vendor/jquery.magnific-popup.min.js') }}"></script>
+    <script data-navigate-once src="{{ asset('assets/frontend/js/plugins/jquery.sticky-sidebar.js') }}"></script>
 
     <!-- Main Js -->
-    <script src="{{ asset('assets/frontend/js/vendor/index.js') }}"></script>
-    <script src="{{ asset('assets/frontend/js/main.js') }}"></script>
+    <script data-navigate-once src="{{ asset('assets/frontend/js/main.js') }}"></script>
+
+    @yield('scripts')
+
+    @livewireScripts
 </body>
 
 </html>

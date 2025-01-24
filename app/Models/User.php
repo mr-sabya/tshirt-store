@@ -19,8 +19,13 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
+        'phone',
+        'is_verified',
         'password',
+        'city',
+        'postcode',
+        'address',
+        'is_admin',
     ];
 
     /**
@@ -39,7 +44,8 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        'is_verified' => 'boolean',
+        'is_admin' => 'boolean',
+        'password' => 'hashed', // Automatically hashes passwords
     ];
 }

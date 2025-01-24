@@ -73,62 +73,56 @@
 
     <!-- Tshirt List Section -->
     <div class="col-md-8">
-        <div class="card shadow-sm border-light">
-            <div class="card-header bg-primary">
-                <h4 class="text-white mb-0">T-shirt List</h4>
+    <div class="card shadow-sm border-light">
+        <div class="card-header bg-primary">
+            <h4 class="text-white mb-0">T-shirt List</h4>
+        </div>
+
+        <div class="card-body">
+            <!-- Search Input -->
+            <div class="mb-3">
+                <input type="text" wire:model="search" class="form-control w-50" placeholder="Search T-shirts..." />
             </div>
 
-            <div class="card-body">
-                <div class="mb-3">
-                    <input type="text" wire:model="search" class="form-control w-50" placeholder="Search T-shirts..." />
-                </div>
+            <!-- Card View -->
+            <div class="row">
+                @forelse ($tshirts as $tshirt)
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm border-light">
+                        <!-- Image Section -->
+                        <img src="{{ url('storage/', $tshirt->image) }}" alt="{{ $tshirt->name }}" class="card-img-top" style="height: 200px; object-fit: cover;">
 
-                <table class="table table-bordered table-striped">
-                    <thead class="table-light">
-                        <tr>
-                            <th>
-                                <a href="#" wire:click.prevent="toggleSort('id')" class="text-decoration-none text-dark d-flex justify-content-between">
-                                    <span>ID</span>
-                                    @if ($sortBy === 'id')
-                                    <i class="fas fa-sort-{{ $sortDirection === 'asc' ? 'up' : 'down' }}"></i>
-                                    @endif
-                                </a>
-                            </th>
-                            <th>Name</th>
-                            <th>Category</th>
-                            <th>Slug</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($tshirts as $tshirt)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $tshirt->name }}</td>
-                            <td>{{ $tshirt->category->name }}</td>
-                            <td>{{ $tshirt->slug }}</td>
-                            <td>
-                                <button wire:click="edit({{ $tshirt->id }})" class="btn btn-primary btn-sm">
-                                    <i class="ri-pencil-line"></i> Edit
-                                </button>
-                                <button wire:click="delete({{ $tshirt->id }})" class="btn btn-danger btn-sm">
-                                    <i class="ri-delete-bin-line"></i> Delete
-                                </button>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="5" class="text-center">No T-shirts found!</td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                        <!-- Card Content -->
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $tshirt->name }}</h5>
+                            <p class="card-text text-muted mb-1">Category: {{ $tshirt->category['name'] ?? 'N/A' }}</p>
+                            <p class="card-text text-muted">Slug: {{ $tshirt->slug }}</p>
+                        </div>
 
-                <!-- Pagination Section -->
-                <div class="mt-3">
-                    {{ $tshirts->links() }}
+                        <!-- Card Actions -->
+                        <div class="card-footer d-flex justify-content-between">
+                            <button wire:click="edit({{ $tshirt->id }})" class="btn btn-primary btn-sm">
+                                <i class="ri-pencil-line"></i> Edit
+                            </button>
+                            <button wire:click="delete({{ $tshirt->id }})" class="btn btn-danger btn-sm">
+                                <i class="ri-delete-bin-line"></i> Delete
+                            </button>
+                        </div>
+                    </div>
                 </div>
+                @empty
+                <div class="col-12">
+                    <p class="text-center">No T-shirts found!</p>
+                </div>
+                @endforelse
+            </div>
+
+            <!-- Pagination Section -->
+            <div class="mt-3">
+                {{ $tshirts->links() }}
             </div>
         </div>
     </div>
+</div>
+
 </div>

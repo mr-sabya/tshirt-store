@@ -12,7 +12,7 @@ class Tshirt extends Model
     protected $fillable = [
         'name',
         'slug',
-        'category_id', // Foreign key
+        'tshirt_category_id', // Foreign key
         'image',
         'is_active',
     ];
@@ -20,6 +20,6 @@ class Tshirt extends Model
     // Relationship with TshirtCategory model
     public function category()
     {
-        return $this->belongsTo(TshirtCategory::class);
+        return $this->belongsTo(TshirtCategory::class, 'tshirt_category_id');
     }
 }

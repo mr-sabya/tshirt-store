@@ -14,7 +14,7 @@ class Index extends Component
 {
     use WithFileUploads, WithPagination, WithoutUrlPagination;
 
-    public $name, $slug, $image, $category_id, $is_active = 1, $tshirtId;
+    public $tshirt, $name, $slug, $image, $category_id, $is_active = 1, $tshirtId;
     public $search = '', $sortBy = 'id', $sortDirection = 'asc';
     public $isEdit = false;
 
@@ -39,13 +39,21 @@ class Index extends Component
 
         $imagePath = $this->image->store('tshirts', 'public'); // Store the image
 
-        Tshirt::create([
+        $data = [
             'name' => $this->name,
             'slug' => $this->slug,
-            'category_id' => $this->category_id,
+            'tshirt_category_id' => $this->category_id,
             'image' => $imagePath,
-            'is_active' => $this->is_active,
-        ]);
+
+        ];
+
+        if ($this->is_active) {
+            $data['is_active'] = 1;
+        } else {
+            $data['is_active'] = 0;
+        }
+
+        Tshirt::create($data);
 
         session()->flash('message', 'Tshirt created successfully!');
         $this->resetForm();
@@ -55,12 +63,19 @@ class Index extends Component
     public function edit($id)
     {
         $tshirt = Tshirt::findOrFail($id);
+        $this->tshirt = $tshirt;
         $this->tshirtId = $tshirt->id;
         $this->name = $tshirt->name;
         $this->slug = $tshirt->slug;
         $this->category_id = $tshirt->category_id;
-        $this->image = $tshirt->image;
-        $this->is_active = $tshirt->is_active;
+        // $this->image = $tshirt->image;
+
+        if ($tshirt->is_active == 1) {
+            $this->is_active = true;
+        } else {
+            $this->is_active = false;
+        }
+
         $this->isEdit = true;
     }
 
@@ -79,8 +94,14 @@ class Index extends Component
 
         $tshirt->name = $this->name;
         $tshirt->slug = $this->slug;
-        $tshirt->category_id = $this->category_id;
-        $tshirt->is_active = $this->is_active;
+        $tshirt->tshirt_category_id = $this->category_id;
+
+        if ($this->is_active) {
+            $tshirt->is_active = 1;
+        } else {
+            $tshirt->is_active = 0;
+        }
+
         $tshirt->save();
 
         session()->flash('message', 'Tshirt updated successfully!');
@@ -121,5 +142,4 @@ class Index extends Component
             'categories' => TshirtCategory::all() // Passing categories for selection
         ]);
     }
-
 }
