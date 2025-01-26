@@ -17,6 +17,8 @@ Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])-
 Route::get('tshirt-designer', [App\Http\Controllers\Frontend\TshirtDesignerController::class, 'index'])->name('custom-design.index');
 
 
+
+
 Route::prefix('admin')->name('admin.')->group(function () {
 
     // login

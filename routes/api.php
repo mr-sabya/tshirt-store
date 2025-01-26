@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('/tshirts', [App\Http\Controllers\Frontend\TshirtMaker\TshirtController::class, 'index']);
+Route::get('/designs', [App\Http\Controllers\Frontend\TshirtMaker\DesignController::class, 'index']);
+Route::post('/upload-design', [App\Http\Controllers\Frontend\TshirtMaker\DesignController::class, 'upload']);

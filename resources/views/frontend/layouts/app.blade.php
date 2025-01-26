@@ -685,7 +685,7 @@
     <script data-navigate-once src="{{ asset('assets/frontend/js/vendor/bootstrap.min.js') }}"></script>
     <script data-navigate-once src="{{ asset('assets/frontend/js/vendor/jquery-migrate-3.3.0.min.js') }}"></script>
     <script data-navigate-once src="{{ asset('assets/frontend/js/vendor/modernizr-3.11.2.min.js') }}"></script>
-
+    
     <!--Plugins JS-->
     <script data-navigate-once src="{{ asset('assets/frontend/js/plugins/swiper-bundle.min.js') }}"></script>
     <script data-navigate-once src="{{ asset('assets/frontend/js/plugins/countdownTimer.min.js') }}"></script>
@@ -695,6 +695,10 @@
     <script data-navigate-once src="{{ asset('assets/frontend/js/plugins/infiniteslidev2.js') }}"></script>
     <script data-navigate-once src="{{ asset('assets/frontend/js/vendor/jquery.magnific-popup.min.js') }}"></script>
     <script data-navigate-once src="{{ asset('assets/frontend/js/plugins/jquery.sticky-sidebar.js') }}"></script>
+    
+    <script data-navigate-once src="https://cdn.jsdelivr.net/npm/interactjs@1.10.17/dist/interact.min.js"></script>
+
+
 
     <!-- Main Js -->
     <script data-navigate-once src="{{ asset('assets/frontend/js/main.js') }}"></script>
