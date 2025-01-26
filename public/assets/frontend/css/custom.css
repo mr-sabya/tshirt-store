@@ -54,3 +54,199 @@
 .custom-design #zoomRange {
     width: 150px;
 }
+
+
+.custom-design img{
+    width: 100%;
+}
+
+.custom-design .tshirt-option-container .tshirt-option,
+.custom-design .design-option-container .design-option{
+    border: 1px solid #CED4DA;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+
+
+.custom-design .active .tshirt-option,
+.custom-design .active .design-option{
+    border: 2px solid #008f18;
+}
+
+/* Adjust the appearance of the text editor */
+.tox-editor-header {
+    background-color: #f8f9fa;
+    /* Light gray background for the header */
+}
+
+.tox-toolbar {
+    border-radius: 5px;
+    /* Rounded corners for toolbar */
+    border: 1px solid #ccc;
+    /* Light border for the toolbar */
+}
+
+.tox-statusbar {
+    display: none;
+    /* Hide the status bar */
+}
+
+
+
+/* text editor */
+/* Text Editor Styles */
+
+#editor{
+    width: 100%;
+    height: 300px;
+    width: 100%;
+    height: 300px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    background-color: #fff;
+    color: #000;
+    
+    margin-bottom: 20px;
+}
+
+/* Toolbar Styles */
+.toolbar {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.toolbar .btn-group {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+}
+
+.toolbar input{
+    margin: 0 !important;
+}
+
+.toolbar button,
+.toolbar select,
+.toolbar input[type="color"] {
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.toolbar button:hover,
+.toolbar select:hover,
+.toolbar input[type="color"]:hover {
+    background-color: #f1f1f1;
+}
+
+.toolbar button:focus,
+.toolbar select:focus,
+.toolbar input[type="color"]:focus {
+    outline: none;
+    border-color: #0056b3;
+}
+
+
+/* Button-specific styles */
+.toolbar button {
+    font-weight: bold;
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.toolbar button:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.toolbar select {
+    width: 150px;
+    padding: 5px;
+}
+
+.toolbar input[type="color"] {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    cursor: pointer;
+}
+
+/* Tooltip for color picker */
+.toolbar input[type="color"]:hover::after {
+    content: "Select Color";
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    font-size: 12px;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+
+.toolbar .color-picker {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    border: 1px solid #ededed;
+    padding: 2px;
+}
+
+.toolbar .color-picker label {
+    margin-bottom: 5px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.toolbar .color-picker input {
+    width: 100%;
+    /* Size of the color picker */
+    height: 30px;
+    border: 1px solid #ccc;
+    /* Border around the color picker */
+    cursor: pointer;
+}
+
+/* Optional: Add a different style for background color */
+.toolbar #backgroundColor {
+    border-color: #8c8c8c;
+    /* Darker border for background color picker */
+}
+
+
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    .toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .toolbar select {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

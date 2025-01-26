@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-<div class="ec-breadcrumb section-space-mb">
+<div class="sticky-header-next-sec ec-breadcrumb section-space-mb">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -23,7 +23,7 @@
 
 <div class="ec-page-content section-space-p">
     <div class="container">
-        <div class="custom-design">
+        <div class="custom-design ">
             <div class="row">
                 <!-- Controls -->
                 <div class="col-md-4">
@@ -38,7 +38,7 @@
                     <!-- Select Design -->
                     <div class="form-group">
                         <h5>Select a Design</h5>
-                        <div class="row mb-3" id="design-container"></div>
+                        <div class="row g-2 mb-3" id="design-container"></div>
                     </div>
 
                     <!-- Upload Design -->
@@ -50,7 +50,7 @@
                     <!-- Buttons -->
                     <div class="button-group">
                         <button id="removeImage" class="btn btn-warning mt-2">Remove Image</button>
-                        <button id="removeText" class="btn btn-warning mt-2">Remove Text</button>
+
                         <button id="resetCanvas" class="btn btn-danger mt-2">Reset</button>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                         <img id="tshirtBackground" class="d-none" alt="T-Shirt" style="width: 100%; height: 100%; object-fit: cover;">
 
                         <!-- Design Preview -->
-                        <img id="designPreview" class="position-absolute img-draggable d-none" style="width: 260px; height: 260px;">
+                        <img id="designPreview" class="position-absolute img-draggable d-none" style="width: 195px;">
 
                         <!-- Custom Text -->
                         <div id="customTextPreview" class="position-absolute img-draggable text-center d-none" style="font-size: 20px;"></div>
@@ -77,74 +77,15 @@
 
                 <!-- Text Customization -->
                 <div class="col-lg-3">
-                    <div class="form-group">
-                        <h5>Add Custom Text</h5>
-                        <input type="text" id="customText" class="form-control mb-3" placeholder="Enter your text">
+
+                    <x-text-editor />
+                    <input type="text" class="form-control mt-2 mb-2" id="text">
+                    <div class="button-group">
+                        <button type="button" class="btn btn-primary" id="addtext">Add text</button>
+                        <button id="removeText" class="btn btn-warning">Remove Text</button>
+
                     </div>
 
-                    <!-- Font Size Control -->
-                    <div class="form-group">
-                        <h5>Font Size</h5>
-                        <input type="range" id="fontSize" class="form-control mb-3" min="10" max="100" value="20">
-                    </div>
-
-                    <!-- Font Color Control -->
-                    <div class="form-group">
-                        <h5>Font Color</h5>
-                        <input type="color" id="fontColor" class="form-control mb-3" value="#000000">
-                    </div>
-
-                    <!-- Font Family Control -->
-                    <div class="form-group">
-                        <h5>Font Family</h5>
-                        <select id="fontFamily" class="form-control mb-3">
-                            <option value="Arial">Arial</option>
-                            <option value="Courier New">Courier New</option>
-                            <option value="Georgia">Georgia</option>
-                            <option value="Tahoma">Tahoma</option>
-                            <option value="Verdana">Verdana</option>
-                            <option value="Times New Roman">Times New Roman</option>
-                            <option value="Comic Sans MS">Comic Sans MS</option>
-                            <option value="Lucida Console">Lucida Console</option>
-                            <option value="Impact">Impact</option>
-                            <option value="Helvetica">Helvetica</option>
-                            <option value="Arial Black">Arial Black</option>
-                            <option value="Brush Script MT">Brush Script MT</option>
-                            <option value="Frank Ruhl Libre">Frank Ruhl Libre</option>
-                            <option value="Dancing Script">Dancing Script</option>
-                            <option value="Pacifico">Pacifico</option>
-                            <option value="Lobster">Lobster</option>
-                            <option value="Monaco">Monaco</option>
-                            <option value="Roboto">Roboto</option>
-                            <option value="Open Sans">Open Sans</option>
-                            <option value="Montserrat">Montserrat</option>
-                            <option value="Playfair Display">Playfair Display</option>
-                        </select>
-                    </div>
-
-
-                    <!-- Font Weight Control -->
-                    <div class="form-group">
-                        <h5>Font Weight</h5>
-                        <select id="fontWeight" class="form-control mb-3">
-                            <option value="normal">Normal</option>
-                            <option value="bold">Bold</option>
-                            <option value="bolder">Bolder</option>
-                            <option value="lighter">Lighter</option>
-                        </select>
-                    </div>
-
-                    <!-- Text Position Controls -->
-                    <div class="form-group">
-                        <h5>Text Position</h5>
-                        <select id="textPosition" class="form-control mb-3">
-                            <option value="center">Center</option>
-                            <option value="top-left">Top Left</option>
-                            <option value="top-right">Top Right</option>
-                            <option value="bottom-left">Bottom Left</option>
-                            <option value="bottom-right">Bottom Right</option>
-                        </select>
-                    </div>
                 </div>
             </div>
         </div>
@@ -153,6 +94,7 @@
 @endsection
 
 @section('scripts')
+<!-- Include TinyMCE Script -->
 
 <script>
     $(document).ready(function() {
@@ -165,17 +107,30 @@
         // Event Listeners
         setupEventListeners();
 
+        $('#addtext').on('click', function() {
+            console.log('click');
+            let editorContent = $('#text').val();
+            console.log(editorContent);
+            updateCustomText(editorContent);
+        });
+
         // Initialization Functions
         function loadTShirts() {
             $.get('/api/tshirts', function(tshirts) {
-                tshirts.forEach(tshirt => {
+                tshirts.forEach((tshirt, index) => {
                     $('#tshirt-container').append(
-                        `<div class="col-lg-4"><img src="storage/${tshirt.image}" class="img-thumbnail mb-2 tshirt-option" data-image="${tshirt.image}" alt="${tshirt.name}"></div>`
+                        `<div class="col-lg-4 tshirt-option-container">
+                        <div class="tshirt-option" data-image="${tshirt.image}">
+                            <img src="storage/${tshirt.image}" class="mb-2" alt="${tshirt.name}">
+                        </div>
+                    </div>`
                     );
                 });
 
-                // Set the first T-shirt as default
+                // Set the first T-shirt as default and add active class
                 if (tshirts.length > 0) {
+                    const firstTshirt = $('#tshirt-container .tshirt-option-container').first();
+                    firstTshirt.addClass('active');
                     setTshirtBackground(tshirts[0].image);
                 }
             });
@@ -183,24 +138,39 @@
 
         function loadDesigns() {
             $.get('/api/designs', function(designs) {
-                designs.forEach(design => {
+                designs.forEach((design, index) => {
                     $('#design-container').append(
-                        `<div class="col-lg-4"><img src="storage/${design.image}" class="img-thumbnail mb-2 design-option" data-image="${design.image}" alt="${design.name}"></div>`
+                        `<div class="col-lg-4 design-option-container">
+                        <div class="design-option" data-image="${design.image}">
+                            <img src="storage/${design.image}" class="mb-2" alt="${design.name}">
+                        </div>
+                    </div>`
                     );
                 });
+
+                // Set the first design as default and add active class
+                if (designs.length > 0) {
+                    const firstDesign = $('#design-container .design-option-container').first();
+                    firstDesign.addClass('active');
+                    setDesignPreview(designs[0].image);
+                }
             });
         }
 
         function setupEventListeners() {
             // T-shirt selection
-            $(document).on('click', '.tshirt-option', function() {
-                const imageSrc = $(this).data('image');
+            $(document).on('click', '.tshirt-option-container', function() {
+                $('.tshirt-option-container').removeClass('active'); // Remove active class from all T-shirt containers
+                $(this).addClass('active'); // Add active class to the clicked T-shirt container
+                const imageSrc = $(this).find('.tshirt-option').data('image');
                 setTshirtBackground(imageSrc);
             });
 
             // Design selection
-            $(document).on('click', '.design-option', function() {
-                const imageSrc = $(this).data('image');
+            $(document).on('click', '.design-option-container', function() {
+                $('.design-option-container').removeClass('active'); // Remove active class from all design containers
+                $(this).addClass('active'); // Add active class to the clicked design container
+                const imageSrc = $(this).find('.design-option').data('image');
                 setDesignPreview(imageSrc);
             });
 
@@ -212,31 +182,6 @@
             // Custom text input
             $('#customText').on('input', function() {
                 updateCustomText($(this).val());
-            });
-
-            // Font size input
-            $('#fontSize').on('input', function() {
-                updateFontSize($(this).val());
-            });
-
-            // Font color input
-            $('#fontColor').on('input', function() {
-                updateFontColor($(this).val());
-            });
-
-            // Font family select
-            $('#fontFamily').on('change', function() {
-                updateFontFamily($(this).val());
-            });
-
-            // Font weight select
-            $('#fontWeight').on('change', function() {
-                updateFontWeight($(this).val());
-            });
-
-            // Text position select
-            $('#textPosition').on('change', function() {
-                updateTextPosition($(this).val());
             });
 
             // Custom design upload
@@ -309,46 +254,9 @@
 
         // Custom Text Handler
         function updateCustomText(text) {
-            $('#customTextPreview').text(text).removeClass('d-none');
-        }
-
-        // Font Size Handler
-        function updateFontSize(size) {
-            $('#customTextPreview').css('font-size', `${size}px`);
-        }
-
-        // Font Color Handler
-        function updateFontColor(color) {
-            $('#customTextPreview').css('color', color);
-        }
-
-        // Font Family Handler
-        function updateFontFamily(fontFamily) {
-            $('#customTextPreview').css('font-family', fontFamily);
-        }
-
-        // Font Weight Handler
-        function updateFontWeight(weight) {
-            $('#customTextPreview').css('font-weight', weight);
-        }
-
-        // Text Position Handler
-        function updateTextPosition(position) {
-            const textPreview = $('#customTextPreview');
-            if (position === 'left') {
-                textPreview.css('left', '10px');
-                textPreview.css('right', 'auto');
-                textPreview.css('text-align', 'left');
-            } else if (position === 'right') {
-                textPreview.css('right', '10px');
-                textPreview.css('left', 'auto');
-                textPreview.css('text-align', 'right');
-            } else {
-                textPreview.css('left', '50%');
-                textPreview.css('right', 'auto');
-                textPreview.css('text-align', 'center');
-                textPreview.css('transform', 'translateX(-50%)');
-            }
+            $('#customTextPreview').removeClass('d-none');
+            $('#customTextPreview').html('');
+            $('#customTextPreview').html('<p>' + text + '</p>');
         }
 
         // Design Upload Handler
@@ -389,6 +297,7 @@
         // Remove Text Handler
         function removeText() {
             $('#customTextPreview').addClass('d-none').text('');
+            $('#text').val('');
         }
     });
 </script>
