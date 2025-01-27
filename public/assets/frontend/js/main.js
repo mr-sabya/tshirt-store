@@ -11,9 +11,9 @@ document.addEventListener('livewire:navigated', () => {
         // On click method for Clear Cookie
 
         /*----------------------------- Site Loader & Popup --------------------*/
-        $(window).load(function () {
-            $("#ec-overlay").fadeOut("slow");
-        });
+        // $(window).load(function () {
+        //     $("#ec-overlay").fadeOut("slow");
+        // });
 
         /*--------------------- Search Bar On Focus -------------------------------- */
         $(".ec-search-bar").focus(function () {

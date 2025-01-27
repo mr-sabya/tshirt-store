@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('home');
 Route::get('tshirt-designer', [App\Http\Controllers\Frontend\TshirtDesignerController::class, 'index'])->name('custom-design.index');
 
-
+Route::get('shop', [App\Http\Controllers\Frontend\ShopController::class, 'index'])->name('shop.index');
 
 
 Route::prefix('admin')->name('admin.')->group(function () {

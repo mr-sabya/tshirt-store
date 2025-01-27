@@ -1,9 +1,9 @@
 <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="index.html">Categories</a></li>
-    <li><a href="index.html">Products</a></li>
-    <li><a href="index.html">T-Shirt Builder</a></li>
-    <li><a href="offer.html">Hot Offers</a></li>
+    <li><a href="{{ route('home') }}" wire:navigate>Home</a></li>
+    <li><a href="index.html" wire:navigate>Categories</a></li>
+    <li><a href="{{ route('shop.index') }}" wire:navigate>Products</a></li>
+    <li><a href="{{ route('custom-design.index') }}" wire:navigate>T-Shirt Builder</a></li>
+    <li><a href="offer.html" wire:navigate>Hot Offers</a></li>
 
     @if($isMobile == false)
     <li class="dropdown scroll-to"><a href="javascript:void(0)"><i
