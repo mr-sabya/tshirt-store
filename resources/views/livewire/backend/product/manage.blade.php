@@ -133,6 +133,8 @@
                             <div class="image-preview">
                                 @if ($image)
                                 <img src="{{ $image->temporaryUrl() }}" style="height: 100%; width: auto;">
+                                @elseif($currentImage)
+                                <img src="{{ url('storage/', $currentImage) }}" style="height: 100%; width: auto;">
                                 @endif
                             </div>
                             <input type="file" id="image" class="form-control" wire:model="image">
@@ -150,6 +152,12 @@
                             <label for="is_stock">In Stock?</label>
                             <input type="checkbox" id="is_stock" wire:model="is_stock">
                             @error('is_stock') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="product_status">Active?</label>
+                            <input type="checkbox" id="product_status" wire:model="status">
+                            @error('status') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
 
 

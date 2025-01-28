@@ -39,4 +39,13 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    /**
+     * Relationship with ProductVariation.
+     * A product can have many variations.
+     */
+    public function variations()
+    {
+        return $this->hasMany(ProductVariation::class);
+    }
 }

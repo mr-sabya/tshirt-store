@@ -14,7 +14,7 @@ class Manage extends Component
     use WithFileUploads;
 
     public $productId;
-    public $name, $slug, $sku, $price, $regular_price, $buy_price, $cost_price, $is_stock, $stock, $category_id, $image, $details, $short_desc, $status, $featured, $discount;
+    public $name, $slug, $sku, $price, $regular_price, $buy_price, $cost_price, $is_stock, $stock, $category_id, $image, $details, $short_desc, $status, $featured, $discount, $currentImage;
     public $size_ids = [];  // Array to hold selected sizes
 
     protected $rules = [
@@ -61,6 +61,8 @@ class Manage extends Component
 
     public function save()
     {
+        $this->rules['slug'] = 'required|string|max:255|unique:products,slug,' . ($this->productId ?? '0');
+        $this->rules['sku'] = 'required|string|max:255|unique:products,sku,' . ($this->productId ?? '0');
         $this->validate();
 
         if ($this->image) {
@@ -77,14 +79,14 @@ class Manage extends Component
                 'regular_price' => $this->regular_price,
                 'buy_price' => $this->buy_price,
                 'cost_price' => $this->cost_price,
-                'is_stock' => $this->is_stock,
+                'is_stock' => $this->is_stock == true ? 1 : 0,
                 'stock' => $this->stock,
                 'category_id' => $this->category_id,
-                'image' => $this->image ? $imagePath : null,
+                'image' => $this->image ? $imagePath : $this->currentImage,
                 'details' => $this->details,
                 'short_desc' => $this->short_desc,
-                'status' => $this->status,
-                'featured' => $this->featured,
+                'status' => $this->status == true ? 1 : 0,
+                'featured' => $this->featured == true ? 1 : 0,
                 'discount' => $this->discount,
             ]
         );
@@ -94,7 +96,7 @@ class Manage extends Component
 
         session()->flash('message', $this->productId ? 'Product updated successfully.' : 'Product created successfully.');
 
-        return redirect()->route('products.index');
+        return redirect()->route('admin.product.index');
     }
 
     public function loadProduct($id)
@@ -108,18 +110,21 @@ class Manage extends Component
         $this->regular_price = $product->regular_price;
         $this->buy_price = $product->buy_price;
         $this->cost_price = $product->cost_price;
-        $this->is_stock = $product->is_stock;
+        $this->is_stock = $product->is_stock == 1 ? true : false;
         $this->stock = $product->stock;
         $this->category_id = $product->category_id;
-        $this->image = $product->image;
+        $this->currentImage = $product->image;
         $this->details = $product->details;
         $this->short_desc = $product->short_desc;
-        $this->status = $product->status;
-        $this->featured = $product->featured;
+
+
+        $this->status =  $product->status == 1 ? true : false;
+        $this->featured = $product->featured == 1 ? true : false;
         $this->discount = $product->discount;
         // Load the selected sizes
         $this->size_ids = $product->sizes->pluck('id')->toArray();
     }
+
 
     public function render()
     {
