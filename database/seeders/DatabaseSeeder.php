@@ -23,15 +23,14 @@ class DatabaseSeeder extends Seeder
         // ]);
 
 
-        User::create([
-            'name' => 'Sabya Roy',
-            'phone' => '01929190241', // You can set any phone number here
-            'is_verified' => true,
-            'password' => Hash::make('sabya12345'), // Set the desired admin password
-            'city' => 'Khulna',
-            'postcode' => '9100',
-            'address' => 'Jora 4 tola',
-            'is_admin' => true, // Mark as admin
-        ]);
+        // User::create([
+        //     'name' => 'Sabya Roy',
+        //     'phone' => '01929190241', // You can set any phone number here
+        //     'is_verified' => true,
+        //     'password' => Hash::make('sabya12345'), // Set the desired admin password
+        //     'is_admin' => true, // Mark as admin
+        // ]);
+
+        $this->call(DivisionCitySeeder::class);
     }
 }

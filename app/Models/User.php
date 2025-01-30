@@ -22,10 +22,14 @@ class User extends Authenticatable
         'phone',
         'is_verified',
         'password',
-        'city',
+        'division_id',
+        'city_id',
         'postcode',
         'address',
+        'image',
         'is_admin',
+        'is_designer',
+        'is_approved',
     ];
 
     /**
@@ -46,6 +50,8 @@ class User extends Authenticatable
     protected $casts = [
         'is_verified' => 'boolean',
         'is_admin' => 'boolean',
+        'is_designer' => 'boolean',
+        'is_approved' => 'boolean',
         'password' => 'hashed', // Automatically hashes passwords
     ];
 }

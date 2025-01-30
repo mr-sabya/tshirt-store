@@ -18,6 +18,15 @@ Route::get('tshirt-designer', [App\Http\Controllers\Frontend\TshirtDesignerContr
 
 Route::get('shop', [App\Http\Controllers\Frontend\ShopController::class, 'index'])->name('shop.index');
 
+Route::get('login', [App\Http\Controllers\Frontend\Auth\LoginController::class, 'index'])->name('login');
+
+Route::get('register', [App\Http\Controllers\Frontend\Auth\RegisterController::class, 'index'])->name('register');
+
+Route::middleware(['web'])->group(function () {
+    Route::get('profile', [App\Http\Controllers\Frontend\User\ProfileController::class, 'index'])->name('user.profile');
+});
+
+
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
@@ -51,5 +60,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // tshirt
         Route::get('/tshirts', [App\Http\Controllers\Backend\Tshirt\TshirtController::class, 'index'])->name('tshirt.index');
+        
+        // banners
+        Route::get('/banners', [App\Http\Controllers\Backend\BannerController::class, 'index'])->name('banner.index');
+
     });
 });

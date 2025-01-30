@@ -15,6 +15,12 @@
                     :label="'Dashboard'"
                     :hasSubMenu="false" />
 
+                <livewire:backend.theme.menu-item
+                    :url="'admin.banner.index'"
+                    :icon="'ri-dashboard-line'"
+                    :label="'Banners'"
+                    :hasSubMenu="false" />
+
 
 
                 <li class="menu-title">Pages</li>

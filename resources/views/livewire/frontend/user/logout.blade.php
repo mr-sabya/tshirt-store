@@ -1,0 +1,1 @@
+<li><a href="javascript:void(0)" wire:click="logout">Logout</a></li>

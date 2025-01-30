@@ -1,9 +1,15 @@
 <div class="ec-header-bottons">
 
     <!-- Header User Start -->
-    <a href="" class="ec-header-user">
+     @auth
+     <a href="{{ route('user.profile') }}" wire:navigate class="ec-header-user">
+         <div class="header-icon"><i class="fi-rr-user"></i></div>
+     </a>
+     @else
+    <a href="{{ route('login') }}" wire:navigate class="ec-header-user">
         <div class="header-icon"><i class="fi-rr-user"></i></div>
     </a>
+    @endauth
     <!-- Header User End -->
     <!-- Header wishlist Start -->
     <a href="wishlist.html" class="ec-header-btn ec-header-wishlist">
