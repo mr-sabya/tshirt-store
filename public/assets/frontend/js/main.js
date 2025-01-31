@@ -487,27 +487,7 @@ document.addEventListener('livewire:navigated', () => {
         $('.zoom-image-hover').zoom();
 
         /*----------------------------- Qty Plus Minus Button  ------------------------------ */
-        var QtyPlusMinus = $(".qty-plus-minus");
-        QtyPlusMinus.prepend('<div class="dec ec_qtybtn">-</div>');
-        QtyPlusMinus.append('<div class="inc ec_qtybtn">+</div>');
-
-        $("body").on("click", ".ec_qtybtn", function () {
-
-            // $(".ec_qtybtn").on("click", function() {
-            var $qtybutton = $(this);
-            var QtyoldValue = $qtybutton.parent().find("input").val();
-            if ($qtybutton.text() === "+") {
-                var QtynewVal = parseFloat(QtyoldValue) + 1;
-            } else {
-
-                if (QtyoldValue > 1) {
-                    var QtynewVal = parseFloat(QtyoldValue) - 1;
-                } else {
-                    QtynewVal = 1;
-                }
-            }
-            $qtybutton.parent().find("input").val(QtynewVal);
-        });
+        
 
         /*----------------------------- Single Product Slider ---------------------------------*/
         var swiper = new Swiper(".single-product-slider", {
@@ -669,9 +649,7 @@ document.addEventListener('livewire:navigated', () => {
                 var $this = $(this),
                     ecChangeImg = $this.hasClass('ec-change-img');
 
-                $this.on('mouseenter', 'li', function () {
-                    changeProductImg($(this));
-                });
+                
 
                 $this.on('click', 'li', function () {
                     changeProductImg($(this));
@@ -735,10 +713,7 @@ document.addEventListener('livewire:navigated', () => {
 
         /*----------------------------- Size Hover To Active -------------------------------- */
         $('.ec-opt-size').each(function () {
-            $(this).on('mouseenter', 'li', function () {
-                // alert("1");
-                onSizeChange($(this));
-            });
+            
 
             $(this).on('click', 'li', function () {
                 // alert("2");
@@ -1139,6 +1114,7 @@ document.addEventListener('livewire:navigated', () => {
                 }
             }
             $cartqtybutton.parent().parent().find("input").val(CartQtynewVal);
+            Livewire.dispatch('updateQuantity', CartQtynewVal);
         });
 
         /*----------------------------- Cart  Shipping Toggle -------------------------------- */

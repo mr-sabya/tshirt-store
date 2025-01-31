@@ -1,16 +1,18 @@
 <div class="ec-header-bottons">
 
     <!-- Header User Start -->
-     @auth
-     <a href="{{ route('user.profile') }}" wire:navigate class="ec-header-user">
-         <div class="header-icon"><i class="fi-rr-user"></i></div>
-     </a>
-     @else
+    @auth
+    <a href="{{ route('user.profile') }}" wire:navigate class="ec-header-user">
+        <div class="header-icon"><i class="fi-rr-user"></i></div>
+    </a>
+    @else
     <a href="{{ route('login') }}" wire:navigate class="ec-header-user">
         <div class="header-icon"><i class="fi-rr-user"></i></div>
     </a>
     @endauth
     <!-- Header User End -->
+
+    @auth
     <!-- Header wishlist Start -->
     <a href="wishlist.html" class="ec-header-btn ec-header-wishlist">
         <div class="header-icon"><i class="fi-rr-heart"></i></div>
@@ -20,8 +22,9 @@
     <!-- Header Cart Start -->
     <a href="#ec-side-cart" class="ec-header-btn ec-side-toggle">
         <div class="header-icon"><i class="fi-rr-shopping-bag"></i></div>
-        <span class="ec-header-count cart-count-lable">3</span>
+        <span class="ec-header-count cart-count-lable">{{ $cartItems }}</span>
     </a>
+    @endauth
 
     @if($isMobile == true)
     <!-- Header Cart End -->

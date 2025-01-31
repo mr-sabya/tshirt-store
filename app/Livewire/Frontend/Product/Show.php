@@ -1,19 +1,30 @@
 <?php
 
-namespace App\Livewire\Frontend\Components;
+namespace App\Livewire\Frontend\Product;
 
 use App\Models\Cart;
-use App\Models\Product as ModelsProduct;
+use App\Models\Product;
 use App\Models\ProductVariation;
 use Livewire\Component;
 
-class Product extends Component
+class Show extends Component
 {
     public $productId;
     public $selectedVariationId;
     public $selectedSizeId;
     public $quantity = 1;
     public $data_image, $data_image_hover;
+
+    // Method to update the quantity
+    public function updateQuantity($operation)
+    {
+        if ($operation === 'increment') {
+            $this->quantity++;
+        } elseif ($operation === 'decrement' && $this->quantity > 1) {
+            $this->quantity--;
+        }
+    }
+
 
     public function mount($productId)
     {
@@ -24,7 +35,7 @@ class Product extends Component
     public function setInitialSelections()
     {
         // Get the product with its variations and sizes
-        $product = ModelsProduct::with(['variations', 'sizes'])->find($this->productId);
+        $product = Product::with(['variations', 'sizes'])->find($this->productId);
 
         if ($product) {
             // Set the first variation as the default selected variation
@@ -37,8 +48,8 @@ class Product extends Component
 
     public function addToCart()
     {
-        // dd($this->selectedVariationId);
-        $product = ModelsProduct::find($this->productId);
+        // dd($this->quantity);
+        $product = Product::find($this->productId);
 
         if ($product && $this->selectedVariationId && $this->selectedSizeId) {
             // Check if the product with the selected variation and size is already in the cart
@@ -59,6 +70,7 @@ class Product extends Component
 
             // Emit event to update the cart count in the parent component
             $this->dispatch('cartUpdated');
+            $this->quantity = 1;
         } else {
             session()->flash('error', 'Please select color and size.');
         }
@@ -82,8 +94,8 @@ class Product extends Component
 
     public function render()
     {
-        $product = ModelsProduct::where('id', $this->productId)->first();
-        return view('livewire.frontend.components.product', [
+        $product = Product::where('id', $this->productId)->first();
+        return view('livewire.frontend.product.show', [
             'product' => $product,
         ]);
     }
