@@ -1,4 +1,4 @@
-.ec-slide-item{
+.ec-slide-item {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -64,12 +64,12 @@
 }
 
 
-.custom-design img{
+.custom-design img {
     width: 100%;
 }
 
 .custom-design .tshirt-option-container .tshirt-option,
-.custom-design .design-option-container .design-option{
+.custom-design .design-option-container .design-option {
     border: 1px solid #CED4DA;
     padding: 10px;
     border-radius: 8px;
@@ -82,7 +82,7 @@
 
 
 .custom-design .active .tshirt-option,
-.custom-design .active .design-option{
+.custom-design .active .design-option {
     border: 2px solid #008f18;
 }
 
@@ -109,7 +109,7 @@
 /* text editor */
 /* Text Editor Styles */
 
-#editor{
+#editor {
     width: 100%;
     height: 300px;
     width: 100%;
@@ -123,7 +123,7 @@
     overflow-wrap: break-word;
     background-color: #fff;
     color: #000;
-    
+
     margin-bottom: 20px;
 }
 
@@ -144,7 +144,7 @@
     align-items: center;
 }
 
-.toolbar input{
+.toolbar input {
     margin: 0 !important;
 }
 
@@ -261,7 +261,7 @@
 
 
 /* check box */
-.ec-sidebar-block-item label{
+.ec-sidebar-block-item label {
     margin: 0;
     margin-left: 30px;
     font-size: 14px;
@@ -272,4 +272,8 @@
 
 .hidden-input {
     display: none;
+}
+
+.radio-button label{
+    margin: 0;
 }

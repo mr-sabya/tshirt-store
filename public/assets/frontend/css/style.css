@@ -23338,9 +23338,7 @@ i.ecicon.eci-star-o {
   margin-bottom: 0;
   border-bottom: none;
 }
-.checkout_page .ec-checkout-pay-wrap [type=radio]:checked + label {
-  margin-bottom: 30px;
-}
+
 .checkout_page .ec-checkout-pay-wrap [type=radio]:not(:checked) + label {
   margin-bottom: 6px;
 }
@@ -23883,7 +23881,6 @@ i.ecicon.eci-star-o {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  width: 55%;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
 }

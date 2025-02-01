@@ -1,4 +1,4 @@
-<section class="ec-page-content section-space-p">
+<section class="ec-page-content section-space-p checkout_page ">
     <div class="container">
         <div class="row">
             <div class="ec-cart-leftside col-lg-8 col-md-12 ">
@@ -15,7 +15,6 @@
                                                 <th>Price</th>
                                                 <th style="text-align: center;">Quantity</th>
                                                 <th>Total</th>
-                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -33,11 +32,7 @@
 
 
                                                 <td data-label="Quantity" class="ec-cart-pro-qty" style="text-align: center;">
-                                                    <div class="cart-qty-plus-minus">
-                                                        <button type="button" class="dec" wire:click="decreaseQuantity({{ $item->id }})">-</button>
-                                                        <input class="cart-plus-minus" type="text" value="{{ $item->quantity }}" />
-                                                        <button type="button" class="inc" wire:click="increaseQuantity({{ $item->id }})">+</button>
-                                                    </div>
+                                                    {{ $item->quantity }}
                                                 </td>
 
 
@@ -45,11 +40,7 @@
                                                 <td data-label="Total" class="ec-cart-pro-subtotal">
                                                     ৳ {{ number_format($item->quantity * $item->product->price, 2) }}
                                                 </td>
-                                                <td data-label="Remove" class="ec-cart-pro-remove">
-                                                    <a href="#" wire:click.prevent="removeItem({{ $item->id }})">
-                                                        <i class="ecicon eci-trash-o"></i>
-                                                    </a>
-                                                </td>
+
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -58,8 +49,7 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="ec-cart-update-bottom">
-                                            <a href="#">Continue Shopping</a>
-                                            <a href="{{ route('user.checkout') }}" wire:navigate class="btn btn-primary">Check Out</a>
+                                            <a href="#">Go to Cart</a>
                                         </div>
                                     </div>
                                 </div>
@@ -71,7 +61,7 @@
             </div>
             <!-- Sidebar Area Start -->
             <div class="ec-cart-rightside col-lg-4 col-md-12">
-                <div class="ec-sidebar-wrap">
+                <div class="ec-sidebar-wrap ec-checkout-pay-wrap">
                     <!-- Sidebar Summary Block -->
                     <div class="ec-sidebar-block">
                         <div class="ec-sb-title">
@@ -102,12 +92,90 @@
                                         <span class="text-left">Total Amount</span>
                                         <span class="text-right">৳ {{ number_format($total + 10, 2) }}</span>
                                     </div>
+
                                 </div>
                             </div>
+                        </div>
+                        <div class="mt-3">
+                            <button class="btn btn-primary w-100">Order Now</button>
                         </div>
                     </div>
                     <!-- Sidebar Summary Block -->
                 </div>
+
+                <div class="ec-sidebar-wrap ec-checkout-pay-wrap">
+                    <!-- Sidebar Payment Block -->
+                    <div class="ec-sidebar-block">
+                        <div class="ec-sb-title">
+                            <h3 class="ec-sidebar-title">Payment Method<div class="ec-sidebar-res"><i class="ecicon eci-angle-down"></i></div>
+                            </h3>
+                        </div>
+                        <div class="ec-sb-block-content ec-sidebar-dropdown">
+                            <div class="ec-checkout-pay">
+                                <div class="ec-pay-desc">Please select the preferred payment method to use on this
+                                    order.</div>
+                                <form action="#">
+                                    <span class="ec-pay-option">
+                                        <div class="radio-button mb-3">
+                                            <input type="radio" id="pay1" name="payment" checked>
+                                            <label for="pay1">Cash On Delivery</label>
+                                        </div>
+                                    </span>
+                                    <span class="ec-pay-option">
+                                        <div class="radio-button mb-3">
+                                            <input type="radio" id="pay2" name="payment">
+                                            <label for="pay2">Bkash</label>
+                                        </div>
+                                    </span>
+                                    <span class="ec-pay-commemt">
+                                        <span class="ec-pay-opt-head">Add Comments About Your Order</span>
+                                        <textarea name="your-commemt" placeholder="Comments"></textarea>
+                                    </span>
+                                    <span class="ec-pay-agree"><input type="checkbox" value=""><a href="#">I have
+                                            read and agree to the <span>Terms &amp; Conditions</span></a><span class="checked"></span></span>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sidebar Payment Block -->
+                </div>
+
+                <div class="ec-sidebar-wrap ec-check-pay-img-wrap">
+                    <!-- Sidebar Payment Block -->
+                    <div class="ec-sidebar-block">
+                        <div class="ec-sb-title">
+                            <h3 class="ec-sidebar-title">Payment Method<div class="ec-sidebar-res"><i class="ecicon eci-angle-down"></i></div>
+                            </h3>
+                        </div>
+                        <div class="ec-sb-block-content ec-sidebar-dropdown">
+                            <div class="ec-check-pay-img-inner">
+                                <div class="ec-check-pay-img">
+                                    <img src="{{ url('assets/frontend/images/icons/payment1.png') }}" alt="">
+                                </div>
+                                <div class="ec-check-pay-img">
+                                    <img src="{{ url('assets/frontend/images/icons/payment2.png') }}" alt="">
+                                </div>
+                                <div class="ec-check-pay-img">
+                                    <img src="{{ url('assets/frontend/images/icons/payment3.png') }}" alt="">
+                                </div>
+                                <div class="ec-check-pay-img">
+                                    <img src="{{ url('assets/frontend/images/icons/payment4.png') }}" alt="">
+                                </div>
+                                <div class="ec-check-pay-img">
+                                    <img src="{{ url('assets/frontend/images/icons/payment5.png') }}" alt="">
+                                </div>
+                                <div class="ec-check-pay-img">
+                                    <img src="{{ url('assets/frontend/images/icons/payment6.png') }}" alt="">
+                                </div>
+                                <div class="ec-check-pay-img">
+                                    <img src="{{ url('assets/frontend/images/icons/payment7.png') }}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sidebar Payment Block -->
+                </div>
+
             </div>
         </div>
     </div>

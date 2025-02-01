@@ -31,6 +31,9 @@ Route::middleware(['web'])->group(function () {
     // cart
     Route::get('cart', [\App\Http\Controllers\Frontend\CartController::class, 'index'])->name('user.cart');
 
+    // checkout
+    Route::get('checkout', [\App\Http\Controllers\Frontend\CheckoutController::class, 'index'])->name('user.checkout');
+
 });
 
 
