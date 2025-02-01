@@ -1,4 +1,4 @@
-<div id="ec-side-cart" class="ec-side-cart">
+<div id="ec-side-cart" class="ec-side-cart" wire:ignore.self>
     <div class="ec-cart-inner">
         <div class="ec-cart-top">
             <div class="ec-cart-title">
@@ -6,42 +6,26 @@
                 <button class="ec-close">×</button>
             </div>
             <ul class="eccart-pro-items">
+                @foreach ($cartItems as $index => $cart)
                 <li>
-                    <a href="product-left-sidebar.html" class="sidekka_pro_img"><img
-                            src="{{ url('assets/frontend/images/product-image/6_1.jpg') }}" alt="product"></a>
+                    <!-- {{ $cart->variation['image'] }} -->
+                    <a href="#" class="sidekka_pro_img">
+                        <img src="{{ url('storage', $cart->variation['image'] ?? $cart->product['image']) }}" alt="product">
+                    </a>
                     <div class="ec-pro-content">
-                        <a href="product-left-sidebar.html" class="cart_pro_title">T-shirt For Women</a>
-                        <span class="cart-price"><span>$76.00</span> x 1</span>
+                        <a href="#" class="cart_pro_title">{{ $cart->product->name }}</a>
+                        <span class="cart-price">
+                            <span>৳{{ number_format($cart->product->price, 2) }}</span> x {{ $cart->quantity }}
+                        </span>
                         <div class="qty-plus-minus">
-                            <input class="qty-input" type="text" name="ec_qtybtn" value="1" />
+                            <button type="button" class="dec ec_qtybtn" wire:click="decreaseQuantity({{ $cart->id }})">-</button>
+                            <input class="qty-input" type="text" value="{{ $cart->quantity }}" />
+                            <button type="button" class="inc ec_qtybtn" wire:click="increaseQuantity({{ $cart->id }})">+</button>
                         </div>
-                        <a href="javascript:void(0)" class="remove">×</a>
+                        <a href="javascript:void(0)" wire:click="removeItem({{ $cart->id }})" class="remove">×</a>
                     </div>
                 </li>
-                <li>
-                    <a href="product-left-sidebar.html" class="sidekka_pro_img"><img
-                            src="{{ url('assets/frontend/images/product-image/12_1.jpg') }}" alt="product"></a>
-                    <div class="ec-pro-content">
-                        <a href="product-left-sidebar.html" class="cart_pro_title">Women Leather Shoes</a>
-                        <span class="cart-price"><span>$64.00</span> x 1</span>
-                        <div class="qty-plus-minus">
-                            <input class="qty-input" type="text" name="ec_qtybtn" value="1" />
-                        </div>
-                        <a href="javascript:void(0)" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="product-left-sidebar.html" class="sidekka_pro_img"><img
-                            src="{{ url('assets/frontend/images/product-image/3_1.jpg') }}" alt="product"></a>
-                    <div class="ec-pro-content">
-                        <a href="product-left-sidebar.html" class="cart_pro_title">Girls Nylon Purse</a>
-                        <span class="cart-price"><span>$59.00</span> x 1</span>
-                        <div class="qty-plus-minus">
-                            <input class="qty-input" type="text" name="ec_qtybtn" value="1" />
-                        </div>
-                        <a href="javascript:void(0)" class="remove">×</a>
-                    </div>
-                </li>
+                @endforeach
             </ul>
         </div>
         <div class="ec-cart-bottom">
@@ -50,22 +34,26 @@
                     <tbody>
                         <tr>
                             <td class="text-left">Sub-Total :</td>
-                            <td class="text-right">$300.00</td>
+                            <td class="text-right">৳ {{ number_format($cartItems->sum(fn($cart) => $cart->quantity * $cart->product->price), 2) }}</td>
                         </tr>
                         <tr>
-                            <td class="text-left">VAT (20%) :</td>
-                            <td class="text-right">$60.00</td>
+                            <td class="text-left">VAT (0%) :</td>
+                            <td class="text-right">৳ 0.00</td>
                         </tr>
                         <tr>
                             <td class="text-left">Total :</td>
-                            <td class="text-right primary-color">$360.00</td>
+                            <td class="text-right primary-color">
+                                ৳ {{ number_format($cartItems->sum(fn($cart) => $cart->quantity * $cart->product->price), 2) }}
+                            </td>
                         </tr>
+
+
                     </tbody>
                 </table>
             </div>
             <div class="cart_btn">
-                <a href="cart.html" class="btn btn-primary">View Cart</a>
-                <a href="checkout.html" class="btn btn-secondary">Checkout</a>
+                <a href="#" class="btn btn-primary">View Cart</a>
+                <a href="#" class="btn btn-secondary">Checkout</a>
             </div>
         </div>
     </div>
