@@ -27,6 +27,10 @@ Route::get('register', [\App\Http\Controllers\Frontend\Auth\RegisterController::
 
 Route::middleware(['web'])->group(function () {
     Route::get('profile', [\App\Http\Controllers\Frontend\User\ProfileController::class, 'index'])->name('user.profile');
+    
+    // cart
+    Route::get('cart', [\App\Http\Controllers\Frontend\CartController::class, 'index'])->name('user.cart');
+
 });
 
 

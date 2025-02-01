@@ -2,7 +2,6 @@
     <div class="container">
         <div class="row">
             <div class="ec-shop-rightside col-lg-9 col-md-12 order-lg-last order-md-first margin-b-30">
-                <!-- Shop Top Start -->
                 <div class="ec-pro-list-top d-flex">
                     <div class="col-md-6 ec-grid-list">
                         <div class="ec-gl-btn">
@@ -13,7 +12,7 @@
                     <div class="col-md-6 ec-sort-select">
                         <span class="sort-by">Sort by</span>
                         <div class="ec-select-inner">
-                            <select name="ec-select" id="ec-select">
+                            <select name="ec-select" id="ec-select" wire:change="updateSortOrder($event.target.value)">
                                 <option selected disabled>Position</option>
                                 <option value="1">Relevance</option>
                                 <option value="2">Name, A to Z</option>
@@ -24,32 +23,30 @@
                         </div>
                     </div>
                 </div>
-                <!-- Shop Top End -->
 
                 <!-- Shop content Start -->
                 <div class="shop-pro-content">
                     <div class="shop-pro-inner">
                         <div class="row">
-
-                            <livewire:frontend.components.product />
+                            @forelse($products as $product)
+                            <livewire:frontend.components.product :productId="$product->id" :key="$product->id" />
+                            @empty
+                            <div class="col-lg-12">
+                                <h4>No Products Found</h4>
+                            </div>
+                            @endforelse
                         </div>
                     </div>
+
                     <!-- Ec Pagination Start -->
                     <div class="ec-pro-pagination">
-                        <span>Showing 1-12 of 21 item(s)</span>
-                        <ul class="ec-pro-pagination-inner">
-                            <li><a class="active" href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a class="next" href="#">Next <i class="ecicon eci-angle-right"></i></a></li>
-                        </ul>
+                        {{ $products->links() }}
                     </div>
                     <!-- Ec Pagination End -->
                 </div>
-                <!--Shop content End -->
+                <!-- Shop content End -->
             </div>
+
             <!-- Sidebar Area Start -->
             <div class="ec-shop-leftside col-lg-3 col-md-12 order-lg-first order-md-last">
                 <div id="shop_sidebar">
@@ -57,75 +54,36 @@
                         <h1>Filter Products By</h1>
                     </div>
                     <div class="ec-sidebar-wrap">
+                        @if($this->showResetButton)
+                        <div class="ec-sidebar-block">
+                            <button type="button" class="btn btn-danger w-100 mt-3" wire:click="resetFilters">
+                                Reset Filters
+                            </button>
+                        </div>
+                        @endif
+
                         <!-- Sidebar Category Block -->
                         <div class="ec-sidebar-block">
                             <div class="ec-sb-title">
                                 <h3 class="ec-sidebar-title">Category</h3>
                             </div>
+
                             <div class="ec-sb-block-content">
                                 <ul>
+                                    @foreach($categories as $category)
                                     <li>
                                         <div class="ec-sidebar-block-item">
-                                            <input type="checkbox" checked /> <a href="#">clothes</a><span
-                                                class="checked"></span>
+                                            <input type="checkbox" id="category_{{ $category->id }}" value="{{ $category->id }}"
+                                                wire:click="updateCategoryFilter({{ $category->id }})"
+                                                @if(in_array($category->id, $categoryFilter)) checked @endif />
+                                            <label for="category_{{ $category->id }}">{{ $category->name }}</label><span class="checked"></span>
                                         </div>
                                     </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item">
-                                            <input type="checkbox" /> <a href="#">Bags</a><span
-                                                class="checked"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item">
-                                            <input type="checkbox" /> <a href="#">Shoes</a><span
-                                                class="checked"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item">
-                                            <input type="checkbox" /> <a href="#">cosmetics</a><span
-                                                class="checked"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item">
-                                            <input type="checkbox" /> <a href="#">electrics</a><span
-                                                class="checked"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item">
-                                            <input type="checkbox" /> <a href="#">phone</a><span
-                                                class="checked"></span>
-                                        </div>
-                                    </li>
-                                    <li id="ec-more-toggle-content" style="padding: 0; display: none;">
-                                        <ul>
-                                            <li>
-                                                <div class="ec-sidebar-block-item">
-                                                    <input type="checkbox" /> <a href="#">Watch</a><span
-                                                        class="checked"></span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="ec-sidebar-block-item">
-                                                    <input type="checkbox" /> <a href="#">Cap</a><span
-                                                        class="checked"></span>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item ec-more-toggle">
-                                            <span class="checked"></span><span id="ec-more-toggle">More
-                                                Categories</span>
-                                        </div>
-                                    </li>
-
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
+
                         <!-- Sidebar Size Block -->
                         <div class="ec-sidebar-block">
                             <div class="ec-sb-title">
@@ -133,111 +91,46 @@
                             </div>
                             <div class="ec-sb-block-content">
                                 <ul>
+                                    @foreach($sizes as $size)
                                     <li>
                                         <div class="ec-sidebar-block-item">
-                                            <input type="checkbox" value="" checked /><a href="#">S</a><span
-                                                class="checked"></span>
+                                            <input type="checkbox" id="size_{{ $size->id }}" value="{{ $size->id }}"
+                                                wire:click="updateSizeFilter({{ $size->id }})"
+                                                @if(in_array($size->id, $sizeFilter)) checked @endif />
+                                            <label for="size_{{ $size->id }}">{{ $size->name }}</label><span class="checked"></span>
                                         </div>
                                     </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item">
-                                            <input type="checkbox" value="" /><a href="#">M</a><span
-                                                class="checked"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item">
-                                            <input type="checkbox" value="" /> <a href="#">L</a><span
-                                                class="checked"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item">
-                                            <input type="checkbox" value="" /><a href="#">XL</a><span
-                                                class="checked"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item">
-                                            <input type="checkbox" value="" /><a href="#">XXL</a><span
-                                                class="checked"></span>
-                                        </div>
-                                    </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
-                        <!-- Sidebar Color item -->
+
+                        <!-- Sidebar Color Block -->
                         <div class="ec-sidebar-block ec-sidebar-block-clr">
                             <div class="ec-sb-title">
                                 <h3 class="ec-sidebar-title">Color</h3>
                             </div>
-                            <div class="ec-sb-block-content">
+                            <div class="ec-sb-block-content ec-sidebar-dropdown">
                                 <ul>
-                                    <li>
-                                        <div class="ec-sidebar-block-item"><span
-                                                style="background-color:#c4d6f9;"></span></div>
+                                    @foreach($colors as $color)
+                                    <li class="{{ in_array($color->id, $colorFilter) ? 'active' : '' }}">
+                                        <div class="ec-sidebar-block-item">
+                                            <input class="hidden-input" type="checkbox" id="color_{{ $color->id }}" value="{{ $color->id }}"
+                                                wire:click="updateColorFilter({{ $color->id }})"
+                                                @if(in_array($color->id, $colorFilter)) checked @endif />
+                                            <label class="m-0" for="color_{{ $color->id }}">
+                                                <span style="background-color:{{ $color->color }};"></span>
+                                            </label>
+                                        </div>
                                     </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item"><span
-                                                style="background-color:#ff748b;"></span></div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item"><span
-                                                style="background-color:#000000;"></span></div>
-                                    </li>
-                                    <li class="active">
-                                        <div class="ec-sidebar-block-item"><span
-                                                style="background-color:#2bff4a;"></span></div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item"><span
-                                                style="background-color:#ff7c5e;"></span></div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item"><span
-                                                style="background-color:#f155ff;"></span></div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item"><span
-                                                style="background-color:#ffef00;"></span></div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item"><span
-                                                style="background-color:#c89fff;"></span></div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item"><span
-                                                style="background-color:#7bfffa;"></span></div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-block-item"><span
-                                                style="background-color:#56ffc1;"></span></div>
-                                    </li>
+                                    @endforeach
                                 </ul>
-                            </div>
-                        </div>
-                        <!-- Sidebar Price Block -->
-                        <div class="ec-sidebar-block">
-                            <div class="ec-sb-title">
-                                <h3 class="ec-sidebar-title">Price</h3>
-                            </div>
-                            <div class="ec-sb-block-content es-price-slider">
-                                <div class="ec-price-filter">
-                                    <div id="ec-sliderPrice" class="filter__slider-price" data-min="0"
-                                        data-max="250" data-step="10"></div>
-                                    <div class="ec-price-input">
-                                        <label class="filter__label"><input type="text"
-                                                class="filter__input"></label>
-                                        <span class="ec-price-divider"></span>
-                                        <label class="filter__label"><input type="text"
-                                                class="filter__input"></label>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- Sidebar Area End -->
         </div>
     </div>
 </section>

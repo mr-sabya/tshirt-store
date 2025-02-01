@@ -258,3 +258,18 @@
         margin-bottom: 10px;
     }
 }
+
+
+/* check box */
+.ec-sidebar-block-item label{
+    margin: 0;
+    margin-left: 30px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.hidden-input {
+    display: none;
+}

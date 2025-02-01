@@ -1,35 +1,44 @@
 <?php
 
-namespace App\Livewire\Frontend\Theme;
+namespace App\Livewire\Frontend\Cart;
 
-use App\Models\Cart as ModelsCart;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Cart;
 use Livewire\Component;
 
-class Cart extends Component
+class Index extends Component
 {
     public $cartItems = [];
+    public $total = 0;
     protected $listeners = ['cartUpdated' => 'loadCart'];
 
+    
+    // This will be executed when the component is mounted
     public function mount()
     {
         $this->loadCart();
     }
 
-
+    // Method to load cart items and calculate the total
     public function loadCart()
     {
-        $this->cartItems = ModelsCart::where('user_id', Auth::id())
-            ->with(['product', 'variation', 'size'])
+        $userId = auth()->id(); // Assuming the user is authenticated
+        $this->cartItems = Cart::with('product', 'variation', 'size')
+            ->where('user_id', $userId)
             ->get();
+
+        $this->total = collect($this->cartItems)->sum(function ($item) {
+            return $item->quantity * $item->product->price; // Assuming each product has a price
+        });
     }
 
-
-    public function removeItem($id)
+    // Method to remove an item from the cart
+    public function removeItem($cartItemId)
     {
-        ModelsCart::destroy($id);
-        $this->loadCart();
+        $cartItem = Cart::find($cartItemId);
+        $cartItem->delete();
+        $this->loadCart(); // Reload cart after removal
     }
+
 
     public function increaseQuantity($id)
     {
@@ -52,7 +61,7 @@ class Cart extends Component
 
     public function updateQuantity($id, $quantity)
     {
-        $cart = ModelsCart::find($id);
+        $cart = Cart::find($id);
         if ($cart) {
             $cart->update(['quantity' => $quantity]);
             $this->loadCart();
@@ -65,9 +74,11 @@ class Cart extends Component
         return collect($this->cartItems)->search(fn($cart) => $cart['id'] === $id);
     }
 
-
     public function render()
     {
-        return view('livewire.frontend.theme.cart');
+        return view('livewire.frontend.cart.index', [
+            'cartItems' => $this->cartItems,
+            'total' => $this->total,
+        ]);
     }
 }

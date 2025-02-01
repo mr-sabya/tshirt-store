@@ -226,15 +226,7 @@ document.addEventListener('livewire:navigated', () => {
         });
 
         /*----------------------------- Product page category Toggle -------------------------------- */
-        $(document).ready(function () {
-            $(".ec-sidebar-block .ec-sb-block-content ul li ul").addClass("ec-cat-sub-dropdown");
-
-            $(".ec-sidebar-block .ec-sidebar-block-item").on("click", function () {
-                var $this = $(this).closest('.ec-sb-block-content').find('.ec-cat-sub-dropdown');
-                $this.slideToggle('slow');
-                $('.ec-cat-sub-dropdown').not($this).slideUp('slow');
-            });
-        });
+        
 
         /*----------------------------- Siderbar Product Slider -------------------------------- */
         $(document).ready(function () {
@@ -591,74 +583,7 @@ document.addEventListener('livewire:navigated', () => {
         });
 
         /*----------------------------- Color Hover To Image Change -------------------------------- */
-        var $ecproduct = $('.ec-pro-color, .ec-product-tab, .shop-pro-inner, .ec-new-product, .ec-releted-product, .ec-checkout-pro').find('.ec-opt-swatch');
-
-        function initChangeImg($opt) {
-            $opt.each(function () {
-                var $this = $(this),
-                    ecChangeImg = $this.hasClass('ec-change-img');
-
-                
-
-                $this.on('click', 'li', function () {
-                    changeProductImg($(this));
-                });
-
-                function changeProductImg(thisObj) {
-                    var $this = thisObj;
-                    var $load = $this.find('a');
-
-                    var $proimg = $this.closest('.ec-product-inner').find('.ec-pro-image');
-
-                    if (!$load.hasClass('loaded')) {
-                        $proimg.addClass('pro-loading');
-                    }
-
-                    var $loaded = $this.find('a').addClass('loaded');
-
-                    $this.addClass('active').siblings().removeClass('active');
-                    if (ecChangeImg) {
-                        hoverAddImg($this);
-                    }
-                    setTimeout(function () {
-                        $proimg.removeClass("pro-loading");
-                    }, 1000);
-                    return false;
-                }
-
-            });
-        }
-
-        function hoverAddImg($this) {
-            var $optData = $this.find('.ec-opt-clr-img'),
-                $opImg = $optData.attr('data-src'),
-                $opImgHover = $optData.attr('data-src-hover') || false,
-                $optImgWrapper = $this.closest('.ec-product-inner').find('.ec-pro-image'),
-                $optImgMain = $optImgWrapper.find('.image img.main-image'),
-                $optImgMainHover = $optImgWrapper.find('.image img.hover-image');
-
-            if ($opImg.length) {
-                $optImgMain.attr('src', $opImg);
-            }
-            if ($opImg.length) {
-                var checkDisable = $optImgMainHover.closest('img.hover-image');
-                $optImgMainHover.attr('src', $opImgHover);
-                if (checkDisable.hasClass('disable')) {
-                    checkDisable.removeClass('disable');
-                }
-            }
-            if ($opImgHover === false) {
-                $optImgMainHover.closest('img.hover-image').addClass('disable');
-            }
-        }
-
-        $(window).on('load', function () {
-            initChangeImg($ecproduct);
-        });
-
-        $("document").ready(function () {
-            initChangeImg($ecproduct);
-        });
+        
 
         /*----------------------------- Size Hover To Active -------------------------------- */
         $('.ec-opt-size').each(function () {
@@ -1047,25 +972,7 @@ document.addEventListener('livewire:navigated', () => {
         }
 
         /*----------------------------- Cart Page Qty Plus Minus Button  ------------------------------ */
-        var CartQtyPlusMinus = $(".cart-qty-plus-minus");
-        CartQtyPlusMinus.append('<div class="ec_cart_qtybtn"><div class="inc ec_qtybtn">+</div><div class="dec ec_qtybtn">-</div></div>');
-        $(".cart-qty-plus-minus .ec_cart_qtybtn .ec_qtybtn").on("click", function () {
-            var $cartqtybutton = $(this);
-            var CartQtyoldValue = $cartqtybutton.parent().parent().find("input").val();
-            if ($cartqtybutton.text() === "+") {
-                var CartQtynewVal = parseFloat(CartQtyoldValue) + 1;
-            } else {
-
-                if (CartQtyoldValue > 1) {
-                    var CartQtynewVal = parseFloat(CartQtyoldValue) - 1;
-                } else {
-                    CartQtynewVal = 1;
-                }
-            }
-            $cartqtybutton.parent().parent().find("input").val(CartQtynewVal);
-            Livewire.dispatch('updateQuantity', CartQtynewVal);
-        });
-
+      
         /*----------------------------- Cart  Shipping Toggle -------------------------------- */
         $(document).ready(function () {
             $(".ec-sb-block-content .ec-ship-title").click(function () {

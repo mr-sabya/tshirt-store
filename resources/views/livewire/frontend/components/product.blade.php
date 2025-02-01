@@ -1,4 +1,4 @@
-<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content" data-animation="flipInY">
+<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content" >
     <div class="ec-product-inner">
         <div class="ec-pro-image-outer">
             <div class="ec-pro-image">

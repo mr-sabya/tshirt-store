@@ -52,7 +52,7 @@
                 </table>
             </div>
             <div class="cart_btn">
-                <a href="#" class="btn btn-primary">View Cart</a>
+                <a href="{{ route('user.cart') }}" wire:navigate class="btn btn-primary">View Cart</a>
                 <a href="#" class="btn btn-secondary">Checkout</a>
             </div>
         </div>

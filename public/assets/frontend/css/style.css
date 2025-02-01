@@ -20095,6 +20095,10 @@ select::-ms-expand {
   -webkit-box-shadow: 0px 0px 5px 0px #ccc;
           box-shadow: 0px 0px 5px 0px #ccc;
 }
+.ec-sidebar-wrap .ec-sidebar-block.ec-sidebar-block-clr .ec-sb-block-content li.active {
+  -webkit-box-shadow: 0px 0px 5px 0px #ccc;
+          box-shadow: 0px 0px 5px 0px #ccc;
+}
 .ec-sidebar-wrap .ec-sidebar-block.ec-sidebar-block-clr .ec-sb-block-content li span {
   width: 22px;
   height: 22px;
