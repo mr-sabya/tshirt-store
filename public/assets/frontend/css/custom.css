@@ -274,6 +274,32 @@
     display: none;
 }
 
-.radio-button label{
+.radio-button label {
     margin: 0;
+}
+
+.empty-cart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.empty-cart img {
+    width: 150px;
+}
+
+.empty-cart-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.empty-cart-page img{
+    width: 300px;
+}
+
+.empty-cart-page p{
+    font-size: 24px;
+    font-weight: 600;
 }

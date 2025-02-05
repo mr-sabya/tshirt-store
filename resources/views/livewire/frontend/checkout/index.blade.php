@@ -6,54 +6,61 @@
                 <div class="ec-cart-content">
                     <div class="ec-cart-inner">
                         <div class="row">
-                            <form action="#">
-                                <div class="table-content cart-table-content">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Product</th>
-                                                <th>Price</th>
-                                                <th style="text-align: center;">Quantity</th>
-                                                <th>Total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($cartItems as $item)
-                                            <tr>
-                                                <td data-label="Product" class="ec-cart-pro-name">
-                                                    <a href="{{ route('product.show', $item->product->id) }}">
-                                                        <img class="ec-cart-pro-img mr-4" src="{{ url('storage', $item->variation->image ?? $item->product->image) }}" alt="" />
-                                                        {{ $item->product->name }}
-                                                    </a>
-                                                </td>
-                                                <td data-label="Price" class="ec-cart-pro-price">
-                                                    <span class="amount">৳ {{ $item->product->price }}</span>
-                                                </td>
+                            <div class="table-content cart-table-content">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Price</th>
+                                            <th style="text-align: center;">Quantity</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($cartItems as $item)
+                                        <tr>
+                                            <td data-label="Product" class="ec-cart-pro-name">
+                                                <a href="{{ route('product.show', $item->product->id) }}">
+                                                    <img class="ec-cart-pro-img mr-4" src="{{ url('storage', $item->variation->image ?? $item->product->image) }}" alt="" />
+                                                    {{ $item->product->name }}
+                                                </a>
+                                            </td>
+                                            <td data-label="Price" class="ec-cart-pro-price">
+                                                <span class="amount">৳ {{ $item->product->price }}</span>
+                                            </td>
 
 
-                                                <td data-label="Quantity" class="ec-cart-pro-qty" style="text-align: center;">
-                                                    {{ $item->quantity }}
-                                                </td>
+                                            <td data-label="Quantity" class="ec-cart-pro-qty" style="text-align: center;">
+                                                {{ $item->quantity }}
+                                            </td>
 
 
 
-                                                <td data-label="Total" class="ec-cart-pro-subtotal">
-                                                    ৳ {{ number_format($item->quantity * $item->product->price, 2) }}
-                                                </td>
+                                            <td data-label="Total" class="ec-cart-pro-subtotal">
+                                                ৳ {{ number_format($item->quantity * $item->product->price, 2) }}
+                                            </td>
 
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="ec-cart-update-bottom">
-                                            <a href="#">Go to Cart</a>
-                                        </div>
+                                        </tr>
+                                        @empty
+                                        <tr>
+                                            <td colspan="4" class="text-center">
+                                                <p>No Products Found!!</p>
+                                                <div class="ec-cart-update-bottom p-0 align-items-center">
+                                                    <a href="{{ route('shop.index')}}" class="w-100" wire:navigate>Go to Shop</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="ec-cart-update-bottom">
+                                        <a href="#">Go to Cart</a>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -96,9 +103,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-3">
-                            <button class="btn btn-primary w-100">Order Now</button>
-                        </div>
+
                     </div>
                     <!-- Sidebar Summary Block -->
                 </div>
@@ -114,27 +119,32 @@
                             <div class="ec-checkout-pay">
                                 <div class="ec-pay-desc">Please select the preferred payment method to use on this
                                     order.</div>
-                                <form action="#">
-                                    <span class="ec-pay-option">
-                                        <div class="radio-button mb-3">
-                                            <input type="radio" id="pay1" name="payment" checked>
-                                            <label for="pay1">Cash On Delivery</label>
-                                        </div>
-                                    </span>
-                                    <span class="ec-pay-option">
-                                        <div class="radio-button mb-3">
-                                            <input type="radio" id="pay2" name="payment">
-                                            <label for="pay2">Bkash</label>
-                                        </div>
-                                    </span>
-                                    <span class="ec-pay-commemt">
-                                        <span class="ec-pay-opt-head">Add Comments About Your Order</span>
-                                        <textarea name="your-commemt" placeholder="Comments"></textarea>
-                                    </span>
-                                    <span class="ec-pay-agree"><input type="checkbox" value=""><a href="#">I have
-                                            read and agree to the <span>Terms &amp; Conditions</span></a><span class="checked"></span></span>
-                                </form>
+                                <span class="ec-pay-option">
+                                    <div class="radio-button mb-3">
+                                        <input type="radio" id="pay1" name="payment" value="Cash On Delivery" wire:model="paymentMethod" checked>
+                                        <label for="pay1">Cash On Delivery</label>
+                                    </div>
+                                </span>
+                                <span class="ec-pay-option">
+                                    <div class="radio-button mb-3">
+                                        <input type="radio" id="pay2" name="payment" value="Bkash" wire:model="paymentMethod">
+                                        <label for="pay2">Bkash</label>
+                                    </div>
+                                </span>
+                                <span class="ec-pay-commemt">
+                                    <span class="ec-pay-opt-head">Add Comments About Your Order</span>
+                                    <textarea name="your-commemt" placeholder="Comments" wire:model="comment"></textarea>
+                                </span>
+                                <span class="ec-pay-agree">
+                                    <input type="checkbox" id="isAgree" value="" wire:model="isAgreed">
+                                    <label class="ml-5 w-100" for="isAgree">I have read and agree to the <a href="#" style="display: contents; margin: 0;"><span>Terms &amp; Conditions</span></a></label>
+                                    <span class="checked mt-1"></span>
+                                </span>
                             </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <button class="btn btn-primary w-100" wire:click="placeOrder">Order Now</button>
                         </div>
                     </div>
                     <!-- Sidebar Payment Block -->

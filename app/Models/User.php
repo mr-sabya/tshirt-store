@@ -54,4 +54,9 @@ class User extends Authenticatable
         'is_approved' => 'boolean',
         'password' => 'hashed', // Automatically hashes passwords
     ];
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
 }

@@ -4,13 +4,13 @@
             <div class="col-12">
                 <div class="row ec_breadcrumb_inner">
                     <div class="col-md-6 col-sm-12">
-                        <h2 class="ec-breadcrumb-title">Shop</h2>
+                        <h2 class="ec-breadcrumb-title">{{ $title }}</h2>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <!-- ec-breadcrumb-list start -->
                         <ul class="ec-breadcrumb-list">
-                            <li class="ec-breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="ec-breadcrumb-item active">Shop</li>
+                            <li class="ec-breadcrumb-item"><a href="{{ route('home') }}" wire:navigate>Home</a></li>
+                            <li class="ec-breadcrumb-item active">{{ $title }}</li>
                         </ul>
                         <!-- ec-breadcrumb-list end -->
                     </div>

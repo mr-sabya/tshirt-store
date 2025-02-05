@@ -27,13 +27,15 @@ Route::get('register', [\App\Http\Controllers\Frontend\Auth\RegisterController::
 
 Route::middleware(['web'])->group(function () {
     Route::get('profile', [\App\Http\Controllers\Frontend\User\ProfileController::class, 'index'])->name('user.profile');
-    
+
     // cart
     Route::get('cart', [\App\Http\Controllers\Frontend\CartController::class, 'index'])->name('user.cart');
 
     // checkout
     Route::get('checkout', [\App\Http\Controllers\Frontend\CheckoutController::class, 'index'])->name('user.checkout');
 
+    // order confirmation
+    Route::get('order/confirmation/{orderId}', [\App\Http\Controllers\Frontend\OrderConfirmationController::class, 'show'])->name('order.confirmation');
 });
 
 
@@ -70,9 +72,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // tshirt
         Route::get('/tshirts', [\App\Http\Controllers\Backend\Tshirt\TshirtController::class, 'index'])->name('tshirt.index');
-        
+
         // banners
         Route::get('/banners', [\App\Http\Controllers\Backend\BannerController::class, 'index'])->name('banner.index');
-
     });
 });

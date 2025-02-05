@@ -2,7 +2,7 @@
 
 @section('content')
 
-<livewire:frontend.components.breadcrumb />
+<livewire:frontend.components.breadcrumb title="T-Shirt Builder"  />
 
 <div class="ec-page-content section-space-p">
     <div class="container">

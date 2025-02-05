@@ -6,7 +6,7 @@
                 <button class="ec-close">×</button>
             </div>
             <ul class="eccart-pro-items">
-                @foreach ($cartItems as $index => $cart)
+                @forelse ($cartItems as $index => $cart)
                 <li>
                     <!-- {{ $cart->variation['image'] }} -->
                     <a href="#" class="sidekka_pro_img">
@@ -25,7 +25,14 @@
                         <a href="javascript:void(0)" wire:click="removeItem({{ $cart->id }})" class="remove">×</a>
                     </div>
                 </li>
-                @endforeach
+                @empty
+                <li>
+                    <div class="empty-cart">
+                        <img src="{{ url('assets/frontend/images/11329060.png') }}" alt="">
+                        <p>No items found in your cart!!</p>
+                    </div>
+                </li>
+                @endforelse
             </ul>
         </div>
         <div class="ec-cart-bottom">

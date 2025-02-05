@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- Ec breadcrumb start -->
-<livewire:frontend.components.breadcrumb />
+<livewire:frontend.components.breadcrumb title="Shop"  />
 <!-- Ec breadcrumb end -->
 
 <!-- Ec Shop page -->
