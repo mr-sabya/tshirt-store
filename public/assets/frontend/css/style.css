@@ -26982,11 +26982,11 @@ i.ecicon.eci-star-o {
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
 }
-.ec-product-cbb .ec-product-body .ec-price span {
+/* .ec-product-cbb .ec-product-body .ec-price span {
   color: #999;
   font-weight: 500;
   text-decoration: line-through;
-}
+} */
 .ec-product-cbb .ec-product-body .ec-size a {
   display: inline-block;
   padding: 1px;

@@ -25,11 +25,18 @@
                             <h4 class="ec-footer-heading">Information</h4>
                             <div class="ec-footer-links">
                                 <ul class="align-items-center">
-                                    <li class="ec-footer-link"><a href="about-us.html">About us</a></li>
-                                    <li class="ec-footer-link"><a href="faq.html">FAQ</a></li>
-                                    <li class="ec-footer-link"><a href="track-order.html">Delivery Information</a>
+                                    <li class="ec-footer-link">
+                                        <x-link link="{{ route('page.about') }}" name="About Us" />
                                     </li>
-                                    <li class="ec-footer-link"><a href="contact-us.html">Contact us</a></li>
+                                    <li class="ec-footer-link">
+                                        <x-link link="{{ route('page.faq') }}" name="FAQ" />
+                                    </li>
+                                    <li class="ec-footer-link">
+                                        <x-link link="#" name="Delivery Information" />
+                                    </li>
+                                    <li class="ec-footer-link">
+                                        <x-link link="{{ route('page.contact') }}" name="Contact Us" />
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -53,11 +60,13 @@
                             <div class="ec-footer-links">
                                 <ul class="align-items-center">
                                     <li class="ec-footer-link"><a href="track-order.html">Discount Returns</a></li>
-                                    <li class="ec-footer-link"><a href="privacy-policy.html">Policy & policy </a>
+                                    <li class="ec-footer-link">
+                                    <x-link link="{{ route('page.privacy') }}" name="Privacy & Policy" />
                                     </li>
                                     <li class="ec-footer-link"><a href="terms-condition.html">Customer Service</a>
                                     </li>
-                                    <li class="ec-footer-link"><a href="terms-condition.html">Term & condition</a>
+                                    <li class="ec-footer-link">
+                                        <x-link link="{{ route('page.terms') }}" name="Term & condition" />
                                     </li>
                                 </ul>
                             </div>

@@ -1,5 +1,5 @@
-<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content" >
-    <div class="ec-product-inner">
+<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content">
+    <div class="ec-product-inner ec-product-cbb">
         <div class="ec-pro-image-outer">
             <div class="ec-pro-image">
                 <a href="product-left-sidebar.html" class="image">
@@ -23,9 +23,12 @@
                 <span class="flags">
                     <span class="new">New</span>
                 </span>
+
+                @if($product->is_stock == 0)
                 <span class="flags">
-                    <span class="sale">Sale</span>
+                    <span class="sale">Sold</span>
                 </span>
+                @endif
 
                 <a href="{{ route('product.show', $product->slug) }}" wire:navigate class="quickview" title="Quick view">
                     <i class="fi-rr-eye"></i>
@@ -37,19 +40,19 @@
                 </div>
             </div>
         </div>
-        <div class="ec-pro-content">
+        <div class="ec-pro-content ec-product-body">
+            <ul class="ec-rating">
+                <li class="ecicon eci-star fill"></li>
+                <li class="ecicon eci-star fill"></li>
+                <li class="ecicon eci-star fill"></li>
+                <li class="ecicon eci-star fill"></li>
+                <li class="ecicon eci-star"></li>
+            </ul>
             <h5 class="ec-pro-title"><a href="{{ route('product.show', $product->slug) }}" wire:navigate>{{ $product->name }}</a></h5>
-            <div class="ec-pro-rating">
-                <i class="ecicon eci-star fill"></i>
-                <i class="ecicon eci-star fill"></i>
-                <i class="ecicon eci-star fill"></i>
-                <i class="ecicon eci-star fill"></i>
-                <i class="ecicon eci-star"></i>
-            </div>
             <div class="ec-pro-list-desc">{{ $product->short_desc }}</div>
             <span class="ec-price">
-                <span class="old-price">৳{{ $product->regular_price }}</span>
-                <span class="new-price">৳{{ $product->price }}</span>
+                <span class="new-price">৳{{ $product->regular_price }}</span>
+                <span class="old-price">৳{{ $product->price }}</span>
             </span>
             <div class="ec-pro-option">
                 <div class="ec-pro-color">

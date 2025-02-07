@@ -19,11 +19,28 @@ Route::get('tshirt-designer', [\App\Http\Controllers\Frontend\TshirtDesignerCont
 
 Route::get('shop', [\App\Http\Controllers\Frontend\ShopController::class, 'index'])->name('shop.index');
 
+Route::get('categories', [\App\Http\Controllers\Frontend\CategoryController::class, 'index'])->name('category.index');
+
+Route::get('offers', [\App\Http\Controllers\Frontend\OfferController::class, 'index'])->name('offer.index');
+
 Route::get('product/{slug}', [\App\Http\Controllers\Frontend\ProductController::class, 'show'])->name('product.show');
 
 Route::get('login', [\App\Http\Controllers\Frontend\Auth\LoginController::class, 'index'])->name('login');
 
 Route::get('register', [\App\Http\Controllers\Frontend\Auth\RegisterController::class, 'index'])->name('register');
+
+
+// pages
+Route::get('about-us', [\App\Http\Controllers\Frontend\PageController::class, 'aboutPage'])->name('page.about');
+
+Route::get('contact-us', [\App\Http\Controllers\Frontend\PageController::class, 'contactPage'])->name('page.contact');
+
+Route::get('faq', [\App\Http\Controllers\Frontend\PageController::class, 'faqPage'])->name('page.faq');
+
+Route::get('terms-conditions', [\App\Http\Controllers\Frontend\PageController::class, 'termsPage'])->name('page.terms');
+
+Route::get('privacy-policy', [\App\Http\Controllers\Frontend\PageController::class, 'privacyPage'])->name('page.privacy');
+
 
 Route::middleware(['web'])->group(function () {
     Route::get('profile', [\App\Http\Controllers\Frontend\User\ProfileController::class, 'index'])->name('user.profile');

@@ -1,0 +1,1 @@
+<a href="{{ $link }}" wire:navigate>{{ $name }}</a>
