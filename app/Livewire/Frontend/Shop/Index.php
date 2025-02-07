@@ -28,6 +28,14 @@ class Index extends Component
         $this->resetPage();
     }
 
+    public function mount($categorySlug = '')
+    {
+        $category = Category::where('slug', $categorySlug)->first();
+        if($category){
+            $this->categoryFilter[] = $category->id;
+        }
+    }
+
     // Toggle category filter
     public function updateCategoryFilter($categoryId)
     {

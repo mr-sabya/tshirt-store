@@ -61,10 +61,12 @@
                                 <ul class="align-items-center">
                                     <li class="ec-footer-link"><a href="track-order.html">Discount Returns</a></li>
                                     <li class="ec-footer-link">
-                                    <x-link link="{{ route('page.privacy') }}" name="Privacy & Policy" />
+                                        <x-link link="{{ route('page.privacy') }}" name="Privacy & Policy" />
                                     </li>
-                                    <li class="ec-footer-link"><a href="terms-condition.html">Customer Service</a>
+                                    <li class="ec-footer-link">
+                                        <x-link link="{{ route('page.refund') }}" name="Refund Policy" />
                                     </li>
+
                                     <li class="ec-footer-link">
                                         <x-link link="{{ route('page.terms') }}" name="Term & condition" />
                                     </li>

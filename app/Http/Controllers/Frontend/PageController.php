@@ -10,30 +10,35 @@ class PageController extends Controller
     // about page
     public function aboutPage()
     {
-        return view('frontend.pages.about');    
+        return view('frontend.pages.about');
     }
 
     // faq page
     public function faqPage()
     {
-        return view('frontend.pages.faq');    
+        return view('frontend.pages.faq');
     }
 
     // contact page
     public function contactPage()
     {
-        return view('frontend.pages.contact');    
+        return view('frontend.pages.contact');
     }
 
     // privacy & policy
     public function privacyPage()
     {
-        return view('frontend.pages.privacy');    
+        return view('frontend.pages.privacy');
     }
 
     // terms & conditions
     public function termsPage()
     {
-        return view('frontend.pages.terms');    
+        return view('frontend.pages.terms');
+    }
+    // refund policy
+    public function refundPage()
+    {
+        return view('frontend.pages.refund-privacy');
     }
 }

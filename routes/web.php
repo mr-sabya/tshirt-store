@@ -41,6 +41,8 @@ Route::get('terms-conditions', [\App\Http\Controllers\Frontend\PageController::c
 
 Route::get('privacy-policy', [\App\Http\Controllers\Frontend\PageController::class, 'privacyPage'])->name('page.privacy');
 
+Route::get('reund-policy', [\App\Http\Controllers\Frontend\PageController::class, 'refundPage'])->name('page.refund');
+
 
 Route::middleware(['web'])->group(function () {
     Route::get('profile', [\App\Http\Controllers\Frontend\User\ProfileController::class, 'index'])->name('user.profile');
