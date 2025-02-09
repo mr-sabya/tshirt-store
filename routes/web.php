@@ -47,6 +47,11 @@ Route::get('reund-policy', [\App\Http\Controllers\Frontend\PageController::class
 Route::middleware(['web'])->group(function () {
     Route::get('profile', [\App\Http\Controllers\Frontend\User\ProfileController::class, 'index'])->name('user.profile');
 
+    // history
+    Route::get('history', [\App\Http\Controllers\Frontend\User\HistoryController::class, 'index'])->name('history.index');
+    
+    Route::get('history', [\App\Http\Controllers\Frontend\User\HistoryController::class, 'index'])->name('history.index');
+
     // cart
     Route::get('cart', [\App\Http\Controllers\Frontend\CartController::class, 'index'])->name('user.cart');
 
@@ -55,6 +60,8 @@ Route::middleware(['web'])->group(function () {
 
     // order confirmation
     Route::get('order/confirmation/{orderId}', [\App\Http\Controllers\Frontend\OrderConfirmationController::class, 'show'])->name('order.confirmation');
+
+    Route::get('order/track/{orderId}', [\App\Http\Controllers\Frontend\User\OrderController::class, 'track'])->name('order.track');
 });
 
 

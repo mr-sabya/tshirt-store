@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- Ec breadcrumb start -->
-<livewire:frontend.components.breadcrumb title="Profile" />
+<livewire:frontend.components.breadcrumb title="History" />
 <!-- Ec breadcrumb end -->
 
 <!-- User profile section -->
@@ -15,7 +15,7 @@
             </div>
 
             <div class="ec-shop-rightside col-lg-9 col-md-12">
-                <livewire:frontend.user.profile.index />
+                <livewire:frontend.user.order-track.index />
             </div>
         </div>
     </div>
