@@ -101,5 +101,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // banners
         Route::get('/banners', [\App\Http\Controllers\Backend\BannerController::class, 'index'])->name('banner.index');
+
+        // orders
+        Route::get('/orders', [\App\Http\Controllers\Backend\OrderController::class, 'index'])->name('order.index');
+        Route::get('/orders/{orderId}', [\App\Http\Controllers\Backend\OrderController::class, 'show'])->name('order.show');
     });
 });

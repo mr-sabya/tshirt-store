@@ -52,4 +52,16 @@ class Order extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
+
+
+    public function statuses()
+    {
+        return $this->hasMany(OrderStatus::class);
+    }
+
+    // Order model
+    public function latestStatus()
+    {
+        return $this->hasOne(OrderStatus::class)->latest();
+    }
 }

@@ -52,6 +52,12 @@
                         ['url' => 'admin.color.index', 'label' => 'Color'],
                     ]" />
 
+                <livewire:backend.theme.menu-item
+                    :url="'admin.order.index'"
+                    :icon="'ri-dashboard-line'"
+                    :label="'Orders'"
+                    :hasSubMenu="false" />
+
 
             </ul>
         </div>
