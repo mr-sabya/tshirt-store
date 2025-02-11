@@ -105,5 +105,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // orders
         Route::get('/orders', [\App\Http\Controllers\Backend\OrderController::class, 'index'])->name('order.index');
         Route::get('/orders/{orderId}', [\App\Http\Controllers\Backend\OrderController::class, 'show'])->name('order.show');
+
+        // suppliers
+        Route::get('/suppliers', [\App\Http\Controllers\Backend\SupplierController::class, 'index'])->name('supplier.index');
     });
 });

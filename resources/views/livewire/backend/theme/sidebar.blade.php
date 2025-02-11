@@ -58,6 +58,12 @@
                     :label="'Orders'"
                     :hasSubMenu="false" />
 
+                <livewire:backend.theme.menu-item
+                    :url="'admin.supplier.index'"
+                    :icon="'ri-dashboard-line'"
+                    :label="'Suppliers'"
+                    :hasSubMenu="false" />
+
 
             </ul>
         </div>
