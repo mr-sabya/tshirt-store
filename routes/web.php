@@ -111,5 +111,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // expense category
         Route::get('/expense-categories', [\App\Http\Controllers\Backend\ExpenseCategoryController::class, 'index'])->name('expense.category.index');
+
+        // expenses
+        Route::get('/expenses', [\App\Http\Controllers\Backend\ExpenseController::class, 'index'])->name('expense.index');
     });
 });

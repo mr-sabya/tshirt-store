@@ -60,6 +60,7 @@
                     :subMenuItems="
                     [
                         ['url' => 'admin.expense.category.index', 'label' => 'Expense Category'],
+                        ['url' => 'admin.expense.index', 'label' => 'Expense'],
                     
                     ]" />
 
