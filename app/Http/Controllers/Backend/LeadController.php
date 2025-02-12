@@ -10,6 +10,6 @@ class LeadController extends Controller
     //
     public function index()
     {
-        return view('backend.lead.index');
+        return view('backend.lead.lead.index');
     }
 }

@@ -117,5 +117,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // leads
         Route::get('/leads', [\App\Http\Controllers\Backend\LeadController::class, 'index'])->name('lead.index');
+
+        // call history
+        Route::get('/call-history/{leadId}', [\App\Http\Controllers\Backend\CallHistoryController::class, 'index'])->name('call-history.index');
     });
 });

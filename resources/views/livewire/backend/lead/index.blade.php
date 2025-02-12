@@ -99,6 +99,7 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Status</th>
@@ -109,6 +110,7 @@
                         <tbody>
                             @forelse ($leads as $lead)
                             <tr>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $lead->name }}</td>
                                 <td>{{ $lead->email }}</td>
                                 <td>{{ $lead->status }}</td>
@@ -119,6 +121,9 @@
                                     </button>
                                     <button wire:click="delete({{ $lead->id }})" class="btn btn-danger btn-sm">
                                         <i class="ri-delete-bin-line"></i> Delete
+                                    </button>
+                                    <a href="{{ route('admin.call-history.index', $lead->id) }}" wire:navigate class="btn btn-primary btn-sm">
+                                    <i class="ri-chat-history-line"></i> Call History
                                     </button>
                                 </td>
                             </tr>
