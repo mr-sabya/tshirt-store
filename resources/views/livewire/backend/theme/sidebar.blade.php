@@ -76,6 +76,12 @@
                     :label="'Suppliers'"
                     :hasSubMenu="false" />
 
+                <livewire:backend.theme.menu-item
+                    :url="'admin.lead.index'"
+                    :icon="'ri-dashboard-line'"
+                    :label="'Leads'"
+                    :hasSubMenu="false" />
+
 
             </ul>
         </div>

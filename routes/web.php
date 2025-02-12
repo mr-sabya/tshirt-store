@@ -114,5 +114,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // expenses
         Route::get('/expenses', [\App\Http\Controllers\Backend\ExpenseController::class, 'index'])->name('expense.index');
+
+        // leads
+        Route::get('/leads', [\App\Http\Controllers\Backend\LeadController::class, 'index'])->name('lead.index');
     });
 });
