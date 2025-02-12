@@ -108,5 +108,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // suppliers
         Route::get('/suppliers', [\App\Http\Controllers\Backend\SupplierController::class, 'index'])->name('supplier.index');
+
+        // expense category
+        Route::get('/expense-categories', [\App\Http\Controllers\Backend\ExpenseCategoryController::class, 'index'])->name('expense.category.index');
     });
 });

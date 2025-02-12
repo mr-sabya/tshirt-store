@@ -53,6 +53,17 @@
                     ]" />
 
                 <livewire:backend.theme.menu-item
+                    :url="''"
+                    :icon="'ri-layout-3-line'"
+                    :label="'Expense'"
+                    :hasSubMenu="true"
+                    :subMenuItems="
+                    [
+                        ['url' => 'admin.expense.category.index', 'label' => 'Expense Category'],
+                    
+                    ]" />
+
+                <livewire:backend.theme.menu-item
                     :url="'admin.order.index'"
                     :icon="'ri-dashboard-line'"
                     :label="'Orders'"
