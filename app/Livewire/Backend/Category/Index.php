@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Backend\Category;
 
+use App\Helpers\ImageHelper;
 use App\Models\Category;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -18,6 +19,7 @@ class Index extends Component
     public $detailsCategoryId = null; // Track the details view toggle
     public $sortBy = 'name'; // Default sorting by 'name'
     public $sortDirection = 'asc'; // Default sorting direction
+    public $existingImage; // Track the existing image for deletion
 
     // Initial rules property declaration
     protected $rules = [
@@ -43,17 +45,21 @@ class Index extends Component
     {
         // Dynamically update the validation rule for 'slug' when updating a category
         $this->rules['slug'] = 'required|string|max:255|unique:categories,slug,' . ($this->categoryId ?? '0');
-        
+
         // Validate input fields
         $this->validate();
 
         // Store or update the category
+        $imagePath = $this->image
+            ? ImageHelper::uploadImage($this->image, 'categories', $this->existingImage)
+            : $this->existingImage; // Retain the existing image if no new image
+
         Category::updateOrCreate(
             ['id' => $this->categoryId],
             [
                 'name' => $this->name,
                 'slug' => $this->slug,
-                'image' => $this->image ? $this->image->store('categories', 'public') : null,
+                'image' => $imagePath,
             ]
         );
 
@@ -71,7 +77,7 @@ class Index extends Component
         $this->categoryId = $category->id;
         $this->name = $category->name;
         $this->slug = $category->slug;
-        $this->imagePreview = asset('storage/' . $category->image);
+        $this->imagePreview = ImageHelper::getImageUrl('uploads/' . $category->image);
     }
 
     // Delete a category
@@ -117,5 +123,4 @@ class Index extends Component
 
         return view('livewire.backend.category.index', compact('categories'));
     }
-
 }
