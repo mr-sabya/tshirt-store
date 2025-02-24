@@ -5,6 +5,7 @@ namespace App\Livewire\Frontend\Components;
 use App\Models\Cart;
 use App\Models\Product as ModelsProduct;
 use App\Models\ProductVariation;
+use App\Models\Wishlist;
 use Livewire\Component;
 
 class Product extends Component
@@ -14,11 +15,13 @@ class Product extends Component
     public $selectedSizeId;
     public $quantity = 1;
     public $data_image, $data_image_hover;
+    public $isInWishlist = false;
 
     public function mount($productId)
     {
         $this->productId = $productId;
         $this->setInitialSelections();
+        $this->checkWishlistStatus(); // Check if the product is in the wishlist
     }
 
     public function setInitialSelections()
@@ -64,6 +67,38 @@ class Product extends Component
         }
     }
 
+    public function addToWishlist()
+    {
+        $product = ModelsProduct::find($this->productId);
+
+        if ($product && $this->selectedVariationId && $this->selectedSizeId) {
+            // Check if the product with the selected variation and size is already in the wishlist
+            $existingWishlistItem = Wishlist::where('user_id', auth()->id())
+                ->where('product_id', $this->productId)
+                ->where('product_variation_id', $this->selectedVariationId)
+                ->where('size_id', $this->selectedSizeId)
+                ->first();
+
+            if (!$existingWishlistItem) {
+                // If the product is not in the wishlist, add it
+                Wishlist::create([
+                    'user_id' => auth()->id(),
+                    'product_id' => $this->productId,
+                    'product_variation_id' => $this->selectedVariationId,
+                    'size_id' => $this->selectedSizeId,
+                ]);
+                session()->flash('success', 'Product added to your wishlist!');
+            } else {
+                $existingWishlistItem->delete();
+                session()->flash('info', 'This product is already in your wishlist.');
+            }
+            $this->checkWishlistStatus(); // Check if the product is in the wishlist
+        } else {
+            session()->flash('error', 'Please select color and size.');
+        }
+    }
+
+
     public function setSelectedVariation($variationId)
     {
         $this->selectedVariationId = $variationId;
@@ -78,6 +113,15 @@ class Product extends Component
     public function setSelectedSize($sizeId)
     {
         $this->selectedSizeId = $sizeId;
+    }
+
+    public function checkWishlistStatus()
+    {
+        $this->isInWishlist = Wishlist::where('user_id', auth()->id())
+            ->where('product_id', $this->productId)
+            ->where('product_variation_id', $this->selectedVariationId)
+            ->where('size_id', $this->selectedSizeId)
+            ->exists();
     }
 
     public function render()

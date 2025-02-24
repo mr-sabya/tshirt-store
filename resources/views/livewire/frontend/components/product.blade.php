@@ -36,7 +36,7 @@
                 <div class="ec-pro-actions">
                     <a href="compare.html" class="ec-btn-group compare" title="Compare"><i class="fi fi-rr-arrows-repeat"></i></a>
                     <button title="Add To Cart" class="add-to-cart" wire:click="addToCart"><i class="fi-rr-shopping-basket"></i></button>
-                    <a class="ec-btn-group wishlist" title="Wishlist"><i class="fi-rr-heart"></i></a>
+                    <button wire:click="addToWishlist" class="ec-btn-group wishlist {{ $isInWishlist ? 'active disabled' : '' }}" title="Wishlist"><i class="fi-rr-heart"></i></button>
                 </div>
             </div>
         </div>

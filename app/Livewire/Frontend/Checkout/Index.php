@@ -18,9 +18,12 @@ class Index extends Component
     public $isAgreed = false;
     protected $listeners = ['cartUpdated' => 'loadCart'];
 
+    public $buyNowProduct = null;  // Add a property to handle buyNow product
+
     // This will be executed when the component is mounted
-    public function mount()
+    public function mount($buyNowProduct = null)
     {
+        $this->buyNowProduct = $buyNowProduct;
         $this->loadCart();
     }
 
@@ -28,10 +31,23 @@ class Index extends Component
     public function loadCart()
     {
         $userId = auth()->id(); // Assuming the user is authenticated
-        $this->cartItems = Cart::with('product', 'variation', 'size')
-            ->where('user_id', $userId)
-            ->get();
 
+        if ($this->buyNowProduct) {
+            // If a product was bought directly, load it into the cart
+            $this->cartItems = Cart::with('product', 'variation', 'size')
+                ->where('user_id', $userId)
+                ->where('product_id', $this->buyNowProduct['product_id'])
+                ->where('product_variation_id', $this->buyNowProduct['product_variation_id'])
+                ->where('size_id', $this->buyNowProduct['size_id'])
+                ->get();
+        } else {
+            // Otherwise, load all the user's cart items
+            $this->cartItems = Cart::with('product', 'variation', 'size')
+                ->where('user_id', $userId)
+                ->get();
+        }
+
+        // Calculate the total price
         $this->total = collect($this->cartItems)->sum(function ($item) {
             return $item->quantity * $item->product->price; // Assuming each product has a price
         });
@@ -84,7 +100,6 @@ class Index extends Component
         // Redirect to order confirmation page (you can adjust the route as needed)
         return redirect()->route('order.confirmation', $order->id);
     }
-
 
     public function render()
     {

@@ -76,6 +76,38 @@ class Show extends Component
         }
     }
 
+    public function buyNow()
+    {
+        // Validate if product, variation, and size are selected
+        $product = Product::find($this->productId);
+
+        if ($product && $this->selectedVariationId && $this->selectedSizeId) {
+            // Check if the product with the selected variation and size is already in the cart
+            $existingCartItem = Cart::where('user_id', auth()->id())
+                ->where('product_id', $this->productId)
+                ->where('product_variation_id', $this->selectedVariationId)
+                ->where('size_id', $this->selectedSizeId)
+                ->first();
+
+            if ($existingCartItem) {
+                // If the product is already in the cart, update the quantity
+                $existingCartItem->quantity += $this->quantity;
+                $existingCartItem->save();
+            } else {
+                // If the product is not in the cart, add it
+                Cart::addItem(auth()->id(), $this->productId, $this->selectedVariationId, $this->selectedSizeId, $this->quantity);
+            }
+
+            // Redirect to checkout (or handle according to your flow)
+            return $this->redirect(route('user.checkout'), navigate:true);
+        } else {
+            session()->flash('error', 'Please select color and size.');
+        }
+    }
+
+
+
+
     public function setSelectedVariation($variationId)
     {
         $this->selectedVariationId = $variationId;

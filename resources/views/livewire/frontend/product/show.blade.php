@@ -109,6 +109,10 @@
                                         <div class="ec-single-cart ">
                                             <button wire:click="addToCart" class="btn btn-primary">Add To Cart</button>
                                         </div>
+
+                                        <div class="ec-single-cart">
+                                            <button wire:click="buyNow" class="btn btn-primary ms-0">Buy Now</button>
+                                        </div>
                                         <div class="ec-single-wishlist">
                                             <a class="ec-btn-group wishlist" title="Wishlist"><i class="fi-rr-heart"></i></a>
                                         </div>

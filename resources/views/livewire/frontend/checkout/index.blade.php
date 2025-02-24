@@ -87,12 +87,14 @@
                                     </div>
                                     <div>
                                         <span class="text-left">Coupon Discount</span>
-                                        <span class="text-right"><a class="ec-cart-coupan">Apply Coupon</a></span>
+                                        <span class="text-right">
+                                            <a class="ec-cart-coupan" wire:click.prevent="applyCoupon">Apply Coupon</a>
+                                        </span>
                                     </div>
                                     <div class="ec-cart-coupan-content">
                                         <form class="ec-cart-coupan-form" name="ec-cart-coupan-form" method="post" action="#">
-                                            <input class="ec-coupan" type="text" required="" placeholder="Enter Your Coupon Code" name="ec-coupan" value="">
-                                            <button class="ec-coupan-btn button btn-primary" type="submit" name="subscribe" value="">Apply</button>
+                                            <input class="ec-coupan" type="text" placeholder="Enter Your Coupon Code" wire:model="couponCode">
+                                            <button class="ec-coupan-btn button btn-primary" type="submit">Apply</button>
                                         </form>
                                     </div>
                                     <div class="ec-cart-summary-total">

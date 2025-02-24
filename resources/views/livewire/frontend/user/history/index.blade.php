@@ -27,7 +27,7 @@
                         <th scope="row"><span>{{ $order->order_id ?? $order->id }}</span></th>
                         <td>
                             <img class="prod-img"
-                                src="{{ url('storage', $item->productVariation['image']) ??  url('storage', $item->product->image) }}"
+                                src="{{ url('uploads/', $item->productVariation['image']) ??  url('uploads/', $item->product->image) }}"
                                 alt="product image">
                         </td>
                         <td><span>{{ $item->product->name ?? 'N/A' }}</span></td>
@@ -36,7 +36,7 @@
                             <div style="height: 25px; width: 20px; background: #f7f7f7; display: flex; align-items: center; justify-content: center; font-weight: bold;">{{ $item->size['name'] }}</div>
                         </span></td>
                         <td><span>{{ $order->created_at->format('d M Y') }}</span></td>
-                        <td><span>৳ {{ number_format($item->price, 2) }}</span></td>
+                        <td><span>৳ {{ number_format($item->price * $item->quantity, 2) }}</span></td>
                         <td><span>{{ ucfirst($order->status) }}</span></td>
                         <td>
                             <span class="tbl-btn">
