@@ -61,7 +61,7 @@
                                                     @foreach($order->orderItems as $item)
                                                     <tr>
                                                         <th><span>{{ $loop->iteration }}</span></th>
-                                                        <th><img style="width: 50px;" src="{{ url('storage', $item->productVariation['image']) }}"></img></th>
+                                                        <th><img style="width: 50px;" src="{{ url('uploads/', $item->productVariation['image']) }}"></img></th>
                                                         <td><span>{{ $item->product->name }}</span></td>
                                                         <td><span>{{ $item->size->name }}</span></td>
                                                         <td><span>{{ $item->quantity }}</span></td>

@@ -10,7 +10,7 @@
                 <div class="row">
                     @foreach ($tshirts as $tshirt)
                     <div class="col-lg-4">
-                        <img src="{{ asset('storage/' . $tshirt->image) }}"
+                        <img src="{{ url('uploads/', $tshirt->image) }}"
                             class="img-thumbnail mb-2 tshirt-option {{ $previewTshirt === $tshirt->image ? 'selected' : '' }}"
                             wire:click="selectTshirt('{{ $tshirt->image }}')"
                             alt="{{ $tshirt->name }}">
@@ -25,7 +25,7 @@
                 <div class="row">
                     @foreach ($designs as $design)
                     <div class="col-lg-4">
-                        <img src="{{ asset('storage/' . $design->image) }}"
+                        <img src="{{ url('uploads/', $design->image) }}"
                             class="img-thumbnail mb-2 design-option"
                             wire:click="selectDesign('{{ $design->image }}')"
                             alt="{{ $design->name }}">
@@ -51,14 +51,14 @@
             <div id="canvas" class="position-relative" style="width: 100%; height: 650px; border: 1px solid #ccc;">
                 <!-- T-shirt Background -->
                 @if ($previewTshirt)
-                <img id="tshirtBackground" src="{{ asset('storage/' . $previewTshirt) }}"
+                <img id="tshirtBackground" src="{{ url('uploads/', $previewTshirt) }}"
                     alt="T-Shirt"
                     style="width: 100%; height: 100%; object-fit: cover;">
                 @endif
 
                 <!-- Design Preview -->
                 @if ($previewDesign)
-                <img id="designPreview" src="{{ url('storage', $previewDesign) }}"
+                <img id="designPreview" src="{{ url('uploads/', $previewDesign) }}"
                     class="position-absolute img-draggable"
                     style="top: 50%; left: 50%; width: 260px; height: 260px; transform: translate(-50%, -50%);">
                 @endif

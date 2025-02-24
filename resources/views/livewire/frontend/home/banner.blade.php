@@ -3,7 +3,7 @@
         <!-- Main slider -->
         <div class="swiper-wrapper">
             @forelse($banners as $banner)
-            <div class="ec-slide-item swiper-slide d-flex" style="background-image: url(/storage/{{ $banner->image }});">
+            <div class="ec-slide-item swiper-slide d-flex banner-bg" data-bg="{{ asset('uploads/' . $banner->image) }}">
                 <div class="container align-self-center">
                     <div class="row">
                         <div class="col-xl-6 col-lg-7 col-md-7 col-sm-7 align-self-center">

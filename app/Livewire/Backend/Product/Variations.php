@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Backend\Product;
 
+use App\Helpers\ImageHelper;
 use App\Models\ProductVariation;
 use App\Models\Color;
 use Livewire\Component;
@@ -38,7 +39,9 @@ class Variations extends Component
         $this->validate();
 
         if ($this->image) {
-            $imagePath = $this->image->store('variation_images', 'public');
+            $imagePath = $this->image
+                ? ImageHelper::uploadImage($this->image, 'products', $this->currentImage)
+                : $this->currentImage; // Retain the existing image if no new image
         }
 
         ProductVariation::updateOrCreate(

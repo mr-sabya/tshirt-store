@@ -1,12 +1,12 @@
 document.addEventListener('livewire:navigated', () => {
-    
+
 
     (function ($) {
         "use strict";
 
         /*----------------------------- Site Cookie function --------------------*/
         // Calling Function On Each Time Site Load | Reload
-    
+
 
         // On click method for Clear Cookie
 
@@ -25,6 +25,14 @@ document.addEventListener('livewire:navigated', () => {
                 $(".ec-search-tab").removeClass("active");
             }, 100);
         });
+
+
+        // add image to banner background
+        document.querySelectorAll('.banner-bg').forEach(el => {
+            el.style.backgroundImage = `url('${el.getAttribute('data-bg')}')`;
+        });
+
+
 
         /*----------------------------- Animate On Scroll --------------------*/
         var Animation = function ({ offset } = { offset: 10 }) {
@@ -226,7 +234,7 @@ document.addEventListener('livewire:navigated', () => {
         });
 
         /*----------------------------- Product page category Toggle -------------------------------- */
-        
+
 
         /*----------------------------- Siderbar Product Slider -------------------------------- */
         $(document).ready(function () {
@@ -313,7 +321,7 @@ document.addEventListener('livewire:navigated', () => {
         });
 
         /*----------------------------- Sidekka And SideMenu -----------------------------------*/
-        
+
 
         (function () {
             var $ekkaToggle = $(".ec-side-toggle"),
@@ -346,7 +354,7 @@ document.addEventListener('livewire:navigated', () => {
                 $ecMenuToggle.find("a").removeClass("close");
             });
 
-         
+
 
         })();
 
@@ -428,7 +436,7 @@ document.addEventListener('livewire:navigated', () => {
         $('.zoom-image-hover').zoom();
 
         /*----------------------------- Qty Plus Minus Button  ------------------------------ */
-        
+
 
         /*----------------------------- Single Product Slider ---------------------------------*/
         var swiper = new Swiper(".single-product-slider", {
@@ -525,13 +533,13 @@ document.addEventListener('livewire:navigated', () => {
         });
 
         /*----------------------------- Theme Color Change -------------------------------- */
- 
+
 
         /*----------------------------- Theme RTL Change -------------------------------- */
-        
+
 
         /*----------------------------- Theme Dark mode Change -------------------------------- */
-        
+
         /*----------------------------- Full Screen mode Change -------------------------------- */
         $(".ec-tools-sidebar .ec-fullscreen-mode .ec-fullscreen-switch").click(function (e) {
             e.preventDefault();
@@ -583,11 +591,11 @@ document.addEventListener('livewire:navigated', () => {
         });
 
         /*----------------------------- Color Hover To Image Change -------------------------------- */
-        
+
 
         /*----------------------------- Size Hover To Active -------------------------------- */
         $('.ec-opt-size').each(function () {
-            
+
 
             $(this).on('click', 'li', function () {
                 // alert("2");
@@ -972,7 +980,7 @@ document.addEventListener('livewire:navigated', () => {
         }
 
         /*----------------------------- Cart Page Qty Plus Minus Button  ------------------------------ */
-      
+
         /*----------------------------- Cart  Shipping Toggle -------------------------------- */
         $(document).ready(function () {
             $(".ec-sb-block-content .ec-ship-title").click(function () {
@@ -1186,7 +1194,7 @@ document.addEventListener('livewire:navigated', () => {
             setBGImage(bgID, bgClass);
         });
 
-   
+
 
         /*----------------------------- Tools sidebar ---------------------- */
         $(".ec-tools-sidebar-toggle").on("click", function (e) {

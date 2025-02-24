@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Backend\Tshirt;
 
+use App\Helpers\ImageHelper;
 use App\Models\Tshirt;
 use App\Models\TshirtCategory;
 use Livewire\Component;
@@ -14,7 +15,7 @@ class Index extends Component
 {
     use WithFileUploads, WithPagination, WithoutUrlPagination;
 
-    public $tshirt, $name, $slug, $image, $category_id, $is_active = 1, $tshirtId;
+    public $tshirt, $name, $slug, $image, $category_id, $is_active = 1, $tshirtId, $currentImage;
     public $search = '', $sortBy = 'id', $sortDirection = 'asc';
     public $isEdit = false;
 
@@ -37,7 +38,9 @@ class Index extends Component
     {
         $validatedData = $this->validate();
 
-        $imagePath = $this->image->store('tshirts', 'public'); // Store the image
+        $imagePath = $this->image
+        ? ImageHelper::uploadImage($this->image, 'tshirts', $this->currentImage)
+        : $this->currentImage; // Retain the existing image if no new image
 
         $data = [
             'name' => $this->name,
@@ -67,7 +70,8 @@ class Index extends Component
         $this->tshirtId = $tshirt->id;
         $this->name = $tshirt->name;
         $this->slug = $tshirt->slug;
-        $this->category_id = $tshirt->category_id;
+        $this->category_id = $tshirt->tshirt_category_id;
+        $this->currentImage = $tshirt->image;
         // $this->image = $tshirt->image;
 
         if ($tshirt->is_active == 1) {
@@ -82,13 +86,17 @@ class Index extends Component
     // Update tshirt
     public function update()
     {
+        $this->rules['slug'] = 'required|string|max:255|unique:tshirts,slug,' . ($this->tshirtId ?? '0');
+        $this->rules['image'] = 'nullable|image|max:2048'; // Max 2MB image
         $validatedData = $this->validate();
 
         $tshirt = Tshirt::findOrFail($this->tshirtId);
 
         // If a new image is uploaded, update it
         if ($this->image) {
-            $imagePath = $this->image->store('tshirts', 'public');
+            $imagePath = $this->image
+                ? ImageHelper::uploadImage($this->image, 'tshirts', $this->currentImage)
+                : $this->currentImage; // Retain the existing image if no new image
             $tshirt->image = $imagePath;
         }
 

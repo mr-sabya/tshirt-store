@@ -41,7 +41,7 @@
                     @forelse ($products as $product)
                     <tr>
                         <th class="align-middle">{{ $loop->iteration }}</th>
-                        <td class="align-middle"><img src="{{ url('storage/', $product->image) }}" alt="" style="width: 50px;"></td>
+                        <td class="align-middle"><img src="{{ url('uploads/', $product->image) }}" alt="" style="width: 50px;"></td>
                         <td class="align-middle">{{ $product->name }}</td>
                         <td class="align-middle">{{ $product->price }}</td>
                         <td class="align-middle">{{ $product->stock }}</td>

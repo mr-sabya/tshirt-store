@@ -70,8 +70,8 @@ class Product extends Component
         $variation = ProductVariation::find($variationId);
         if ($variation) {
             $this->selectedVariationId = $variationId;
-            $this->data_image = url('storage', $variation->image);
-            $this->data_image_hover = url('storage', $variation->image);  // You can change this to another hover image URL if needed.
+            $this->data_image = url('uploads/', $variation->image);
+            $this->data_image_hover = url('uploads/', $variation->image);  // You can change this to another hover image URL if needed.
         }
     }
 

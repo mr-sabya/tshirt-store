@@ -27,12 +27,6 @@ class ImageHelper
             File::delete(public_path($existingImagePath));
         }
 
-        // Ensure the directory exists
-        $destinationPath = public_path($folder);
-        if (!File::exists($destinationPath)) {
-            File::makeDirectory($destinationPath, 0777, true, true);
-        }
-
         // Generate a unique file name
         $imageName = time() . '-' . $image->getClientOriginalName();
 

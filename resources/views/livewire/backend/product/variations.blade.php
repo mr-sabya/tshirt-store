@@ -30,7 +30,7 @@
                                     @if ($image)
                                     <img src="{{ $image->temporaryUrl() }}" style="height: 100%; width: auto;">
                                     @elseif($currentImage)
-                                    <img src="{{ url('storage/', $currentImage) }}" style="height: 100%; width: auto;">
+                                    <img src="{{ url('uploads/', $currentImage) }}" style="height: 100%; width: auto;">
                                     @endif
                                 </div>
                                 <input type="file" id="image" wire:model="image" class="form-control">
@@ -67,7 +67,7 @@
                                 <td>{{ $variation->color->name }}</td>
                                 <td>
                                     @if ($variation->image)
-                                    <img src="{{ url('storage', $variation->image) }}" alt="" style="width: 50px;">
+                                    <img src="{{ url('uploads/', $variation->image) }}" alt="" style="width: 50px;">
                                     @endif
                                 </td>
                                 <td>

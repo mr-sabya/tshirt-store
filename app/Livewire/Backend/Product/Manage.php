@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Backend\Product;
 
+use App\Helpers\ImageHelper;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Size;
@@ -66,7 +67,10 @@ class Manage extends Component
         $this->validate();
 
         if ($this->image) {
-            $imagePath = $this->image->store('product_images', 'public');
+            // Store or update the category
+            $imagePath = $this->image
+                ? ImageHelper::uploadImage($this->image, 'products', $this->currentImage)
+                : $this->currentImage; // Retain the existing image if no new image
         }
 
         $product = Product::updateOrCreate(

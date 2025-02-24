@@ -6,13 +6,13 @@
                     @if($data_image)
                     <img class="main-image" src="{{ $data_image }}" alt="Product" />
                     @else
-                    <img class="main-image" src="{{ url('storage', $product->image) }}" alt="Product" />
+                    <img class="main-image" src="{{ url('uploads/', $product->image) }}" alt="Product" />
                     @endif
 
                     @if($data_image_hover)
                     <img class="hover-image" src="{{ $data_image_hover }}" alt="Product" />
                     @else
-                    <img class="hover-image" src="{{ url('storage', $product->image) }}" alt="Product" />
+                    <img class="hover-image" src="{{ url('uploads/', $product->image) }}" alt="Product" />
                     @endif
                 </a>
 
@@ -64,8 +64,8 @@
                                 data-tooltip="{{ $variation->color['color'] }}">
                                 <span style="background-color: {{ $variation->color['color'] }};"></span>
                             </a>
-                            <input type="hidden" wire:model="data_image" value="{{ url('storage', $variation->image) }}">
-                            <input type="hidden" wire:model="data_image_hover" value="{{ url('storage', $variation->image) }}">
+                            <input type="hidden" wire:model="data_image" value="{{ url('uploads/', $variation->image) }}">
+                            <input type="hidden" wire:model="data_image_hover" value="{{ url('uploads/', $variation->image) }}">
                         </li>
                         @endforeach
                     </ul>

@@ -43,7 +43,7 @@
                             @if ($image)
                             <img src="{{ $image->temporaryUrl() }}" class="img-fluid" style="max-height: 200px; object-fit: cover;" alt="Preview">
                             @elseif (!$image && $isEdit && $tshirtId)
-                            <img src="{{ Storage::url($tshirt->image) }}" class="img-fluid" style="max-height: 200px; object-fit: cover;" alt="Current Image">
+                            <img src="{{ url('uploads/', $tshirt->image) }}" class="img-fluid" style="max-height: 200px; object-fit: cover;" alt="Current Image">
                             @endif
                         </div>
 
@@ -90,7 +90,7 @@
                 <div class="col-md-6 col-lg-4 mb-4">
                     <div class="card h-100 shadow-sm border-light">
                         <!-- Image Section -->
-                        <img src="{{ url('storage/', $tshirt->image) }}" alt="{{ $tshirt->name }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                        <img src="{{ url('uploads/', $tshirt->image) }}" alt="{{ $tshirt->name }}" class="card-img-top" style="height: 200px; object-fit: cover;">
 
                         <!-- Card Content -->
                         <div class="card-body">

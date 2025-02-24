@@ -101,7 +101,7 @@
                                 @forelse($banners as $banner)
                                 <tr>
                                     <td class="align-middle">{{ $loop->iteration }}</td>
-                                    <td class="align-middle"><img src="{{ url('storage', $banner->image) }}" style="width: 100px;" alt=""></td>
+                                    <td class="align-middle"><img src="{{ url('uploads/', $banner->image) }}" style="width: 100px;" alt=""></td>
                                     <td class="align-middle">{{ $banner->heading }}</td>
                                     <td class="align-middle">{{ $banner->offer_text }}</td>
                                     <td class="align-middle">{{ $banner->product->name }}</td>
@@ -126,7 +126,7 @@
                                                 <p><strong>Product:</strong> {{ $banner->product->name }}</p>
                                                 <p><strong>Image:</strong></p>
                                                 @if ($banner->image)
-                                                <img src="{{ asset('storage/' . $banner->image) }}" alt="Banner Image" style="height: 150px;">
+                                                <img src="{{ url('uploads/', $banner->image) }}" alt="Banner Image" style="height: 150px;">
                                                 @else
                                                 <p>No image uploaded.</p>
                                                 @endif

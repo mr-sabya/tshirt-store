@@ -78,6 +78,7 @@ class Index extends Component
         $this->name = $category->name;
         $this->slug = $category->slug;
         $this->imagePreview = ImageHelper::getImageUrl('uploads/' . $category->image);
+        $this->existingImage = $category->image;
     }
 
     // Delete a category

@@ -17,7 +17,7 @@
                 <div class="ec-product-tp">
                     <div class="ec-product-image">
                         <a href="{{ route('shop.index') }}?category={{ $category->slug }}" wire:navigate>
-                            <img src="{{ url('storage', $category->image) }}" class="img-center" alt="">
+                            <img src="{{ url('uploads/', $category->image) }}" class="img-center" alt="">
                         </a>
                     </div>
                     <div class="ec-product-body">

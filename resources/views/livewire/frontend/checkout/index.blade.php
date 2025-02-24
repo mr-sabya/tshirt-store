@@ -21,7 +21,7 @@
                                         <tr>
                                             <td data-label="Product" class="ec-cart-pro-name">
                                                 <a href="{{ route('product.show', $item->product->id) }}">
-                                                    <img class="ec-cart-pro-img mr-4" src="{{ url('storage', $item->variation->image ?? $item->product->image) }}" alt="" />
+                                                    <img class="ec-cart-pro-img mr-4" src="{{ url('uploads/', $item->variation->image ?? $item->product->image) }}" alt="" />
                                                     {{ $item->product->name }}
                                                 </a>
                                             </td>

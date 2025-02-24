@@ -12,24 +12,24 @@
                                 <div class="single-product-scroll">
                                     <div class="single-product-cover">
                                         <div class="single-slide zoom-image-hover">
-                                            <img class="img-responsive" src="{{ url('storage', $product->image) }}"
+                                            <img class="img-responsive" src="{{ url('uploads/', $product->image) }}"
                                                 alt="">
                                         </div>
                                         @foreach($product->variations as $variation)
                                         <div class="single-slide zoom-image-hover">
-                                            <img class="img-responsive" src="{{ url('storage', $variation->image) }}"
+                                            <img class="img-responsive" src="{{ url('uploads/', $variation->image) }}"
                                                 alt="">
                                         </div>
                                         @endforeach
                                     </div>
                                     <div class="single-nav-thumb">
                                         <div class="single-slide">
-                                            <img class="img-responsive" src="{{ url('storage', $product->image) }}"
+                                            <img class="img-responsive" src="{{ url('uploads/', $product->image) }}"
                                                 alt="">
                                         </div>
                                         @foreach($product->variations as $variation)
                                         <div class="single-slide">
-                                            <img class="img-responsive" src="{{ url('storage', $variation->image) }}"
+                                            <img class="img-responsive" src="{{ url('uploads/', $variation->image) }}"
                                                 alt="">
                                         </div>
                                         @endforeach
@@ -130,6 +130,131 @@
                     </div>
                 </div>
                 <!--Single product content End -->
+                <!-- Single product tab start -->
+                <div class="ec-single-pro-tab">
+                    <div class="ec-single-pro-tab-wrapper">
+                        <div class="ec-single-pro-tab-nav">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-bs-toggle="tab"
+                                        data-bs-target="#ec-spt-nav-details" role="tab" aria-controls="ec-spt-nav-details" aria-selected="true">Detail</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#ec-spt-nav-info"
+                                        role="tab" aria-controls="ec-spt-nav-info" aria-selected="false">More Information</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#ec-spt-nav-review"
+                                        role="tab" aria-controls="ec-spt-nav-review" aria-selected="false">Reviews</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-content  ec-single-pro-tab-content">
+                            <div id="ec-spt-nav-details" class="tab-pane fade show active">
+                                <div class="ec-single-pro-tab-desc">
+                                    {!! $product->details !!}
+                                </div>
+                            </div>
+                            <div id="ec-spt-nav-info" class="tab-pane fade">
+                                <div class="ec-single-pro-tab-moreinfo">
+                                    <ul>
+                                        <li><span>Weight</span> 1000 g</li>
+                                        <li><span>Dimensions</span> 35 × 30 × 7 cm</li>
+                                        <li><span>Color</span> Black, Pink, Red, White</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div id="ec-spt-nav-review" class="tab-pane fade">
+                                <div class="row">
+                                    <div class="ec-t-review-wrapper">
+                                        <div class="ec-t-review-item">
+                                            <div class="ec-t-review-avtar">
+                                                <img src="assets/images/review-image/1.jpg" alt="" />
+                                            </div>
+                                            <div class="ec-t-review-content">
+                                                <div class="ec-t-review-top">
+                                                    <div class="ec-t-review-name">Jeny Doe</div>
+                                                    <div class="ec-t-review-rating">
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="ec-t-review-bottom">
+                                                    <p>Lorem Ipsum is simply dummy text of the printing and
+                                                        typesetting industry. Lorem Ipsum has been the industry's
+                                                        standard dummy text ever since the 1500s, when an unknown
+                                                        printer took a galley of type and scrambled it to make a
+                                                        type specimen.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ec-t-review-item">
+                                            <div class="ec-t-review-avtar">
+                                                <img src="assets/images/review-image/2.jpg" alt="" />
+                                            </div>
+                                            <div class="ec-t-review-content">
+                                                <div class="ec-t-review-top">
+                                                    <div class="ec-t-review-name">Linda Morgus</div>
+                                                    <div class="ec-t-review-rating">
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="ec-t-review-bottom">
+                                                    <p>Lorem Ipsum is simply dummy text of the printing and
+                                                        typesetting industry. Lorem Ipsum has been the industry's
+                                                        standard dummy text ever since the 1500s, when an unknown
+                                                        printer took a galley of type and scrambled it to make a
+                                                        type specimen.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="ec-ratting-content">
+                                        <h3>Add a Review</h3>
+                                        <div class="ec-ratting-form">
+                                            <form action="#">
+                                                <div class="ec-ratting-star">
+                                                    <span>Your rating:</span>
+                                                    <div class="ec-t-review-rating">
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="ec-ratting-input">
+                                                    <input name="your-name" placeholder="Name" type="text" />
+                                                </div>
+                                                <div class="ec-ratting-input">
+                                                    <input name="your-email" placeholder="Email*" type="email"
+                                                        required />
+                                                </div>
+                                                <div class="ec-ratting-input form-submit">
+                                                    <textarea name="your-commemt"
+                                                        placeholder="Enter Your Comment"></textarea>
+                                                    <button class="btn btn-primary" type="submit"
+                                                        value="Submit">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

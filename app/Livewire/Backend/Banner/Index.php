@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Backend\Banner;
 
+use App\Helpers\ImageHelper;
 use App\Models\Banner;
 use App\Models\Product;
 use Livewire\Component;
@@ -14,7 +15,7 @@ class Index extends Component
 {
     use WithPagination, WithoutUrlPagination, WithFileUploads;
 
-    public $heading, $offer_text, $text, $image, $imagePreview, $bannerId, $product_id;
+    public $heading, $offer_text, $text, $image, $imagePreview, $bannerId, $product_id, $existingImage;
     public $search = '';
     public $detailsBannerId = null; // Track the details view toggle
     public $sortBy = 'heading'; // Default sorting by 'heading'
@@ -43,6 +44,9 @@ class Index extends Component
 
         // Validate input fields
         $this->validate();
+        $imagePath = $this->image
+            ? ImageHelper::uploadImage($this->image, 'banners', $this->existingImage)
+            : $this->existingImage; // Retain the existing image if no new image
 
         // Store or update the banner
         Banner::updateOrCreate(
@@ -51,7 +55,7 @@ class Index extends Component
                 'heading' => $this->heading,
                 'offer_text' => $this->offer_text,
                 'text' => $this->text,
-                'image' => $this->image ? $this->image->store('banners', 'public') : null,
+                'image' => $imagePath,
                 'product_id' => $this->product_id,
             ]
         );
@@ -72,7 +76,8 @@ class Index extends Component
         $this->offer_text = $banner->offer_text;
         $this->text = $banner->text;
         $this->product_id = $banner->product_id;
-        $this->imagePreview = $banner->image ? asset('storage/' . $banner->image) : null;
+        $this->imagePreview = $banner->image ? asset('uploads/' . $banner->image) : null;
+        $this->existingImage = $banner->image;
     }
 
     // Delete a banner

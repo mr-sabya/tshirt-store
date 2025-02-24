@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Backend\Design;
 
+use App\Helpers\ImageHelper;
 use App\Models\Design;
 use Livewire\Component;
 use Illuminate\Support\Str;
@@ -13,7 +14,7 @@ class Index extends Component
 {
     use WithFileUploads, WithPagination, WithoutUrlPagination;
 
-    public $name, $slug, $image, $isEdit = false, $designId;
+    public $name, $slug, $image, $isEdit = false, $designId, $currentImage;
     public $search = '', $sortBy = 'id', $sortDirection = 'asc';
 
     protected $rules = [
@@ -36,7 +37,9 @@ class Index extends Component
             'image' => 'required|image|max:2048',
         ]);
 
-        $imagePath = $this->image->store('designs', 'public'); // Store the image
+        $imagePath = $this->image
+            ? ImageHelper::uploadImage($this->image, 'designs', $this->currentImage)
+            : $this->currentImage; // Retain the existing image if no new image
 
         Design::create([
             'name' => $this->name,
@@ -54,7 +57,7 @@ class Index extends Component
         $this->designId = $design->id;
         $this->name = $design->name;
         $this->slug = $design->slug;
-        $this->image = $design->image;
+        $this->currentImage = $design->image;
         $this->isEdit = true;
     }
 
@@ -69,7 +72,9 @@ class Index extends Component
         $design = Design::find($this->designId);
 
         if ($this->image) {
-            $imagePath = $this->image->store('designs', 'public'); // Store the image
+            $imagePath = $this->image
+                ? ImageHelper::uploadImage($this->image, 'designs', $this->currentImage)
+                : $this->currentImage; // Retain the existing image if no new image
             $design->image = $imagePath;
         }
 

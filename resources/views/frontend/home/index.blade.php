@@ -10,13 +10,9 @@
 <livewire:frontend.home.products />
 <!-- ec Product tab Area End -->
 
-
-
 <!--  Category Section Start -->
-<livewire:frontend.home.categories />
+<livewire:frontend.category.index />
 <!-- Category Section End -->
-
-
 
 <!--  services Section Start -->
 <livewire:frontend.home.services />
