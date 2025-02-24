@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Order extends Model
 {
@@ -23,42 +24,48 @@ class Order extends Model
         'status',
     ];
 
-    // Generate unique order ID and invoice number before saving
     public static function boot()
     {
         parent::boot();
 
         static::creating(function ($order) {
-            // Generate unique order ID
+            // Generate unique order ID if not provided
             if (!$order->order_id) {
                 $order->order_id = 'ORD-' . strtoupper(Str::random(10));
             }
 
-            // Generate unique invoice number
+            // Generate unique invoice number if not provided
             if (!$order->invoice_no) {
                 $order->invoice_no = 'INV-' . strtoupper(Str::random(8));
             }
+        });
 
-            // Step 1: Create Invoice for the order
+        static::created(function ($order) {
+            // Step 1: Create Invoice for the order (now $order->id and $order->user_id exist)
             $invoice = Invoice::create([
                 'order_id' => $order->id,
-                'invoice_number' => 'INV-' . strtoupper(Str::random(8)), // Unique invoice number
-                'total_amount' => $order->total,
+                'user_id' => $order->user_id,  // Add user_id from the order
+                'invoice_no' => $order->invoice_no, // Generate unique invoice number
+                'amount' => $order->total,
                 'status' => 'unpaid', // Initially set as unpaid
-                'issued_at' => now(),
+                'due_date' => Carbon::now()->addDays(30), // Due date is 30 days from now
+                'paid_at' => null,  // Not yet paid
             ]);
 
             // Step 2: Automatically create Payment for the invoice
             Payment::create([
                 'invoice_id' => $invoice->id,
-                'payment_method' => $order->payment_method, // Payment method from order
-                'amount_paid' => 0,  // Amount paid is initially 0 (if not paid at the time of order)
-                'payment_status' => 'pending', // Initial payment status
+                'user_id' => $order->user_id,  // Add user_id from the order
+                'amount' => $order->total,  // Use the total amount from the order
+                'method' => $order->payment_method, // Payment method from order
+                'transaction_id' => null, // Transaction ID is null initially
+                'status' => 'pending', // Initial payment status
                 'paid_at' => null,  // Not yet paid
             ]);
-            
         });
     }
+
+
 
     // Relationship with User
     public function user()

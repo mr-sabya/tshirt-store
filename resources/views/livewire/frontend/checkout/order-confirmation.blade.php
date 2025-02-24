@@ -27,7 +27,7 @@
                                         </div>
                                         <div class="text-grey-m2">
                                             <div class="my-2">{{ $order->user['address'] }}</div>
-                                            <div class="my-2">{{ $order->user['city']['name'] }}</div>
+                                            <div class="my-2">{{ $order->user['city']['name'] ?? 'N/A' }}</div>
                                             <div class="my-2"><b class="text-600">Phone : </b>{{ $order->user['phone'] }}</div>
                                         </div>
                                     </div>

@@ -170,7 +170,7 @@
                                     <div class="ec-t-review-wrapper">
                                         <div class="ec-t-review-item">
                                             <div class="ec-t-review-avtar">
-                                                <img src="assets/images/review-image/1.jpg" alt="" />
+                                                <img src="{{ url('assets/frontend/images/review-image/1.jpg') }}" alt="" />
                                             </div>
                                             <div class="ec-t-review-content">
                                                 <div class="ec-t-review-top">
@@ -195,7 +195,7 @@
                                         </div>
                                         <div class="ec-t-review-item">
                                             <div class="ec-t-review-avtar">
-                                                <img src="assets/images/review-image/2.jpg" alt="" />
+                                                <img src="{{ url('assets/frontend/images/review-image/2.jpg') }}" alt="" />
                                             </div>
                                             <div class="ec-t-review-content">
                                                 <div class="ec-t-review-top">
@@ -260,7 +260,3 @@
     </div>
 </section>
 <!-- End Single product -->
-
-<script>
-
-</script>

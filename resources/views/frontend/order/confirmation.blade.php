@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- Ec breadcrumb start -->
-<livewire:frontend.components.breadcrumb />
+<livewire:frontend.components.breadcrumb title="Order Confirmation" />
 <!-- Ec breadcrumb end -->
 
 <livewire:frontend.checkout.order-confirmation :orderId="$order->id" />
