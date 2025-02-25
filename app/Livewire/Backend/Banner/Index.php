@@ -76,7 +76,7 @@ class Index extends Component
         $this->offer_text = $banner->offer_text;
         $this->text = $banner->text;
         $this->product_id = $banner->product_id;
-        $this->imagePreview = $banner->image ? asset('uploads/' . $banner->image) : null;
+        $this->imagePreview = $banner->image ? asset('storage/' . $banner->image) : null;
         $this->existingImage = $banner->image;
     }
 

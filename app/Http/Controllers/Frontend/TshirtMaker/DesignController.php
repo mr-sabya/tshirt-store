@@ -23,6 +23,6 @@ class DesignController extends Controller
             $path = ImageHelper::uploadImage($request->file('uploadedDesign'), 'custom-designs');
         }
 
-        return response()->json(['url' => asset('uploads/' . $path)]);
+        return response()->json(['url' => asset('storage/' . $path)]);
     }
 }

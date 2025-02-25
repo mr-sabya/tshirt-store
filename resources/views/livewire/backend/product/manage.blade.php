@@ -134,7 +134,7 @@
                                 @if ($image)
                                 <img src="{{ $image->temporaryUrl() }}" style="height: 100%; width: auto;">
                                 @elseif($currentImage)
-                                <img src="{{ url('uploads/', $currentImage) }}" style="height: 100%; width: auto;">
+                                <img src="{{ url('storage/'. $currentImage) }}" style="height: 100%; width: auto;">
                                 @endif
                             </div>
                             <input type="file" id="image" class="form-control" wire:model="image">

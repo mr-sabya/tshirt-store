@@ -16,24 +16,24 @@ class ImageHelper
      * @param string|null $existingImagePath
      * @return string|null
      */
-    public static function uploadImage(?UploadedFile $image, $folder = 'uploads/images', $existingImagePath = null)
+    public static function uploadImage(?UploadedFile $image, $folder = 'images', $existingImagePath = null)
     {
         if (!$image) {
             return null;
         }
 
         // If there's an existing image, delete it
-        if ($existingImagePath && File::exists(public_path($existingImagePath))) {
-            File::delete(public_path($existingImagePath));
+        if ($existingImagePath && Storage::disk('public')->exists($existingImagePath)) {
+            Storage::disk('public')->delete($existingImagePath);
         }
 
         // Generate a unique file name
         $imageName = time() . '-' . $image->getClientOriginalName();
 
-        // Store the new image using storeAs with the custom disk (if you have it configured)
-        $image->storeAs($folder, $imageName, 'custom_public_path');
+        // Store the new image in the public disk
+        $path = $image->storeAs($folder, $imageName, 'public');
 
-        return "$folder/$imageName"; // Return relative path
+        return $path; // Return relative path
     }
 
     /**

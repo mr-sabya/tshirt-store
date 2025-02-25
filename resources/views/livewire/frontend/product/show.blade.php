@@ -12,24 +12,24 @@
                                 <div class="single-product-scroll">
                                     <div class="single-product-cover">
                                         <div class="single-slide zoom-image-hover">
-                                            <img class="img-responsive" src="{{ url('uploads/', $product->image) }}"
+                                            <img class="img-responsive" src="{{ url('storage/'. $product->image) }}"
                                                 alt="">
                                         </div>
                                         @foreach($product->variations as $variation)
                                         <div class="single-slide zoom-image-hover">
-                                            <img class="img-responsive" src="{{ url('uploads/', $variation->image) }}"
+                                            <img class="img-responsive" src="{{ url('storage/'. $variation->image) }}"
                                                 alt="">
                                         </div>
                                         @endforeach
                                     </div>
                                     <div class="single-nav-thumb">
                                         <div class="single-slide">
-                                            <img class="img-responsive" src="{{ url('uploads/', $product->image) }}"
+                                            <img class="img-responsive" src="{{ url('storage/'. $product->image) }}"
                                                 alt="">
                                         </div>
                                         @foreach($product->variations as $variation)
                                         <div class="single-slide">
-                                            <img class="img-responsive" src="{{ url('uploads/', $variation->image) }}"
+                                            <img class="img-responsive" src="{{ url('storage/'. $variation->image) }}"
                                                 alt="">
                                         </div>
                                         @endforeach

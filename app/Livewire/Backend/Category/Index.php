@@ -77,7 +77,7 @@ class Index extends Component
         $this->categoryId = $category->id;
         $this->name = $category->name;
         $this->slug = $category->slug;
-        $this->imagePreview = ImageHelper::getImageUrl('uploads/' . $category->image);
+        $this->imagePreview = ImageHelper::getImageUrl('storage/' . $category->image);
         $this->existingImage = $category->image;
     }
 

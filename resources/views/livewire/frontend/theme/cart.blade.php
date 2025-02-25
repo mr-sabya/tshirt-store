@@ -10,7 +10,7 @@
                 <li>
                     <!-- {{ $cart->variation['image'] }} -->
                     <a href="#" class="sidekka_pro_img">
-                        <img src="{{ url('uploads/', $cart->variation['image'] ?? $cart->product['image']) }}" alt="product">
+                        <img src="{{ url('storage/'. $cart->variation['image'] ?? $cart->product['image']) }}" alt="product">
                     </a>
                     <div class="ec-pro-content">
                         <a href="#" class="cart_pro_title">{{ $cart->product->name }}</a>

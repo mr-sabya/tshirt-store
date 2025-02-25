@@ -14,7 +14,7 @@ class Index extends Component
 {
     use WithFileUploads, WithPagination, WithoutUrlPagination;
 
-    public $name, $slug, $image, $isEdit = false, $designId, $currentImage;
+    public $name, $slug, $image, $isEdit = false, $designId, $currentImage = '';
     public $search = '', $sortBy = 'id', $sortDirection = 'asc';
 
     protected $rules = [
@@ -97,6 +97,8 @@ class Index extends Component
         $this->name = '';
         $this->slug = '';
         $this->image = '';
+        $this->currentImage = '';
+        $this->designId = '';
         $this->isEdit = false;
     }
 

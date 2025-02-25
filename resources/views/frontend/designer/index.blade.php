@@ -104,7 +104,7 @@
                     $('#tshirt-container').append(
                         `<div class="col-lg-4 tshirt-option-container">
                         <div class="tshirt-option" data-image="${tshirt.image}">
-                            <img src="uploads/${tshirt.image}" class="mb-2" alt="${tshirt.name}">
+                            <img src="storage/${tshirt.image}" class="mb-2" alt="${tshirt.name}">
                         </div>
                     </div>`
                     );
@@ -125,7 +125,7 @@
                     $('#design-container').append(
                         `<div class="col-lg-4 design-option-container">
                         <div class="design-option" data-image="${design.image}">
-                            <img src="uploads/${design.image}" class="mb-2" alt="${design.name}">
+                            <img src="storage/${design.image}" class="mb-2" alt="${design.name}">
                         </div>
                     </div>`
                     );
@@ -213,7 +213,7 @@
 
         // T-shirt Background Handler
         function setTshirtBackground(imageSrc) {
-            $('#tshirtBackground').attr('src', 'uploads/' + imageSrc).removeClass('d-none');
+            $('#tshirtBackground').attr('src', 'storage/' + imageSrc).removeClass('d-none');
         }
 
         // Design Preview Handler
@@ -221,7 +221,7 @@
             const designPreview = $('#designPreview');
             const zoomController = $('#zoomController');
 
-            designPreview.attr('src', 'uploads/' + imageSrc).removeClass('d-none');
+            designPreview.attr('src', 'storage/' + imageSrc).removeClass('d-none');
 
             zoomController.removeClass('d-none');
 

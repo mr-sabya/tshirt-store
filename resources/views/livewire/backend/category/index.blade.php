@@ -108,7 +108,7 @@
                                                 <p><strong>Slug:</strong> {{ $category->slug }}</p>
                                                 <p><strong>Image:</strong></p>
                                                 @if ($category->image)
-                                                <img src="{{ url('uploads/', $category->image) }}" alt="Category Image" style="height: 150px;">
+                                                <img src="{{ url('storage/'. $category->image) }}" alt="Category Image" style="height: 150px;">
                                                 @else
                                                 <p>No image uploaded.</p>
                                                 @endif
