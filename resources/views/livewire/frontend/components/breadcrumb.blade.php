@@ -1,4 +1,4 @@
-<div class="sticky-header-next-sec  ec-breadcrumb section-space-mb">
+<div class="sticky-header-next-sec  ec-breadcrumb section-space-mb {{ $addMargin == 0 ? 'mb-0' : '' }}">
     <div class="container">
         <div class="row">
             <div class="col-12">

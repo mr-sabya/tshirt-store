@@ -295,14 +295,184 @@
     align-items: center;
 }
 
-.empty-cart-page img{
+.empty-cart-page img {
     width: 300px;
 }
 
-.empty-cart-page p{
+.empty-cart-page p {
     font-size: 24px;
     font-weight: 600;
 }
 
 
 /* wishlist button */
+
+.hero{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.hero h1{
+    font-size: 2.5rem;
+    font-weight: 600;
+    /* margin-bottom: 20px; */
+    color: #EF7524;
+}
+
+
+/* text editor */
+.image-loader {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+.text-editor {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.text-editor .section-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.text-editor .form-group {
+    margin-bottom: 15px;
+}
+
+.text-editor label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.text-editor .input-text,
+.text-editor .select-box {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+    height: 40px;
+}
+
+.text-editor .input-text:focus,
+.text-editor .select-box:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+.text-editor .btn-action {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.text-editor .btn-action i {
+    margin-right: 6px;
+}
+
+.text-editor .btn-action:hover {
+    background-color: #0056b3;
+}
+
+.text-editor .btn-add {
+    background-color: #28a745;
+}
+
+.text-editor .btn-add:hover {
+    background-color: #218838;
+}
+
+.text-editor .btn-remove {
+    background-color: #dc3545;
+}
+
+.text-editor .btn-remove:hover {
+    background-color: #c82333;
+}
+
+.text-editor .alignment-btns {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Select Input Styling */
+/* Select Input Styling */
+.text-editor .select-box {
+    width: 100%;
+    padding: 7px 40px 7px 10px;
+    /* Add padding to make space for the arrow */
+    font-size: 1rem;
+    border: 1px solid #ddd !important;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #fff;
+    appearance: none;
+    /* Remove default select styling */
+    -webkit-appearance: none;
+    /* For Safari */
+    -moz-appearance: none;
+    /* For Firefox */
+    position: relative;
+    /* Allow positioning of the arrow */
+}
+
+/* Custom Arrow */
+.text-editor .select-box::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #333;
+    /* Arrow color */
+    pointer-events: none;
+    /* Prevent interaction with the arrow */
+}
+
+/* Add background color to the select element */
+.text-editor .select-box {
+    background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"%3E%3Cpolygon points="3,4 6,7 9,4" fill="%23333"/%3E%3C/svg%3E') no-repeat right 10px center;
+    background-size: 20px;
+}
+
+/* Option Styling */
+.text-editor .select-box option {
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #333;
+    border: none;
+}
+
+.text-editor .select-box option:hover {
+    background-color: #f0f0f0;
+    color: #007BFF;
+}

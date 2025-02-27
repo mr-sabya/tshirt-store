@@ -6,12 +6,14 @@ use Livewire\Component;
 
 class Breadcrumb extends Component
 {
-    public $title;
+    public $title, $addMargin;
 
-    public function mount($title)
+    public function mount($title, $addMargin = null)
     {
-        $this->title = $title;    
+        $this->title = $title;
+        $this->addMargin = $addMargin;
     }
+
 
     public function render()
     {

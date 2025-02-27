@@ -20,6 +20,8 @@
 
     <!-- css Icon Font -->
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/vendor/ecicons.min.css') }}" />
+    <!-- Include Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <!-- css All Plugins Files -->
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/plugins/animate.css') }}" />
@@ -70,7 +72,7 @@
     <livewire:frontend.theme.footer />
     <!-- Footer Area End -->
 
-    
+
 
     <!-- Footer navigation panel for responsive display -->
     <div class="ec-nav-toolbar">
@@ -123,7 +125,7 @@
 
     <script data-navigate-once src="https://cdn.jsdelivr.net/npm/interactjs@1.10.17/dist/interact.min.js"></script>
 
-    
+
 
 
 
