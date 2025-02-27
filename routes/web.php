@@ -44,7 +44,7 @@ Route::get('privacy-policy', [\App\Http\Controllers\Frontend\PageController::cla
 Route::get('reund-policy', [\App\Http\Controllers\Frontend\PageController::class, 'refundPage'])->name('page.refund');
 
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['web', 'auth'])->group(function () {
     Route::get('profile', [\App\Http\Controllers\Frontend\User\ProfileController::class, 'index'])->name('user.profile');
 
     // history
@@ -71,7 +71,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // login
     Route::get('/login', [\App\Http\Controllers\Backend\Auth\LoginController::class, 'login'])->name('login');
 
-    Route::middleware(['auth', 'admin'])->group(function () {
+    Route::middleware(['web', 'admin'])->group(function () {
         Route::get('/', [\App\Http\Controllers\Backend\HomeController::class, 'index'])->name('home');
 
         // category
