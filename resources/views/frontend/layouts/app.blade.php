@@ -123,6 +123,8 @@
     <script data-navigate-once src="{{ asset('assets/frontend/js/plugins/jquery.sticky-sidebar.js') }}"></script>
     <script data-navigate-once src="{{ asset('assets/frontend/js/plugins/nouislider.js') }}"></script>
 
+    <script data-navigate-once src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.2.4/fabric.min.js"></script>
+    
     <script data-navigate-once src="https://cdn.jsdelivr.net/npm/interactjs@1.10.17/dist/interact.min.js"></script>
 
 

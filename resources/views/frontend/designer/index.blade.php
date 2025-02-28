@@ -25,13 +25,13 @@
                         <!-- Select T-Shirt -->
                         <div class="form-group">
                             <h5>Select a T-Shirt</h5>
-                            <div class="row mb-3" id="tshirt-container"></div>
+                            <div class="t-shirts mb-3" id="tshirt-container"></div>
                         </div>
 
                         <!-- Select Design -->
                         <div class="form-group">
                             <h5>Select a Design</h5>
-                            <div class="row g-2 mb-3" id="design-container"></div>
+                            <div class="t-shirts g-2 mb-3" id="design-container"></div>
                         </div>
 
                         <!-- Upload Design -->
@@ -51,6 +51,7 @@
                 <!-- Canvas Area -->
                 <div class="col-md-5">
                     <canvas id="tshirtCanvas" width="550" height="650" style="border:1px solid #ccc;"></canvas>
+
                     <div class="mt-3">
                         <button onclick="deleteSelectedDesign()" class="btn btn-danger">Delete Selected Design</button>
                     </div>
@@ -144,7 +145,7 @@
 
 @section('scripts')
 
-<script data-navigate-once src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.2.4/fabric.min.js"></script>
+
 <script data-navigate-once>
     document.addEventListener('livewire:navigated', function() {
         let canvas = new fabric.Canvas('tshirtCanvas');
@@ -192,51 +193,54 @@
                 const fixedWidth = 250; // Width of the fixed area
                 const scaleX = fixedWidth / img.width;
 
-                // Ensure fixed area is created
-
-
                 // Add the fixed area to the canvas
                 createFixedArea();
 
-                // Set image properties
+                // Set image properties, scaling it based on the fixed width
                 img.set({
-                    left: 145,
-                    top: 100,
-                    scaleX: scaleX,
-                    scaleY: scaleX,
-                    selectable: true,
-                    hasControls: true,
-                    lockUniScaling: true,
-                    evented: true
+                    left: 145, // Initial position inside the fixed area (X position)
+                    top: 100, // Initial position inside the fixed area (Y position)
+                    scaleX: scaleX, // Scale width to fit the fixed width
+                    scaleY: scaleX, // Scale height proportionally
+                    selectable: true, // Allow the design to be moved and resized
+                    hasControls: true, // Show resize controls
+                    lockUniScaling: true, // Ensure uniform scaling (same aspect ratio)
+                    evented: true // Enable events so it can be interacted with
                 });
 
-                // Prevent image from moving outside the fixed area
-                img.on('moving', function() {
-                    const fixedBounds = window.fixedArea.getBoundingRect();
+                // Prevent image from moving outside the fixed area when dragging
+                img.on('moving', function(e) {
+                    const fixedBounds = fixedArea.getBoundingRect();
                     const imgBounds = img.getBoundingRect();
 
+                    // Smoothly restrict the image's movement to the fixed area with easing
                     if (imgBounds.left < fixedBounds.left) {
-                        img.set({
-                            left: fixedBounds.left
+                        img.animate('left', fixedBounds.left, {
+                            duration: 100,
+                            easing: fabric.util.ease.easeOutQuad
                         });
                     }
                     if (imgBounds.top < fixedBounds.top) {
-                        img.set({
-                            top: fixedBounds.top
+                        img.animate('top', fixedBounds.top, {
+                            duration: 100,
+                            easing: fabric.util.ease.easeOutQuad
                         });
                     }
                     if (imgBounds.left + imgBounds.width > fixedBounds.left + fixedBounds.width) {
-                        img.set({
-                            left: fixedBounds.left + fixedBounds.width - imgBounds.width
+                        img.animate('left', fixedBounds.left + fixedBounds.width - imgBounds.width, {
+                            duration: 100,
+                            easing: fabric.util.ease.easeOutQuad
                         });
                     }
                     if (imgBounds.top + imgBounds.height > fixedBounds.top + fixedBounds.height) {
-                        img.set({
-                            top: fixedBounds.top + fixedBounds.height - imgBounds.height
+                        img.animate('top', fixedBounds.top + fixedBounds.height - imgBounds.height, {
+                            duration: 100,
+                            easing: fabric.util.ease.easeOutQuad
                         });
                     }
                 });
 
+                // Add the design image to the canvas
                 canvas.add(img);
                 canvas.renderAll();
             });
@@ -248,7 +252,7 @@
             $.get('/api/tshirts', function(tshirts) {
                 tshirts.forEach((tshirt, index) => {
                     $('#tshirt-container').append(`
-                    <div class="col-lg-4 tshirt-option-container">
+                    <div class="single-tshirt tshirt-option-container">
                         <div class="tshirt-option" onclick="setTshirtBackground('${tshirt.image}')">
                             <img src="storage/${tshirt.image}" class="mb-2" alt="${tshirt.name}">
                         </div>
@@ -269,7 +273,7 @@
             $.get('/api/designs', function(designs) {
                 designs.forEach((design, index) => {
                     $('#design-container').append(`
-                    <div class="col-lg-4 design-option-container">
+                    <div class="single-tshirt design-option-container">
                         <div class="design-option" onclick="setDesignPreview('${design.image}')">
                             <img src="storage/${design.image}" class="mb-2" alt="${design.name}">
                         </div>
@@ -447,6 +451,7 @@
         // Load T-shirts and designs when the page is loaded
         loadTShirts();
         loadDesigns();
+
     });
 </script>
 
