@@ -144,313 +144,307 @@
 
 @section('scripts')
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.2.4/fabric.min.js"></script>
-<script>
-    let canvas = new fabric.Canvas('tshirtCanvas');
-    let currentText = null;
+<script data-navigate-once src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.2.4/fabric.min.js"></script>
+<script data-navigate-once>
+    document.addEventListener('livewire:navigated', function() {
+        let canvas = new fabric.Canvas('tshirtCanvas');
 
-    // Define the fixed area (clipping region)
-    // Hide fixed area initially
-    let fixedArea = null;
-
-    // Function to create the fixed area
-    function createFixedArea() {
-        if (!fixedArea) {
-            fixedArea = new fabric.Rect({
-                left: 145,
-                top: 100,
-                width: 250,
-                height: 400,
-                fill: 'transparent',
-                stroke: 'rgba(255, 0, 0, 0.5)', // Visualize the fixed area
-                strokeWidth: 2,
-                selectable: false, // Prevent the fixed area from being moved
-                evented: false // Prevent the fixed area from receiving events
-            });
-
-            // Add fixed area to the canvas
-            canvas.add(fixedArea);
+        if (!window.canvas) { // Check if canvas is already initialized
+            window.canvas = new fabric.Canvas('tshirtCanvas'); // Assign to window to keep reference
         }
-    }
 
-    // Add the fixed area to the canvas
+        let currentText = null;
+        let fixedArea = null;
+
+        // Function to create the fixed area
+        window.createFixedArea = function() {
+            if (!fixedArea) {
+                fixedArea = new fabric.Rect({
+                    left: 145,
+                    top: 100,
+                    width: 250,
+                    height: 400,
+                    fill: 'transparent',
+                    stroke: 'rgba(255, 0, 0, 0.5)', // Visualize the fixed area
+                    strokeWidth: 2,
+                    selectable: false,
+                    evented: false
+                });
+                canvas.add(fixedArea);
+            }
+        }
+
+        // Function to set the T-shirt background
+        window.setTshirtBackground = function(imageSrc) {
+            fabric.Image.fromURL('storage/' + imageSrc, function(img) {
+                canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
+                    scaleX: canvas.width / img.width,
+                    scaleY: canvas.height / img.height
+                });
+            });
+        };
 
 
-    // Set the clipping region for the canvas
-    // canvas.clipPath = fixedArea;
+        // Function to set the design preview on the canvas
+        window.setDesignPreview = function(imageSrc) {
+            fabric.Image.fromURL('storage/' + imageSrc, function(img) {
+                // Set the initial position and fixed width for the image
+                const fixedWidth = 250; // Width of the fixed area
+                const scaleX = fixedWidth / img.width;
 
-    function loadTShirts() {
-        $.get('/api/tshirts', function(tshirts) {
-            tshirts.forEach((tshirt, index) => {
-                $('#tshirt-container').append(`
+                // Ensure fixed area is created
+
+
+                // Add the fixed area to the canvas
+                createFixedArea();
+
+                // Set image properties
+                img.set({
+                    left: 145,
+                    top: 100,
+                    scaleX: scaleX,
+                    scaleY: scaleX,
+                    selectable: true,
+                    hasControls: true,
+                    lockUniScaling: true,
+                    evented: true
+                });
+
+                // Prevent image from moving outside the fixed area
+                img.on('moving', function() {
+                    const fixedBounds = window.fixedArea.getBoundingRect();
+                    const imgBounds = img.getBoundingRect();
+
+                    if (imgBounds.left < fixedBounds.left) {
+                        img.set({
+                            left: fixedBounds.left
+                        });
+                    }
+                    if (imgBounds.top < fixedBounds.top) {
+                        img.set({
+                            top: fixedBounds.top
+                        });
+                    }
+                    if (imgBounds.left + imgBounds.width > fixedBounds.left + fixedBounds.width) {
+                        img.set({
+                            left: fixedBounds.left + fixedBounds.width - imgBounds.width
+                        });
+                    }
+                    if (imgBounds.top + imgBounds.height > fixedBounds.top + fixedBounds.height) {
+                        img.set({
+                            top: fixedBounds.top + fixedBounds.height - imgBounds.height
+                        });
+                    }
+                });
+
+                canvas.add(img);
+                canvas.renderAll();
+            });
+        };
+
+
+        // Load T-shirts from the server
+        function loadTShirts() {
+            $.get('/api/tshirts', function(tshirts) {
+                tshirts.forEach((tshirt, index) => {
+                    $('#tshirt-container').append(`
                     <div class="col-lg-4 tshirt-option-container">
                         <div class="tshirt-option" onclick="setTshirtBackground('${tshirt.image}')">
                             <img src="storage/${tshirt.image}" class="mb-2" alt="${tshirt.name}">
                         </div>
                     </div>
                 `);
+                });
+
+
+                // Add the first T-shirt to the canvas after loading the T-shirt options
+                if (tshirts.length > 0) {
+                    setTshirtBackground(tshirts[0].image); // Set the first T-shirt as the background
+                }
             });
+        }
 
-
-            // Add the first T-shirt to the canvas after loading the T-shirt options
-            if (tshirts.length > 0) {
-                setTshirtBackground(tshirts[0].image); // Set the first T-shirt as the background
-            }
-        });
-    }
-
-    function loadDesigns() {
-        $.get('/api/designs', function(designs) {
-            designs.forEach((design, index) => {
-                $('#design-container').append(`
+        // Function to load designs from the server
+        function loadDesigns() {
+            $.get('/api/designs', function(designs) {
+                designs.forEach((design, index) => {
+                    $('#design-container').append(`
                     <div class="col-lg-4 design-option-container">
                         <div class="design-option" onclick="setDesignPreview('${design.image}')">
                             <img src="storage/${design.image}" class="mb-2" alt="${design.name}">
                         </div>
                     </div>
                 `);
+                });
+
+
+                // Add the first design to the canvas after loading the design options
+                if (designs.length > 0) {
+                    setDesignPreview(designs[0].image); // Set the first design as the preview on the canvas
+                }
             });
+        }
 
-
-            // Add the first design to the canvas after loading the design options
-            if (designs.length > 0) {
-                setDesignPreview(designs[0].image); // Set the first design as the preview on the canvas
+        // Function to delete the selected design from the canvas
+        window.deleteSelectedDesign = function() {
+            if (!window.canvas) {
+                console.error("Canvas is not initialized.");
+                return;
             }
-        });
-    }
+            const selectedObject = canvas.getActiveObject();
+            if (selectedObject) {
+                // Check if the selected object is an image
+                if (selectedObject.type === 'image') {
+                    canvas.remove(selectedObject);
+                    canvas.renderAll();
+                } else {
+                    alert("Please select an image to delete.");
+                }
+            } else {
+                alert("No design selected.");
+            }
+        }
 
-    function setTshirtBackground(imageSrc) {
-        fabric.Image.fromURL('storage/' + imageSrc, function(img) {
-            canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
-                scaleX: canvas.width / img.width,
-                scaleY: canvas.height / img.height
+
+        // Function to remove the image from the canvas
+        window.removeImage = function() {
+            canvas.getObjects().forEach(obj => {
+                if (obj.type === 'image') {
+                    canvas.remove(obj);
+                }
             });
-        });
-    }
+            canvas.renderAll();
+        }
 
 
-    function setDesignPreview(imageSrc) {
-        fabric.Image.fromURL('storage/' + imageSrc, function(img) {
-            // Set the initial position and fixed width for the image
-            const fixedWidth = 250; // Width of the fixed area
-            const scaleX = fixedWidth / img.width;
+        // Function to reset the canvas
+        window.resetCanvas = function() {
+            canvas.clear();
+            canvas.setBackgroundImage(null, canvas.renderAll.bind(canvas));
+            // Re-add the fixed area after clearing the canvas
+            canvas.add(fixedArea);
+            // canvas.clipPath = fixedArea;
+        }
 
-            // Add the fixed area to the canvas
+
+        // Function to add text to the canvas
+        window.addText = function() {
+            let textValue = document.getElementById("textInput").value;
+            let fontSize = document.getElementById("fontSize").value;
+            let fontFamily = document.getElementById("fontSelect").value;
+            let textColor = document.getElementById("textColor").value;
+
+            if (!textValue.trim()) return; // Don't add empty text
+
+            let text = new fabric.Text(textValue, {
+                fontSize: parseInt(fontSize),
+                fontFamily: fontFamily,
+                fill: textColor,
+                fontWeight: 'normal',
+                textAlign: 'left',
+                selectable: true
+            });
+
+            let leftPosition = (canvas.width - text.width) / 2;
+
+            text.set({
+                left: leftPosition, // Set the left position to the calculated value
+                top: 100 // You can adjust the vertical position as needed
+            });
+
+            canvas.add(text);
+
+            // Show fixed area after adding text
             createFixedArea();
 
-            // Set image properties, scaling it based on the fixed width
-            img.set({
-                left: 145, // Initial position inside the fixed area (X position)
-                top: 100, // Initial position inside the fixed area (Y position)
-                scaleX: scaleX, // Scale width to fit the fixed width
-                scaleY: scaleX, // Scale height proportionally
-                selectable: true, // Allow the design to be moved and resized
-                hasControls: true, // Show resize controls
-                lockUniScaling: true, // Ensure uniform scaling (same aspect ratio)
-                evented: true // Enable events so it can be interacted with
-            });
-
-            // Prevent image from moving outside the fixed area when dragging
-            img.on('moving', function(e) {
+            // Constrain the text movement within the fixed area
+            text.on('moving', function(e) {
                 const fixedBounds = fixedArea.getBoundingRect();
-                const imgBounds = img.getBoundingRect();
+                const textBounds = text.getBoundingRect();
 
-                // Smoothly restrict the image's movement to the fixed area with easing
-                if (imgBounds.left < fixedBounds.left) {
-                    img.animate('left', fixedBounds.left, {
+                // Smoothly restrict the text's movement to the fixed area with easing
+                if (textBounds.left < fixedBounds.left) {
+                    text.animate('left', fixedBounds.left, {
                         duration: 100,
                         easing: fabric.util.ease.easeOutQuad
                     });
                 }
-                if (imgBounds.top < fixedBounds.top) {
-                    img.animate('top', fixedBounds.top, {
+                if (textBounds.top < fixedBounds.top) {
+                    text.animate('top', fixedBounds.top, {
                         duration: 100,
                         easing: fabric.util.ease.easeOutQuad
                     });
                 }
-                if (imgBounds.left + imgBounds.width > fixedBounds.left + fixedBounds.width) {
-                    img.animate('left', fixedBounds.left + fixedBounds.width - imgBounds.width, {
+                if (textBounds.left + textBounds.width > fixedBounds.left + fixedBounds.width) {
+                    text.animate('left', fixedBounds.left + fixedBounds.width - textBounds.width, {
                         duration: 100,
                         easing: fabric.util.ease.easeOutQuad
                     });
                 }
-                if (imgBounds.top + imgBounds.height > fixedBounds.top + fixedBounds.height) {
-                    img.animate('top', fixedBounds.top + fixedBounds.height - imgBounds.height, {
+                if (textBounds.top + textBounds.height > fixedBounds.top + fixedBounds.height) {
+                    text.animate('top', fixedBounds.top + fixedBounds.height - textBounds.height, {
                         duration: 100,
                         easing: fabric.util.ease.easeOutQuad
                     });
                 }
             });
 
-            // Add the design image to the canvas
-            canvas.add(img);
+
+            currentText = text;
             canvas.renderAll();
-        });
-    }
+        }
 
+        // Real-time update of text on canvas
+        window.updateTextOnCanvas = function() {
+            if (!currentText) return; // No text to update
 
+            // Update the text properties from the form
+            let textValue = document.getElementById("textInput").value;
+            let fontSize = document.getElementById("fontSize").value;
+            let fontFamily = document.getElementById("fontSelect").value;
+            let textColor = document.getElementById("textColor").value;
 
-    function deleteSelectedDesign() {
-        const selectedObject = canvas.getActiveObject();
-        if (selectedObject) {
-            // Check if the selected object is an image
-            if (selectedObject.type === 'image') {
-                canvas.remove(selectedObject);
+            currentText.set({
+                text: textValue,
+                fontSize: parseInt(fontSize),
+                fontFamily: fontFamily,
+                fill: textColor
+            });
+
+            canvas.renderAll();
+        }
+
+        // Toggle bold style for text
+        window.toggleBold = function() {
+            if (currentText) {
+                currentText.set({
+                    fontWeight: currentText.fontWeight === 'bold' ? 'normal' : 'bold'
+                });
+                document.getElementById('boldBtn').classList.toggle('btn-primary');
                 canvas.renderAll();
-            } else {
-                alert("Please select an image to delete.");
             }
-        } else {
-            alert("No design selected.");
         }
-    }
 
-
-
-    function removeImage() {
-        canvas.getObjects().forEach(obj => {
-            if (obj.type === 'image') {
-                canvas.remove(obj);
-            }
-        });
-        canvas.renderAll();
-    }
-
-
-    function resetCanvas() {
-        canvas.clear();
-        canvas.setBackgroundImage(null, canvas.renderAll.bind(canvas));
-        // Re-add the fixed area after clearing the canvas
-        canvas.add(fixedArea);
-        // canvas.clipPath = fixedArea;
-    }
-
-
-    // add text
-
-    // Function to create a new text object and add to the canvas
-    function addText() {
-        let textValue = document.getElementById("textInput").value;
-        let fontSize = document.getElementById("fontSize").value;
-        let fontFamily = document.getElementById("fontSelect").value;
-        let textColor = document.getElementById("textColor").value;
-
-        if (!textValue.trim()) return; // Don't add empty text
-
-        let text = new fabric.Text(textValue, {
-            fontSize: parseInt(fontSize),
-            fontFamily: fontFamily,
-            fill: textColor,
-            fontWeight: 'normal',
-            textAlign: 'left',
-            selectable: true
-        });
-
-        let leftPosition = (canvas.width - text.width) / 2;
-
-        text.set({
-            left: leftPosition, // Set the left position to the calculated value
-            top: 100 // You can adjust the vertical position as needed
-        });
-
-        canvas.add(text);
-
-        // Show fixed area after adding text
-        createFixedArea();
-
-        // Constrain the text movement within the fixed area
-        // Constrain the text movement within the fixed area
-        text.on('moving', function(e) {
-            const fixedBounds = fixedArea.getBoundingRect();
-            const textBounds = text.getBoundingRect();
-
-            // Smoothly restrict the text's movement to the fixed area with easing
-            if (textBounds.left < fixedBounds.left) {
-                text.animate('left', fixedBounds.left, {
-                    duration: 100,
-                    easing: fabric.util.ease.easeOutQuad
+        // Set text alignment (left, center, right)
+        window.setTextAlign = function(align) {
+            if (currentText) {
+                currentText.set({
+                    textAlign: align
                 });
+                canvas.renderAll();
             }
-            if (textBounds.top < fixedBounds.top) {
-                text.animate('top', fixedBounds.top, {
-                    duration: 100,
-                    easing: fabric.util.ease.easeOutQuad
-                });
-            }
-            if (textBounds.left + textBounds.width > fixedBounds.left + fixedBounds.width) {
-                text.animate('left', fixedBounds.left + fixedBounds.width - textBounds.width, {
-                    duration: 100,
-                    easing: fabric.util.ease.easeOutQuad
-                });
-            }
-            if (textBounds.top + textBounds.height > fixedBounds.top + fixedBounds.height) {
-                text.animate('top', fixedBounds.top + fixedBounds.height - textBounds.height, {
-                    duration: 100,
-                    easing: fabric.util.ease.easeOutQuad
-                });
-            }
-        });
-
-
-        currentText = text;
-        canvas.renderAll();
-    }
-
-    // Real-time update of text on canvas
-    function updateTextOnCanvas() {
-        if (!currentText) return; // No text to update
-
-        // Update the text properties from the form
-        let textValue = document.getElementById("textInput").value;
-        let fontSize = document.getElementById("fontSize").value;
-        let fontFamily = document.getElementById("fontSelect").value;
-        let textColor = document.getElementById("textColor").value;
-
-        currentText.set({
-            text: textValue,
-            fontSize: parseInt(fontSize),
-            fontFamily: fontFamily,
-            fill: textColor
-        });
-
-        canvas.renderAll();
-    }
-
-    // Toggle bold style for text
-    function toggleBold() {
-        if (currentText) {
-            currentText.set({
-                fontWeight: currentText.fontWeight === 'bold' ? 'normal' : 'bold'
-            });
-            document.getElementById('boldBtn').classList.toggle('btn-primary');
-            canvas.renderAll();
         }
-    }
 
-    // Set text alignment (left, center, right)
-    function setTextAlign(align) {
-        if (currentText) {
-            currentText.set({
-                textAlign: align
-            });
-            canvas.renderAll();
+        // Function to remove text from the canvas
+        window.removeText = function() {
+            if (currentText) {
+                canvas.remove(currentText);
+                currentText = null;
+            }
         }
-    }
 
-    // Function to remove text from the canvas
-    function removeText() {
-        if (currentText) {
-            canvas.remove(currentText);
-            currentText = null;
-        }
-    }
 
-    // Add initial text when ready
-    document.addEventListener('DOMContentLoaded', function() {
-        addText(); // This will add a default text when the page loads
-    });
-
-    $(document).ready(function() {
+        // Load T-shirts and designs when the page is loaded
         loadTShirts();
         loadDesigns();
     });
