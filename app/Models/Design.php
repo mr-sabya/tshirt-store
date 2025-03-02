@@ -15,6 +15,7 @@ class Design extends Model
      * @var array
      */
     protected $fillable = [
+        'user_id',
         'name',
         'slug',
         'image',

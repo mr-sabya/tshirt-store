@@ -62,6 +62,9 @@ Route::middleware(['web', 'auth'])->group(function () {
     Route::get('order/confirmation/{orderId}', [\App\Http\Controllers\Frontend\OrderConfirmationController::class, 'show'])->name('order.confirmation');
 
     Route::get('order/track/{orderId}', [\App\Http\Controllers\Frontend\User\OrderController::class, 'track'])->name('order.track');
+
+    // desgin
+    Route::get('designs', [\App\Http\Controllers\Frontend\User\DesignController::class, 'index'])->name('user.design.index');
 });
 
 
@@ -123,5 +126,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // purchase orders
         Route::get('/purchase-orders', [\App\Http\Controllers\Backend\PurchaseController::class, 'index'])->name('purchase.index');
+
+        // notifications
+        Route::get('/notifications/{id}', [\App\Http\Controllers\Backend\NotificationController::class, 'show'])->name('notification.show');
+
+        // users
+        Route::get('/users', [\App\Http\Controllers\Backend\UserController::class, 'index'])->name('user.index');
+        Route::get('/users/{userId}', [\App\Http\Controllers\Backend\UserController::class, 'show'])->name('user.show');
     });
 });
