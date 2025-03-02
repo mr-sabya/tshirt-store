@@ -120,5 +120,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // call history
         Route::get('/call-history/{leadId}', [\App\Http\Controllers\Backend\CallHistoryController::class, 'index'])->name('call-history.index');
+
+        // purchase orders
+        Route::get('/purchase-orders', [\App\Http\Controllers\Backend\PurchaseController::class, 'index'])->name('purchase.index');
     });
 });

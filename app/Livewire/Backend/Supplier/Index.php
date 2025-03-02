@@ -38,7 +38,7 @@ class Index extends Component
         $this->isEdit = false;
     }
 
-    public function store()
+    public function save()
     {
         $this->validate();
 

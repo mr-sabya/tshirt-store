@@ -82,6 +82,12 @@
                     :label="'Leads'"
                     :hasSubMenu="false" />
 
+                <livewire:backend.theme.menu-item
+                    :url="'admin.purchase.index'"
+                    :icon="'ri-dashboard-line'"
+                    :label="'Purchase Orders'"
+                    :hasSubMenu="false" />
+
 
             </ul>
         </div>
