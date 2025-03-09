@@ -40,6 +40,9 @@ class Product extends Component
 
     public function addToCart()
     {
+        if (!auth()->check()) {
+            return $this->redirect(route('login'), navigate:true);
+        }
         // dd($this->selectedVariationId);
         $product = ModelsProduct::find($this->productId);
 
@@ -62,6 +65,17 @@ class Product extends Component
 
             // Emit event to update the cart count in the parent component
             $this->dispatch('cartUpdated');
+
+            // Dispatch the Facebook Pixel event for "AddToCart"
+            $this->dispatch('pixelEvent', [
+                'event' => 'AddToCart',
+                'data' => [
+                    'content_ids' => [$this->productId],
+                    'content_type' => 'product',
+                    'value' => $product->price * $this->quantity, // Assuming you have a price field in the product model
+                    'currency' => 'USD', // Update the currency if needed
+                ]
+            ]);
         } else {
             session()->flash('error', 'Please select color and size.');
         }
@@ -105,8 +119,8 @@ class Product extends Component
         $variation = ProductVariation::find($variationId);
         if ($variation) {
             $this->selectedVariationId = $variationId;
-            $this->data_image = url('storage/'. $variation->image);
-            $this->data_image_hover = url('storage/'. $variation->image);  // You can change this to another hover image URL if needed.
+            $this->data_image = url('storage/' . $variation->image);
+            $this->data_image_hover = url('storage/' . $variation->image);  // You can change this to another hover image URL if needed.
         }
     }
 

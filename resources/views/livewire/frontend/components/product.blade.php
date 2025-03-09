@@ -88,4 +88,13 @@
 </div>
 
 <script>
+    document.addEventListener('livewire:init', () => {
+        if (!window.pixelEventListenerAdded) {
+            window.pixelEventListenerAdded = true; // Flag to prevent adding it again
+            Livewire.on('pixelEvent', (data) => {
+                console.log('Pixel Event:', data); // Check the event data
+                fbq('track', data.event, data.data);
+            });
+        }
+    });
 </script>

@@ -41,6 +41,33 @@
     <!-- Background css -->
     <link rel="stylesheet" id="bg-switcher-css" href="{{ asset('assets/frontend/css/backgrounds/bg-4.css') }}" />
 
+    <!-- Meta Pixel Code -->
+    <script>
+        ! function(f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function() {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1096595042239828');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1096595042239828&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
+
     @livewireStyles
 </head>
 
@@ -124,7 +151,7 @@
     <script data-navigate-once src="{{ asset('assets/frontend/js/plugins/nouislider.js') }}"></script>
 
     <script data-navigate-once src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.2.4/fabric.min.js"></script>
-    
+
     <script data-navigate-once src="https://cdn.jsdelivr.net/npm/interactjs@1.10.17/dist/interact.min.js"></script>
 
 

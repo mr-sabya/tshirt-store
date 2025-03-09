@@ -14,6 +14,7 @@ class Login extends Component
     // Handle the login logic
     public function login()
     {
+        
         // Validate the login data
         $this->validate([
             'phone' => 'required',
