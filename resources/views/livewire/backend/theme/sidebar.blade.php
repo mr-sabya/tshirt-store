@@ -87,10 +87,17 @@
                     :icon="'ri-dashboard-line'"
                     :label="'Purchase Orders'"
                     :hasSubMenu="false" />
+
                 <livewire:backend.theme.menu-item
                     :url="'admin.user.index'"
                     :icon="'ri-dashboard-line'"
                     :label="'Users'"
+                    :hasSubMenu="false" />
+
+                <livewire:backend.theme.menu-item
+                    :url="'admin.barcode.index'"
+                    :icon="'ri-dashboard-line'"
+                    :label="'Bar Codes'"
                     :hasSubMenu="false" />
 
 

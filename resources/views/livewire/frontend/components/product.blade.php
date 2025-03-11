@@ -16,7 +16,7 @@
                     @endif
                 </a>
 
-                <div class="barcode">
+                <div class="barcode d-none">
                     <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($product->sku, 'C128') }}" alt="barcode" />
                     <small>{{ $product->sku }}</small>
                 </div>

@@ -133,5 +133,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // users
         Route::get('/users', [\App\Http\Controllers\Backend\UserController::class, 'index'])->name('user.index');
         Route::get('/users/{userId}', [\App\Http\Controllers\Backend\UserController::class, 'show'])->name('user.show');
+
+        // barcodes
+        Route::get('/barcodes', [\App\Http\Controllers\Backend\BarCodeController::class, 'index'])->name('barcode.index');
     });
 });
