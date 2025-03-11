@@ -16,6 +16,11 @@
                     @endif
                 </a>
 
+                <div class="barcode">
+                    <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($product->sku, 'C128') }}" alt="barcode" />
+                    <small>{{ $product->sku }}</small>
+                </div>
+
 
                 @if($product->discount != null)
                 <span class="percentage">{{ (int)$product->discount }}%</span>
@@ -51,8 +56,8 @@
             <h5 class="ec-pro-title"><a href="{{ route('product.show', $product->slug) }}" wire:navigate>{{ $product->name }}</a></h5>
             <div class="ec-pro-list-desc">{{ $product->short_desc }}</div>
             <span class="ec-price">
-                <span class="new-price">৳{{ $product->regular_price }}</span>
-                <span class="old-price">৳{{ $product->price }}</span>
+                <span class="new-price">৳{{ $product->price }}</span>
+                <span class="old-price">৳{{ $product->regular_price }}</span>
             </span>
             <div class="ec-pro-option">
                 <div class="ec-pro-color">

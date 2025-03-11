@@ -22,6 +22,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Bar Code</th>
                         <th>Image</th>
                         <th>
                             <a href="#" wire:click.prevent="toggleSort('name')">
@@ -41,6 +42,12 @@
                     @forelse ($products as $product)
                     <tr>
                         <th class="align-middle">{{ $loop->iteration }}</th>
+                        <th class="align-middle">
+                            <div style="display: flex; flex-direction: column;">
+                                <img style="width: 120px;" src="data:image/png;base64,{{ DNS1D::getBarcodePNG($product->sku, 'C128') }}" alt="barcode" />
+                                <small style="font-size: 9px;">{{ $product->sku }}</small>
+                            </div>
+                        </th>
                         <td class="align-middle"><img src="{{ url('storage/'. $product->image) }}" alt="" style="width: 50px;"></td>
                         <td class="align-middle">{{ $product->name }}</td>
                         <td class="align-middle">{{ $product->price }}</td>
