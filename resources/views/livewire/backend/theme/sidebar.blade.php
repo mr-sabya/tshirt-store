@@ -16,10 +16,15 @@
                     :hasSubMenu="false" />
 
                 <livewire:backend.theme.menu-item
-                    :url="'admin.banner.index'"
-                    :icon="'ri-dashboard-line'"
-                    :label="'Banners'"
-                    :hasSubMenu="false" />
+                    :url="''"
+                    :icon="'ri-layout-3-line'"
+                    :label="'Home Page'"
+                    :hasSubMenu="true"
+                    :subMenuItems="
+                    [
+                        ['url' => 'admin.banner.index', 'label' => 'Banner'],
+                        ['url' => 'admin.service.index', 'label' => 'Services'],
+                    ]" />
 
 
 
@@ -36,6 +41,9 @@
                         ['url' => 'admin.design.index', 'label' => 'Design'],
                         ['url' => 'admin.tshirt.index', 'label' => 'T-Shirt'],
                     ]" />
+
+
+
 
 
                 <livewire:backend.theme.menu-item
