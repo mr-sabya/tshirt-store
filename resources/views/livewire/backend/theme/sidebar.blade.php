@@ -35,6 +35,7 @@
                     [
                         ['url' => 'admin.faq.index', 'label' => 'Faq'],
                         ['url' => 'admin.page.index', 'label' => 'Pages'],
+                        ['url' => 'admin.setting.index', 'label' => 'Site Setting'],
                     ]" />
 
 

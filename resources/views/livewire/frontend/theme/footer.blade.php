@@ -5,17 +5,25 @@
                 <div class="row">
                     <div class="col-sm-12 col-lg-3 ec-footer-contact">
                         <div class="ec-footer-widget">
-                            <div class="ec-footer-logo"><a href="#"><img src="{{ url('assets/frontend/images/logo/footer-logo.png') }}"
-                                        alt=""><img class="dark-footer-logo" src="{{ url('assets/frontend/images/logo/dark-logo.png') }}"
-                                        alt="Site Logo" style="display: none;" /></a></div>
+                            <div class="ec-footer-logo">
+                                <a href="#">
+                                    @if($settings['footer_logo'])
+                                    <img src="{{ asset('storage/' . $settings['footer_logo']) }}" alt="">
+                                    @else
+                                    <img src="{{ url('assets/frontend/images/logo/footer-logo.png') }}"
+                                        alt="">
+                                    @endif
+                                    <!-- <img class="dark-footer-logo" src="{{ url('assets/frontend/images/logo/dark-logo.png') }}"
+                                        alt="Site Logo" style="display: none;" /> -->
+                                </a>
+                            </div>
                             <h4 class="ec-footer-heading">Contact us</h4>
                             <div class="ec-footer-links">
                                 <ul class="align-items-center">
-                                    <li class="ec-footer-link">71 Pilgrim Avenue Chevy Chase, east california.</li>
-                                    <li class="ec-footer-link"><span>Call Us:</span><a href="tel:+440123456789">+44
-                                            0123 456 789</a></li>
+                                    <li class="ec-footer-link">{{ $settings['address']}}</li>
+                                    <li class="ec-footer-link"><span>Call Us:</span><a href="tel:{{ $settings['phone'] }}">{{ $settings['phone'] }}</a></li>
                                     <li class="ec-footer-link"><span>Email:</span><a
-                                            href="mailto:example@ec-email.com">+example@ec-email.com</a></li>
+                                            href="mailto:{{ $settings['email'] }}">{{ $settings['email'] }}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -79,8 +87,7 @@
                             <h4 class="ec-footer-heading">Newsletter</h4>
                             <div class="ec-footer-links">
                                 <ul class="align-items-center">
-                                    <li class="ec-footer-link">Get instant updates about our new products and
-                                        special promos!</li>
+                                    <li class="ec-footer-link">{{ $settings['newsletter_text'] }}</li>
                                 </ul>
                                 <div class="ec-subscribe-form">
                                     <form id="ec-newsletter-form" name="ec-newsletter-form" method="post"
@@ -107,24 +114,14 @@
                     <div class="col text-left footer-bottom-left">
                         <div class="footer-bottom-social">
                             <span class="social-text text-upper">Follow us on:</span>
-                            <ul class="mb-0">
-                                <li class="list-inline-item"><a class="hdr-facebook" href="#"><i
-                                            class="ecicon eci-facebook"></i></a></li>
-                                <li class="list-inline-item"><a class="hdr-twitter" href="#"><i
-                                            class="ecicon eci-twitter"></i></a></li>
-                                <li class="list-inline-item"><a class="hdr-instagram" href="#"><i
-                                            class="ecicon eci-instagram"></i></a></li>
-                                <li class="list-inline-item"><a class="hdr-linkedin" href="#"><i
-                                            class="ecicon eci-linkedin"></i></a></li>
-                            </ul>
+                            <x-social />
                         </div>
                     </div>
                     <!-- Footer social End -->
                     <!-- Footer Copyright Start -->
                     <div class="col text-center footer-copy">
                         <div class="footer-bottom-copy ">
-                            <div class="ec-copy">Copyright © <span id="copyright_year"></span> <a class="site-name text-upper"
-                                    href="#">ekka<span>.</span></a>. All Rights Reserved</div>
+                            <div class="ec-copy">{!! $settings['copyright_text'] !!}</div>
                         </div>
                     </div>
                     <!-- Footer Copyright End -->

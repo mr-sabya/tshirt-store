@@ -7,27 +7,18 @@
                 <div class="col text-left header-top-left d-none d-lg-block">
                     <div class="header-top-social">
                         <span class="social-text text-upper">Follow us on:</span>
-                        <ul class="mb-0">
-                            <li class="list-inline-item"><a class="hdr-facebook" href="#"><i
-                                        class="ecicon eci-facebook"></i></a></li>
-                            <li class="list-inline-item"><a class="hdr-twitter" href="#"><i
-                                        class="ecicon eci-twitter"></i></a></li>
-                            <li class="list-inline-item"><a class="hdr-instagram" href="#"><i
-                                        class="ecicon eci-instagram"></i></a></li>
-                            <li class="list-inline-item"><a class="hdr-linkedin" href="#"><i
-                                        class="ecicon eci-linkedin"></i></a></li>
-                        </ul>
+                        <x-social />
                     </div>
                 </div>
                 <!-- Header Top social End -->
                 <!-- Header Top Message Start -->
                 <div class="col text-right header-top-center">
                     <div class="header-top-message text-upper">
-                        <span>Free Shipping</span>This Week Order Over - $75
+                        {{ $settings['top_header_text'] }}
                     </div>
                 </div>
                 <!-- Header Top Message End -->
-                
+
                 <!-- Header Top responsive Action -->
                 <div class="col d-lg-none ">
                     <livewire:frontend.theme.header-buttons isMobile="true" />
@@ -46,9 +37,11 @@
                     <div class="align-self-center">
                         <div class="header-logo">
                             <a href="{{ route('home') }}" wire:navigate>
+                                @if($settings['logo'])
+                                <img src="{{ asset('storage/' . $settings['logo']) }}" alt="Site Logo" />
+                                @else
                                 <img src="{{ url('assets/frontend/images/logo/logo.png') }}" alt="Site Logo" />
-                                <img class="dark-logo" src="{{ url('assets/frontend/images/logo/dark-logo.png') }}" alt="Site Logo"
-                                    style="display: none;" />
+                                @endif
                             </a>
                         </div>
                     </div>
@@ -77,9 +70,13 @@
                 <!-- Ec Header Logo Start -->
                 <div class="col">
                     <div class="header-logo">
-                        <a href="index.html"><img src="{{ url('assets/frontend/images/logo/logo.png') }}" alt="Site Logo" /><img
-                                class="dark-logo" src="{{ url('assets/frontend/images/logo/dark-logo.png') }}" alt="Site Logo"
-                                style="display: none;" /></a>
+                        <a href="index.html">
+                            @if($settings['logo'])
+                            <img src="{{ asset('storage/' . $settings['logo']) }}" alt="Site Logo" />
+                            @else
+                            <img src="{{ url('assets/frontend/images/logo/logo.png') }}" alt="Site Logo" />
+                            @endif
+                        </a>
                     </div>
                 </div>
                 <!-- Ec Header Logo End -->
@@ -118,7 +115,7 @@
             <div class="ec-menu-content">
                 <livewire:frontend.theme.header-menu isMobile="true" />
             </div>
-            
+
         </div>
     </div>
     <!-- ekka mobile Menu End -->

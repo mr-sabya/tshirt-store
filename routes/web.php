@@ -147,5 +147,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/pages', [\App\Http\Controllers\Backend\PageController::class, 'index'])->name('page.index');
         //edit page
         Route::get('/pages/{id}/edit', [\App\Http\Controllers\Backend\PageController::class, 'edit'])->name('page.edit');
+
+
+        // setting
+        Route::get('/settings', [\App\Http\Controllers\Backend\SettingController::class, 'index'])->name('setting.index');
     });
 });
