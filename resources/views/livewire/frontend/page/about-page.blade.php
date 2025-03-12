@@ -13,7 +13,11 @@
                 <div class="row">
                     <div class="col-md-12 ec-cms-block ec-abcms-block mb-5">
                         <div class="ec-cms-block-inner">
+                            @if($page->image)
+                            <img class="a-img" src="{{ url('storage/'. $page->image) }}" alt="about">
+                            @else
                             <img class="a-img" src="{{ url('assets/frontend/images/offer-image/1.jpg') }}" alt="about">
+                            @endif
                         </div>
                     </div>
                     <div class="col-md-12 ec-cms-block ec-abcms-block">
