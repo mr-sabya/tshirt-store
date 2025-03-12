@@ -13,56 +13,14 @@
                 <div class="ec-faq-container">
                     <h2 class="ec-faq-heading">What is ekka services?</h2>
                     <div id="ec-faq">
+                        @foreach ($faqs as $faq)
                         <div class="col-sm-12 ec-faq-block">
-                            <h4 class="ec-faq-title">What is the multi vendor services?</h4>
+                            <h4 class="ec-faq-title">{{ $faq->question}}</h4>
                             <div class="ec-faq-content">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                    unknown printer took a galley of type and scrambled it to make a type specimen
-                                    book. It has survived not only five centuries, but also the leap into electronic
-                                    typesetting, remaining essentially unchanged. </p>
+                                <p>{{ $faq->answer }} </p>
                             </div>
                         </div>
-                        <div class="col-sm-12 ec-faq-block">
-                            <h4 class="ec-faq-title">How to buy many products at a time?</h4>
-                            <div class="ec-faq-content">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                    unknown printer took a galley of type and scrambled it to make a type specimen
-                                    book. It has survived not only five centuries, but also the leap into electronic
-                                    typesetting, remaining essentially unchanged. </p>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 ec-faq-block">
-                            <h4 class="ec-faq-title">Refund policy for customer</h4>
-                            <div class="ec-faq-content">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                    unknown printer took a galley of type and scrambled it to make a type specimen
-                                    book. It has survived not only five centuries, but also the leap into electronic
-                                    typesetting, remaining essentially unchanged. </p>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 ec-faq-block">
-                            <h4 class="ec-faq-title">Exchange policy for customer</h4>
-                            <div class="ec-faq-content">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                    unknown printer took a galley of type and scrambled it to make a type specimen
-                                    book. It has survived not only five centuries, but also the leap into electronic
-                                    typesetting, remaining essentially unchanged. </p>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 ec-faq-block">
-                            <h4 class="ec-faq-title">Give a way products available</h4>
-                            <div class="ec-faq-content">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                    unknown printer took a galley of type and scrambled it to make a type specimen
-                                    book. It has survived not only five centuries, but also the leap into electronic
-                                    typesetting, remaining essentially unchanged. </p>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

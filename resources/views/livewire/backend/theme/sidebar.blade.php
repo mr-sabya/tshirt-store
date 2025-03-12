@@ -26,6 +26,17 @@
                         ['url' => 'admin.service.index', 'label' => 'Services'],
                     ]" />
 
+                <livewire:backend.theme.menu-item
+                    :url="''"
+                    :icon="'ri-layout-3-line'"
+                    :label="'Website'"
+                    :hasSubMenu="true"
+                    :subMenuItems="
+                    [
+                        ['url' => 'admin.faq.index', 'label' => 'Faq'],
+                        ['url' => 'admin.service.index', 'label' => 'Pages'],
+                    ]" />
+
 
 
                 <li class="menu-title">Pages</li>

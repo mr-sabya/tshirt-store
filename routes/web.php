@@ -139,5 +139,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // services
         Route::get('/services', [\App\Http\Controllers\Backend\ServiceController::class, 'index'])->name('service.index');
+
+        // faq
+        Route::get('/faq', [\App\Http\Controllers\Backend\FaqController::class, 'index'])->name('faq.index');
     });
 });
