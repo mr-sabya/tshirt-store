@@ -26,6 +26,8 @@ class Product extends Model
         'status',
         'featured',
         'discount',
+        'supplier_id',
+        'color_id',
     ];
 
     // Define the many-to-many relationship with Size
@@ -53,5 +55,10 @@ class Product extends Model
     public function supplier()
     {
         return $this->belongsTo(Supplier::class);
+    }
+
+    public function color()
+    {
+        return $this->belongsTo(Color::class);
     }
 }

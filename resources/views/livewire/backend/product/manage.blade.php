@@ -117,6 +117,30 @@
                             @error('category_id') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
 
+                        <!-- color -->
+                        <div class="form-group mb-3">
+                            <label for="color_id">Color</label>
+                            <select id="color_id" class="form-control" wire:model="color_id" required>
+                                <option value="">Select Color</option>
+                                @foreach ($colors as $color)
+                                <option value="{{ $color->id }}">{{ $color->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('color_id') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+
+                        <!-- supplier -->
+                        <div class="form-group mb-3">
+                            <label for="supplier_id">Supplier</label>
+                            <select id="supplier_id" class="form-control" wire:model="supplier_id" required>
+                                <option value="">Select Supplier</option>
+                                @foreach ($suppliers as $supplier)
+                                <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('supplier_id') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+
                         <div class="form-group mb-3">
                             <label for="sizes">Sizes</label>
                             <select id="sizes" class="form-control" wire:model="size_ids" multiple>

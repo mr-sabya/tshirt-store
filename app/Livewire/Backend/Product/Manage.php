@@ -5,7 +5,9 @@ namespace App\Livewire\Backend\Product;
 use App\Helpers\ImageHelper;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Color;
 use App\Models\Size;
+use App\Models\Supplier;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
@@ -15,7 +17,7 @@ class Manage extends Component
     use WithFileUploads;
 
     public $productId;
-    public $name, $slug, $sku, $price, $regular_price, $buy_price, $cost_price, $is_stock, $stock, $category_id, $image, $details, $short_desc, $status, $featured, $discount, $currentImage;
+    public $name, $slug, $sku, $price, $regular_price, $buy_price, $cost_price, $is_stock, $stock, $category_id, $image, $details, $short_desc, $status, $featured, $discount, $color_id, $supplier_id, $currentImage;
     public $size_ids = [];  // Array to hold selected sizes
 
     protected $rules = [
@@ -37,6 +39,8 @@ class Manage extends Component
         'discount' => 'nullable|numeric|min:0|max:100',
         'size_ids' => 'required|array|min:1', // Ensure at least one size is selected
         'size_ids.*' => 'exists:sizes,id', // Ensure each selected size exists
+        'color_id' => 'nullable|exists:colors,id',
+        'supplier_id' => 'nullable|exists:suppliers,id',
     ];
 
     public function mount($id = null)
@@ -92,6 +96,8 @@ class Manage extends Component
                 'status' => $this->status == true ? 1 : 0,
                 'featured' => $this->featured == true ? 1 : 0,
                 'discount' => $this->discount,
+                'color_id' => $this->color_id,
+                'supplier_id' => $this->supplier_id,
             ]
         );
 
@@ -125,6 +131,8 @@ class Manage extends Component
         $this->status =  $product->status == 1 ? true : false;
         $this->featured = $product->featured == 1 ? true : false;
         $this->discount = $product->discount;
+        $this->color_id = $product->color_id;
+        $this->supplier_id = $product->supplier_id;
         // Load the selected sizes
         $this->size_ids = $product->sizes->pluck('id')->toArray();
     }
@@ -134,6 +142,8 @@ class Manage extends Component
     {
         $categories = Category::all();
         $sizes = Size::all();  // Get all sizes for selection
-        return view('livewire.backend.product.manage', compact('categories', 'sizes'));
+        $colors = Color::all();  // Get all colors for selection
+        $suppliers = Supplier::all();  // Get all suppliers for selection
+        return view('livewire.backend.product.manage', compact('categories', 'sizes', 'colors', 'suppliers'));
     }
 }

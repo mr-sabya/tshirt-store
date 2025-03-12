@@ -25,9 +25,10 @@
                 @if($product->discount != null)
                 <span class="percentage">{{ (int)$product->discount }}%</span>
                 @endif
-                <span class="flags">
+
+                <!-- <span class="flags">
                     <span class="new">New</span>
-                </span>
+                </span> -->
 
                 @if($product->is_stock == 0)
                 <span class="flags">
@@ -63,6 +64,8 @@
                 <div class="ec-pro-color">
                     <span class="ec-pro-opt-label">Color</span>
                     <ul class="ec-opt-swatch ec-change-img">
+
+                        @if($product->variations->count() > 0)
                         @foreach($product->variations as $variation)
                         <li class="{{ $variation->id == $selectedVariationId ? 'active' : '' }}" wire:click="setSelectedVariation({{ $variation->id }})">
                             <a href="javascript:void(0)" class="ec-opt-clr-img"
@@ -73,6 +76,13 @@
                             <input type="hidden" wire:model="data_image_hover" value="{{ url('storage/'. $variation->image) }}">
                         </li>
                         @endforeach
+                        @else
+                        <li>
+                            <a href="javascript:void(0)" class="ec-opt-clr-img" data-tooltip="{{ $product->color['color'] }}">
+                                <span style="background-color: {{ $product->color['color'] }};"></span>
+                            </a>
+                        </li>
+                        @endif
                     </ul>
 
                 </div>
