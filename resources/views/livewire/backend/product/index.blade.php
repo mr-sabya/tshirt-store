@@ -59,6 +59,9 @@
                             <button class="btn btn-secondary btn-sm" wire:click="toggleVariations({{ $product->id }})">
                                 Show Variations
                             </button>
+                            <button class="btn btn-secondary btn-sm" wire:click="toggleImages({{ $product->id }})">
+                                Show Gallery
+                            </button>
                         </td>
                     </tr>
 
@@ -69,6 +72,15 @@
                         </td>
                     </tr>
                     @endif
+
+                    @if ($product->id === $selectedProductIdForImages)
+                    <tr>
+                        <td colspan="7">
+                            <livewire:backend.product.image-gallery :productId="$product->id" />
+                        </td>
+                    </tr>   
+                    @endif
+
                     @empty
                     <tr>
                         <td colspan="7" class="text-center">No products found!</td>

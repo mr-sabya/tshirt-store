@@ -15,6 +15,7 @@ class Index extends Component
     public $sortBy = 'name';
     public $sortDirection = 'asc';
     public $selectedProductId = null;
+    public $selectedProductIdForImages = null;
 
     public function toggleSort($column)
     {
@@ -29,6 +30,13 @@ class Index extends Component
     public function toggleVariations($productId)
     {
         $this->selectedProductId = $this->selectedProductId === $productId ? null : $productId;
+        $this->selectedProductIdForImages = null;
+    }
+
+    public function toggleImages($productId)
+    {
+        $this->selectedProductIdForImages = $this->selectedProductIdForImages === $productId ? null : $productId;
+        $this->selectedProductId = null;
     }
 
 

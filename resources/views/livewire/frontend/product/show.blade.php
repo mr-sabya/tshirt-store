@@ -15,24 +15,42 @@
                                             <img class="img-responsive" src="{{ url('storage/'. $product->image) }}"
                                                 alt="">
                                         </div>
+                                        @if($product->variations->count() > 0)
                                         @foreach($product->variations as $variation)
                                         <div class="single-slide zoom-image-hover">
                                             <img class="img-responsive" src="{{ url('storage/'. $variation->image) }}"
                                                 alt="">
                                         </div>
                                         @endforeach
+                                        @else
+                                        @foreach($product->images as $image)
+                                        <div class="single-slide zoom-image-hover">
+                                            <img class="img-responsive" src="{{ url('storage/'. $image->image_path) }}"
+                                                alt="">
+                                        </div>
+                                        @endforeach
+                                        @endif
                                     </div>
                                     <div class="single-nav-thumb">
                                         <div class="single-slide">
                                             <img class="img-responsive" src="{{ url('storage/'. $product->image) }}"
                                                 alt="">
                                         </div>
+                                        @if($product->variations->count() > 0)
                                         @foreach($product->variations as $variation)
                                         <div class="single-slide">
                                             <img class="img-responsive" src="{{ url('storage/'. $variation->image) }}"
                                                 alt="">
                                         </div>
                                         @endforeach
+                                        @else
+                                        @foreach($product->images as $image)
+                                        <div class="single-slide">
+                                            <img class="img-responsive" src="{{ url('storage/'. $image->image_path) }}"
+                                                alt="">
+                                        </div>
+                                        @endforeach
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -57,7 +75,7 @@
                                             <span class="ec-single-ps-title">As low as</span>
                                             <div class="d-flex gap-4 align-items-center">
                                                 <span class="new-price">৳{{ $product->price }}</span>
-                                                <span class="old-price">৳{{ $product->regular_price }}</span>
+                                                <span class="old-price" style="text-decoration: line-through;">৳{{ $product->regular_price }}</span>
                                             </div>
                                         </div>
 
