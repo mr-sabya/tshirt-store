@@ -14,10 +14,10 @@ class Index extends Component
     public $site_name, $tagline, $currency, $top_header_text;
     public $email, $phone, $address, $footer_about, $newsletter_text, $copyright_text;
     public $facebook, $twitter, $linkedin, $instagram, $youtube, $tiktok, $thread;
-    public $meta_title, $meta_description, $meta_keywords;
+    public $meta_title, $meta_description, $meta_keywords, $canonical_url, $og_title, $og_description, $og_image, $og_type;
 
     public $logo, $footer_logo, $favicon;
-    public $uploadedLogo, $uploadedFooterLogo, $uploadedFavicon;
+    public $uploadedLogo, $uploadedFooterLogo, $uploadedFavicon, $uploadedOgImage;
 
     public function mount()
     {
@@ -51,6 +51,12 @@ class Index extends Component
             $this->logo = $setting->logo;
             $this->footer_logo = $setting->footer_logo;
             $this->favicon = $setting->favicon;
+
+            $this->canonical_url = $setting->canonical_url;
+            $this->og_title = $setting->og_title;
+            $this->og_description = $setting->og_description;
+            $this->og_image = $setting->og_image;
+            $this->og_type = $setting->og_type;
         }
     }
 
@@ -87,6 +93,11 @@ class Index extends Component
         $setting->meta_description = $this->meta_description;
         $setting->meta_keywords = $this->meta_keywords;
 
+        $setting->canonical_url = $this->canonical_url;
+        $setting->og_title = $this->og_title;
+        $setting->og_description = $this->og_description;
+        $setting->og_type = $this->og_type;
+
         // Handle image uploads
         if ($this->uploadedLogo) {
             $setting->logo = $this->uploadedLogo->store('settings', 'public');
@@ -96,6 +107,11 @@ class Index extends Component
         }
         if ($this->uploadedFavicon) {
             $setting->favicon = $this->uploadedFavicon->store('settings', 'public');
+        }
+
+        // Handle Open Graph Image
+        if ($this->uploadedOgImage) {
+            $setting->og_image = $this->uploadedOgImage->store('settings', 'public');
         }
 
         $setting->save();

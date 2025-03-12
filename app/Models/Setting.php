@@ -33,5 +33,12 @@ class Setting extends Model
         'meta_title',
         'meta_description',
         'meta_keywords',
+
+        'canonical_url',
+        'og_title',
+        'og_description',
+        'og_image',
+        'og_type',
+
     ];
 }

@@ -157,6 +157,45 @@
                         <textarea class="form-control" wire:model="meta_keywords"></textarea>
                     </div>
 
+                    <div class="form-group mb-3">
+                        <label for="canonical_url">Canonical Url </label>
+                        <input type="text" class="form-control" id="canonical_url" wire:model="canonical_url">
+                    </div>
+
+                    
+                    <!-- OG Title -->
+                    <div class="form-group mb-3">
+                        <label for="og_title">OG Title</label>
+                        <input type="text" class="form-control" id="og_title" wire:model="og_title">
+                    </div>
+
+                    <!-- OG Description -->
+                    <div class="form-group mb-3">
+                        <label for="og_description">OG Description</label>
+                        <textarea class="form-control" id="og_description" wire:model="og_description"></textarea>
+                    </div>
+
+                    <!-- OG Image Upload -->
+                    <div class="form-group mb-3">
+                        <label for="og_image">OG Image</label>
+                        <input type="file" class="form-control-file" wire:model="uploadedOgImage">
+                        @if ($uploadedOgImage)
+                        <img src="{{ $uploadedOgImage->temporaryUrl() }}" width="100" class="mt-2">
+                        @elseif($og_image)
+                        <img src="{{ asset('storage/' . $og_image) }}" width="100" class="mt-2">
+                        @endif
+                    </div>
+
+                    <!-- OG Type -->
+                    <div class="form-group mb-3">
+                        <label for="og_type">OG Type</label>
+                        <select class="form-control" id="og_type" wire:model="og_type">
+                            <option value="website">Website</option>
+                            <option value="article">Article</option>
+                            <option value="video">Video</option>
+                            <!-- Add more OG types as needed -->
+                        </select>
+                    </div>
 
                 </div>
             </div>

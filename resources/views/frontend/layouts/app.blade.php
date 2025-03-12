@@ -8,10 +8,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 
     <title>{{ $settings['site_name'] ?? 'Default Site Name' }} - Look up your style here</title>
-    <meta name="keywords"
-        content="apparel, catalog, clean, ecommerce, ecommerce HTML, electronics, fashion, html eCommerce, html store, minimal, multipurpose, multipurpose ecommerce, online store, responsive ecommerce template, shops" />
-    <meta name="description" content="Best ecommerce html template for single and multi vendor store.">
-    <meta name="author" content="ashishmaraviya">
+
+    @if(Route::currentRouteName() == 'product.show')
+    @else
+    <meta name="title" content="{{ $settings->meta_title }}" />
+    <meta name="keywords" content="{{ $settings->meta_keywords }}" />
+    <meta name="description" content="{{ $settings->meta_description }}" />
+    @endif
+    <link rel="canonical" href="{{ $settings['canonical_url'] ?? url()->current() }}">
+
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="{{ $settings['og_title'] ?? config('app.name') }}">
+    <meta property="og:description" content="{{ $settins['og_description'] ?? 'Your default description' }}">
+    <meta property="og:image" content="{{ asset('storage/' . ($settins['og_image'] ?? 'default-image.jpg')) }}">
+    <meta property="og:type" content="{{ $settins['og_type'] ?? 'website' }}">
+    <!-- Add other Open Graph tags as needed -->
 
     <!-- site Favicon -->
     <link rel="icon" href="{{ asset('assets/frontend/images/favicon/favicon.png') }}" sizes="32x32" />
