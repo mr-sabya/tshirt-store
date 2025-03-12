@@ -34,7 +34,7 @@
                     :subMenuItems="
                     [
                         ['url' => 'admin.faq.index', 'label' => 'Faq'],
-                        ['url' => 'admin.service.index', 'label' => 'Pages'],
+                        ['url' => 'admin.page.index', 'label' => 'Pages'],
                     ]" />
 
 

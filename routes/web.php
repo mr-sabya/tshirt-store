@@ -142,5 +142,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // faq
         Route::get('/faq', [\App\Http\Controllers\Backend\FaqController::class, 'index'])->name('faq.index');
+
+        // pages
+        Route::get('/pages', [\App\Http\Controllers\Backend\PageController::class, 'index'])->name('page.index');
+        //edit page
+        Route::get('/pages/{id}/edit', [\App\Http\Controllers\Backend\PageController::class, 'edit'])->name('page.edit');
     });
 });
