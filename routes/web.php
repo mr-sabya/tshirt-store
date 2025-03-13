@@ -109,6 +109,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/orders', [\App\Http\Controllers\Backend\OrderController::class, 'index'])->name('order.index');
         Route::get('/orders/{orderId}', [\App\Http\Controllers\Backend\OrderController::class, 'show'])->name('order.show');
 
+        // shipping label
+        Route::get('/shipping-label/{orderId}', [\App\Http\Controllers\Backend\ShippingLabelController::class, 'generateLabel'])->name('shipping.label');
+
         // suppliers
         Route::get('/suppliers', [\App\Http\Controllers\Backend\SupplierController::class, 'index'])->name('supplier.index');
 

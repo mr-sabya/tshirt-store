@@ -5,10 +5,13 @@
         <div class="card-header text-white d-flex justify-content-between align-items-center"
             style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); border-top-left-radius: 12px; border-top-right-radius: 12px;">
             <strong>🔖 Order ID: {{ $order->order_id ?? $order->id }}</strong>
-            <span class="badge px-3 py-2 fw-bold shadow-sm 
+            <div>
+                <span class="badge px-3 py-2 fw-bold shadow-sm 
                     {{ $order->status == 'pending' ? 'bg-warning text-dark' : ($order->status == 'cancelled' ? 'bg-danger' : 'bg-success') }}">
-                {{ ucfirst($order->status) }}
-            </span>
+                    {{ ucfirst($order->status) }}
+                </span>
+
+            </div>
         </div>
 
         <div class="card-body">
@@ -137,6 +140,12 @@
             </div>
         </div>
     </div>
-
+    <div class="card">
+        <div class="card-body">
+            <a href="{{ route('admin.shipping.label', $order->id)}}" class="btn btn-primary">Download Shipping Label</a>
+            <a href="{{ route('admin.shipping.label', $order->id)}}" class="btn btn-primary">Download Invoice</a>
+            <a href="{{ route('admin.shipping.label', $order->id)}}" class="btn btn-primary">See Payment</a>
+        </div>
+    </div>
 
 </div>
