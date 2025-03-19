@@ -8,9 +8,12 @@
             <ul class="eccart-pro-items">
                 @forelse ($cartItems as $index => $cart)
                 <li>
-                    <!-- {{ $cart->variation['image'] }} -->
                     <a href="#" class="sidekka_pro_img">
-                        <img src="{{ url('storage/'. $cart->variation['image'] ?? $cart->product['image']) }}" alt="product">
+                        @if ($cart->variation)
+                        <img src="{{ url('storage/'. $cart->variation['image']) }}" alt="product">
+                        @else
+                        <img src="{{ url('storage/'. $cart->product['image']) }}" alt="product">
+                        @endif
                     </a>
                     <div class="ec-pro-content">
                         <a href="#" class="cart_pro_title">{{ $cart->product->name }}</a>

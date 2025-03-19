@@ -54,7 +54,7 @@
     <link rel="stylesheet" id="bg-switcher-css" href="{{ asset('assets/frontend/css/backgrounds/bg-4.css') }}" />
 
     <!-- Meta Pixel Code -->
-    <script>
+    <script data-navigate-once>
         ! function(f, b, e, v, n, t, s) {
             if (f.fbq) return;
             n = f.fbq = function() {
@@ -165,8 +165,6 @@
     <script data-navigate-once src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.2.4/fabric.min.js"></script>
 
     <script data-navigate-once src="https://cdn.jsdelivr.net/npm/interactjs@1.10.17/dist/interact.min.js"></script>
-
-
 
 
 

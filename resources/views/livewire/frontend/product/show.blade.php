@@ -103,12 +103,18 @@
                                             <span>Color</span>
                                             <div class="ec-pro-variation-content">
                                                 <ul>
+                                                    @if($product->variations->count() > 0)
                                                     @foreach($product->variations as $variation)
                                                     <li wire:click="setSelectedVariation({{ $variation->id }})"
                                                         class="{{ $selectedVariationId == $variation->id ? 'active' : '' }}">
                                                         <span style="background-color: {{ $variation->color['color'] }};"></span>
                                                     </li>
                                                     @endforeach
+                                                    @else
+                                                    <li class="active">
+                                                        <span style="background-color: {{ $product->color['color'] }};"></span>
+                                                    </li>
+                                                    @endif
                                                 </ul>
                                             </div>
                                         </div>
@@ -282,3 +288,20 @@
     </div>
 </section>
 <!-- End Single product -->
+
+<script>
+    document.addEventListener('livewire:init', function() {
+        Livewire.on('addToCartPixel', (data) => {
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'AddToCart', {
+                    content_ids: [data.product_id],
+                    content_name: data.name,
+                    value: data.price * data.quantity,
+                    currency: data.currency,
+                    quantity: data.quantity
+                });
+                console.log("Facebook Pixel AddToCart event fired", data);
+            }
+        });
+    });
+</script>

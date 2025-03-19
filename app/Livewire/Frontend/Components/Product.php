@@ -5,7 +5,9 @@ namespace App\Livewire\Frontend\Components;
 use App\Models\Cart;
 use App\Models\Product as ModelsProduct;
 use App\Models\ProductVariation;
+use App\Models\Setting;
 use App\Models\Wishlist;
+use Hamcrest\Core\Set;
 use Livewire\Component;
 
 class Product extends Component
@@ -16,9 +18,11 @@ class Product extends Component
     public $quantity = 1;
     public $data_image, $data_image_hover;
     public $isInWishlist = false;
+    public $settings;
 
     public function mount($productId)
     {
+        $this->settings = Setting::first();
         $this->productId = $productId;
         $this->setInitialSelections();
         $this->checkWishlistStatus(); // Check if the product is in the wishlist
@@ -73,7 +77,7 @@ class Product extends Component
                     'content_ids' => [$this->productId],
                     'content_type' => 'product',
                     'value' => $product->price * $this->quantity, // Assuming you have a price field in the product model
-                    'currency' => 'USD', // Update the currency if needed
+                    'currency' => $this->settings['currency'], // Update the currency if needed
                 ]
             ]);
         } else {

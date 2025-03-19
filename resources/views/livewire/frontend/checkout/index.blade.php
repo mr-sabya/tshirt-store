@@ -21,7 +21,11 @@
                                         <tr>
                                             <td data-label="Product" class="ec-cart-pro-name">
                                                 <a href="{{ route('product.show', $item->product->id) }}">
+                                                    @if($item->variation)
                                                     <img class="ec-cart-pro-img mr-4" src="{{ url('storage/'. $item->variation->image ?? $item->product->image) }}" alt="" />
+                                                    @else
+                                                    <img class="ec-cart-pro-img mr-4" src="{{ url('storage/'. $item->product->image) }}" alt="" />
+                                                    @endif
                                                     {{ $item->product->name }}
                                                 </a>
                                             </td>
@@ -192,3 +196,24 @@
         </div>
     </div>
 </section>
+
+<script>
+    document.addEventListener('livewire:init', function() {
+        Livewire.on('orderPlacedPixel', (data) => {
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Purchase', {
+                    value: data.total,
+                    currency: data.currency,
+                    contents: data.products.map(product => ({
+                        id: product.id,
+                        name: product.name,
+                        quantity: product.quantity,
+                        price: product.price
+                    })),
+                    content_type: 'product'
+                });
+                console.log("Facebook Pixel Purchase event fired", data);
+            }
+        });
+    });
+</script>

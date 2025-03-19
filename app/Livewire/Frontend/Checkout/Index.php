@@ -5,6 +5,7 @@ namespace App\Livewire\Frontend\Checkout;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Setting;
 use Livewire\Component;
 
 class Index extends Component
@@ -19,10 +20,12 @@ class Index extends Component
     protected $listeners = ['cartUpdated' => 'loadCart'];
 
     public $buyNowProduct = null;  // Add a property to handle buyNow product
+    public $settings;
 
     // This will be executed when the component is mounted
     public function mount($buyNowProduct = null)
     {
+        $this->settings = Setting::first();
         $this->buyNowProduct = $buyNowProduct;
         $this->loadCart();
     }
@@ -88,11 +91,26 @@ class Index extends Component
                 'order_id' => $order->id,
                 'product_id' => $cartItem->product->id,
                 'size_id' => $cartItem->size->id,
-                'product_variation_id' => $cartItem->variation->id,
+                'product_variation_id' => $cartItem->variation->id ?? null,
                 'quantity' => $cartItem->quantity,
                 'price' => $cartItem->product->price,
             ]);
         }
+
+        // Dispatch event for Facebook Pixel tracking (Purchase)
+        $this->dispatch('orderPlacedPixel', [
+            'order_id' => $order->id,
+            'total' => $order->total,
+            'currency' => $this->settings['currency'], // Adjust currency if needed
+            'products' => collect($this->cartItems)->map(function ($cartItem) {
+                return [
+                    'id' => $cartItem->product->id,
+                    'name' => $cartItem->product->name,
+                    'price' => $cartItem->product->price,
+                    'quantity' => $cartItem->quantity,
+                ];
+            })->toArray(),
+        ]);
 
         // Clear the cart
         Cart::where('user_id', auth()->id())->delete();

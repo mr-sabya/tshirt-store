@@ -496,7 +496,7 @@
 
 
 /* barcode */
-.barcode{
+.barcode {
     position: absolute;
     bottom: 6px;
     left: 10px;
@@ -506,6 +506,76 @@
     align-items: center;
     flex-direction: column;
 }
-.barcode small{
+
+.barcode small {
     font-size: 8px;
+}
+
+
+
+/* form */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    margin: 0;
+}
+
+.profile-image {
+    position: relative;
+}
+
+.profile-image a {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 0;
+    bottom: 0;
+}
+
+.image-preview {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.image-preview .image-box {
+    width: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group select.form-control {
+    border: 1px solid #CED4DA !important;
+}
+
+.form-group .select-box{
+    position: relative !important;
+}
+
+.form-group .select-box::after {
+    content: "";
+    position: absolute;
+    font-family: EcIcons;
+    top: 0px;
+    right: 0px;
+    cursor: pointer;
+    pointer-events: none;
+    font-size: 24px;
+    display: flex;
+    height: 50px;
+    line-height: 1;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    color: rgb(119, 119, 119);
+    padding: 0px 10px;
 }

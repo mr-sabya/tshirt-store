@@ -10,7 +10,8 @@ class LoginController extends Controller
     public function index()
     {
         if(auth()->check()) {
-            return redirect()->route('home');
+            $redirectUrl = session()->pull('redirect_url', route('home'));
+            return redirect()->to($redirectUrl);
         }
         return view('frontend.auth.login');    
     }

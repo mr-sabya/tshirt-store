@@ -5,6 +5,9 @@ namespace App\Livewire\Frontend\Product;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\ProductVariation;
+use App\Models\Setting;
+use Hamcrest\Core\Set;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Show extends Component
@@ -14,6 +17,8 @@ class Show extends Component
     public $selectedSizeId;
     public $quantity = 1;
     public $data_image, $data_image_hover;
+
+    public $settings;
 
     // Method to update the quantity
     public function updateQuantity($operation)
@@ -28,6 +33,7 @@ class Show extends Component
 
     public function mount($productId)
     {
+        $this->settings = Setting::first();
         $this->productId = $productId;
         $this->setInitialSelections();
     }
@@ -48,16 +54,29 @@ class Show extends Component
 
     public function addToCart()
     {
-        // dd($this->quantity);
+        if (!auth()->check()) {
+            session()->put('redirect_url', url()->previous()); // Store the last visited page
+            return $this->redirect(route('login'), navigate: true);
+        }
+
+        if (!$this->selectedSizeId) {
+            session()->flash('error', 'Please select a size.');
+            return;
+        }
+
         $product = Product::find($this->productId);
 
-        if ($product && $this->selectedVariationId && $this->selectedSizeId) {
-            // Check if the product with the selected variation and size is already in the cart
+        if ($product) {
+            // Check if the product with the selected size (variation is optional) is already in the cart
             $existingCartItem = Cart::where('user_id', auth()->id())
                 ->where('product_id', $this->productId)
-                ->where('product_variation_id', $this->selectedVariationId)
-                ->where('size_id', $this->selectedSizeId)
-                ->first();
+                ->where('size_id', $this->selectedSizeId);
+
+            if ($this->selectedVariationId) {
+                $existingCartItem->where('product_variation_id', $this->selectedVariationId);
+            }
+
+            $existingCartItem = $existingCartItem->first();
 
             if ($existingCartItem) {
                 // If the product is already in the cart, update the quantity
@@ -67,27 +86,48 @@ class Show extends Component
                 // If the product is not in the cart, add it
                 Cart::addItem(auth()->id(), $this->productId, $this->selectedVariationId, $this->selectedSizeId, $this->quantity);
             }
+
+            // Dispatch event for Facebook Pixel tracking
+            $this->dispatch('addToCartPixel', [
+                'product_id' => $this->productId,
+                'name' => $product->name,
+                'price' => $product->price,
+                'quantity' => $this->quantity,
+                'currency' => $this->settings['currency'], // Change currency if needed
+            ]);
 
             // Emit event to update the cart count in the parent component
             $this->dispatch('cartUpdated');
             $this->quantity = 1;
-        } else {
-            session()->flash('error', 'Please select color and size.');
         }
     }
 
+
     public function buyNow()
     {
+        if (!Auth::check()) {
+            session()->put('redirect_url', url()->previous());
+            return $this->redirect(route('login'), navigate: true);
+        }
         // Validate if product, variation, and size are selected
         $product = Product::find($this->productId);
 
-        if ($product && $this->selectedVariationId && $this->selectedSizeId) {
-            // Check if the product with the selected variation and size is already in the cart
+        if (!$this->selectedSizeId) {
+            session()->flash('error', 'Please select a size.');
+            return;
+        }
+
+        if ($product) {
+            // Check if the product with the selected size (variation is optional) is already in the cart
             $existingCartItem = Cart::where('user_id', auth()->id())
                 ->where('product_id', $this->productId)
-                ->where('product_variation_id', $this->selectedVariationId)
-                ->where('size_id', $this->selectedSizeId)
-                ->first();
+                ->where('size_id', $this->selectedSizeId);
+
+            if ($this->selectedVariationId) {
+                $existingCartItem->where('product_variation_id', $this->selectedVariationId);
+            }
+
+            $existingCartItem = $existingCartItem->first();
 
             if ($existingCartItem) {
                 // If the product is already in the cart, update the quantity
@@ -98,10 +138,17 @@ class Show extends Component
                 Cart::addItem(auth()->id(), $this->productId, $this->selectedVariationId, $this->selectedSizeId, $this->quantity);
             }
 
-            // Redirect to checkout (or handle according to your flow)
-            return $this->redirect(route('user.checkout'), navigate:true);
-        } else {
-            session()->flash('error', 'Please select color and size.');
+            // Dispatch event for Facebook Pixel tracking (Buy Now)
+            $this->dispatch('buyNowPixel', [
+                'product_id' => $this->productId,
+                'name' => $product->name,
+                'price' => $product->price,
+                'quantity' => $this->quantity,
+                'currency' => $this->settings['currency'], // Change currency if needed
+            ]);
+
+            // Redirect to checkout
+            return $this->redirect(route('user.checkout'), navigate: true);
         }
     }
 

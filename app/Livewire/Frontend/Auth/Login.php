@@ -14,7 +14,7 @@ class Login extends Component
     // Handle the login logic
     public function login()
     {
-        
+
         // Validate the login data
         $this->validate([
             'phone' => 'required',
@@ -28,7 +28,11 @@ class Login extends Component
         if ($user && Auth::attempt(['phone' => $this->phone, 'password' => $this->password])) {
             // Login successful, redirect to a page (e.g., dashboard)
             session()->flash('message', 'Login successful');
-            return $this->redirect(route('home'), navigate:true);  // Adjust the redirect route as needed
+
+            $redirectUrl = session()->pull('redirect_url', route('home')); // Default to 'home' if no redirect URL exists
+
+            // dd($redirectUrl);
+            return $this->redirect($redirectUrl, navigate: true);  // Adjust the redirect route as needed
         } else {
             // Login failed
             session()->flash('message', 'Invalid credentials');
