@@ -19,7 +19,7 @@ class Order extends Model
         'delivery_charge',
         'discount',
         'total',
-        'payment_method',
+        'payment_method_id',
         'comment',
         'status',
     ];
@@ -57,7 +57,7 @@ class Order extends Model
                 'invoice_id' => $invoice->id,
                 'user_id' => $order->user_id,  // Add user_id from the order
                 'amount' => $order->total,  // Use the total amount from the order
-                'method' => $order->payment_method, // Payment method from order
+                'payment_method_id' => $order->payment_method_id, // Payment method from order
                 'transaction_id' => null, // Transaction ID is null initially
                 'status' => 'pending', // Initial payment status
                 'paid_at' => null,  // Not yet paid

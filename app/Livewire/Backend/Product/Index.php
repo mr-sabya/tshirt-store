@@ -16,6 +16,7 @@ class Index extends Component
     public $sortDirection = 'asc';
     public $selectedProductId = null;
     public $selectedProductIdForImages = null;
+    public $selectedProductIdForSizes = null;
 
     public function toggleSort($column)
     {
@@ -31,12 +32,25 @@ class Index extends Component
     {
         $this->selectedProductId = $this->selectedProductId === $productId ? null : $productId;
         $this->selectedProductIdForImages = null;
+        $this->selectedProductIdForSizes = null;
     }
 
     public function toggleImages($productId)
     {
         $this->selectedProductIdForImages = $this->selectedProductIdForImages === $productId ? null : $productId;
         $this->selectedProductId = null;
+        $this->selectedProductIdForSizes = null;
+    }
+
+    public function toggleforSizes($productId)
+    {
+        // Ensure selectedProductIdForSizes is set to null first
+        $this->selectedProductIdForSizes = ($this->selectedProductIdForSizes === $productId) ? null : $productId;
+
+        // dd($this->selectedProductIdForSizes);
+        // Reset other variables to avoid conflicts
+        $this->selectedProductId = null;
+        $this->selectedProductIdForImages = null;
     }
 
 

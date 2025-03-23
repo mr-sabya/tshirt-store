@@ -30,11 +30,11 @@ class Product extends Model
         'color_id',
     ];
 
-    // Define the many-to-many relationship with Size
-    public function sizes()
-    {
-        return $this->belongsToMany(Size::class);
-    }
+    // // Define the many-to-many relationship with Size
+    // public function sizes()
+    // {
+    //     return $this->belongsToMany(Size::class);
+    // }
 
     // Define the relationship with Category
     public function category()
@@ -66,5 +66,12 @@ class Product extends Model
     public function images()
     {
         return $this->hasMany(ProductImage::class);
+    }
+
+    public function sizes()
+    {
+        return $this->belongsToMany(Size::class, 'product_sizes')
+            ->withPivot('is_stock', 'stock')
+            ->withTimestamps();
     }
 }

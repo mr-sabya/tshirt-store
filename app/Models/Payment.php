@@ -13,7 +13,7 @@ class Payment extends Model
         'invoice_id',
         'user_id',
         'amount',
-        'method',
+        'payment_method_id',
         'transaction_id',
         'status',
         'paid_at'

@@ -45,44 +45,35 @@ class Product extends Component
     public function addToCart()
     {
         if (!auth()->check()) {
-            return $this->redirect(route('login'), navigate:true);
+            return $this->redirect(route('login'), navigate: true);
         }
-        // dd($this->selectedVariationId);
+
+        // Get the product details
         $product = ModelsProduct::find($this->productId);
 
-        if ($product && $this->selectedVariationId && $this->selectedSizeId) {
-            // Check if the product with the selected variation and size is already in the cart
-            $existingCartItem = Cart::where('user_id', auth()->id())
-                ->where('product_id', $this->productId)
-                ->where('product_variation_id', $this->selectedVariationId)
-                ->where('size_id', $this->selectedSizeId)
-                ->first();
-
-            if ($existingCartItem) {
-                // If the product is already in the cart, update the quantity
-                $existingCartItem->quantity += $this->quantity;
-                $existingCartItem->save();
-            } else {
-                // If the product is not in the cart, add it
-                Cart::addItem(auth()->id(), $this->productId, $this->selectedVariationId, $this->selectedSizeId, $this->quantity);
-            }
-
-            // Emit event to update the cart count in the parent component
-            $this->dispatch('cartUpdated');
-
-            // Dispatch the Facebook Pixel event for "AddToCart"
-            $this->dispatch('pixelEvent', [
-                'event' => 'AddToCart',
-                'data' => [
-                    'content_ids' => [$this->productId],
-                    'content_type' => 'product',
-                    'value' => $product->price * $this->quantity, // Assuming you have a price field in the product model
-                    'currency' => $this->settings['currency'], // Update the currency if needed
-                ]
-            ]);
-        } else {
-            session()->flash('error', 'Please select color and size.');
+        if (!$product) {
+            return back()->with('error', 'Product not found');
         }
+
+        // Add to cart logic
+        $userId = auth()->id(); // Get the current logged-in user's ID
+
+        // dd($this->selectedSizeId);
+        Cart::addItem($userId, $product->id, $this->selectedVariationId, $this->selectedSizeId, $this->quantity);
+
+        // Emit event to update the cart count in the parent component
+        $this->dispatch('cartUpdated');
+
+        // Dispatch the Facebook Pixel event for "AddToCart"
+        $this->dispatch('pixelEvent', [
+            'event' => 'AddToCart',
+            'data' => [
+                'content_ids' => [$this->productId],
+                'content_type' => 'product',
+                'value' => $product->price * $this->quantity, // Assuming you have a price field in the product model
+                'currency' => $this->settings['currency'], // Update the currency if needed
+            ]
+        ]);
     }
 
     public function addToWishlist()

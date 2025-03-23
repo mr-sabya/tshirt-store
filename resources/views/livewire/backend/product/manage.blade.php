@@ -141,16 +141,6 @@
                             @error('supplier_id') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
 
-                        <div class="form-group mb-3">
-                            <label for="sizes">Sizes</label>
-                            <select id="sizes" class="form-control" wire:model="size_ids" multiple>
-                                <option value="">Select Sizes</option>
-                                @foreach ($sizes as $size)
-                                <option value="{{ $size->id }}">{{ $size->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('size_ids') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
 
                         <div class="form-group mb-3">
                             <label for="image">Product Image</label>

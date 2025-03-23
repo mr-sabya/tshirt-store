@@ -121,6 +121,19 @@
                     :hasSubMenu="false" />
 
 
+                <livewire:backend.theme.menu-item
+                    :url="'admin.payment-method.index'"
+                    :icon="'ri-dashboard-line'"
+                    :label="'Payment Methods'"
+                    :hasSubMenu="false" />
+
+                <livewire:backend.theme.menu-item
+                    :url="'admin.delivery-charge.index'"
+                    :icon="'ri-dashboard-line'"
+                    :label="'Delivery Charges'"
+                    :hasSubMenu="false" />
+
+
             </ul>
         </div>
         <!-- Sidebar -->

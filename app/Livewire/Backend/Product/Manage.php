@@ -37,8 +37,6 @@ class Manage extends Component
         'status' => 'required|boolean',
         'featured' => 'nullable|boolean',
         'discount' => 'nullable|numeric|min:0|max:100',
-        'size_ids' => 'required|array|min:1', // Ensure at least one size is selected
-        'size_ids.*' => 'exists:sizes,id', // Ensure each selected size exists
         'color_id' => 'nullable|exists:colors,id',
         'supplier_id' => 'nullable|exists:suppliers,id',
     ];
@@ -101,8 +99,6 @@ class Manage extends Component
             ]
         );
 
-        // Sync the selected sizes with the product
-        $product->sizes()->sync($this->size_ids);
 
         session()->flash('message', $this->productId ? 'Product updated successfully.' : 'Product created successfully.');
 
@@ -133,8 +129,7 @@ class Manage extends Component
         $this->discount = $product->discount;
         $this->color_id = $product->color_id;
         $this->supplier_id = $product->supplier_id;
-        // Load the selected sizes
-        $this->size_ids = $product->sizes->pluck('id')->toArray();
+
     }
 
 

@@ -21,12 +21,21 @@
                                         <tr>
                                             <td data-label="Product" class="ec-cart-pro-name">
                                                 <a href="{{ route('product.show', $item->product->id) }}">
-                                                    @if($item->variation)
-                                                    <img class="ec-cart-pro-img mr-4" src="{{ url('storage/'. $item->variation->image ?? $item->product->image) }}" alt="" />
-                                                    @else
-                                                    <img class="ec-cart-pro-img mr-4" src="{{ url('storage/'. $item->product->image) }}" alt="" />
-                                                    @endif
-                                                    {{ $item->product->name }}
+                                                    <div class="d-flex align-items-center">
+                                                        @if($item->variation)
+                                                        <img class="ec-cart-pro-img mr-4" src="{{ url('storage/'. $item->variation->image ?? $item->product->image) }}" alt="" />
+                                                        @else
+                                                        <img class="ec-cart-pro-img mr-4" src="{{ url('storage/'. $item->product->image) }}" alt="" />
+                                                        @endif
+                                                        <div>
+                                                            <p class="m-0">{{ $item->product->name }}</p>
+
+                                                            <p class="m-0 {{ $item->checkStock($item->product['id'], $item->size['id']) ? 'text-success' : 'text-danger' }}">
+                                                                {{ $item->checkStock($item->product['id'], $item->size['id']) ? 'In Stock' : 'Out of Stock' }}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
                                                 </a>
                                             </td>
                                             <td data-label="Price" class="ec-cart-pro-price">
@@ -61,10 +70,50 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="ec-cart-update-bottom">
-                                        <a href="#">Go to Cart</a>
+                                        <a href="{{ route('user.cart') }}" wire:navigate>Go to Cart</a>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- show user address -->
+                            <div class="row mt-3">
+                                <div class="col-lg-12">
+                                    <div class="card shadow-sm border-light rounded">
+                                        <div class="card-header p-2" style="background-color: rgb(239, 117, 36);">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5 class="mb-0 text-white">Shipping Address</h5>
+                                                <a href="{{ route('user.profile') }}" wire:navigate class="btn btn-light btn-sm" style="border-radius: 20px;">
+                                                    <i class="fas fa-edit"></i> Edit
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <h6 class="font-weight-bold">Name:</h6>
+                                                    <p class="text-muted">{{ Auth::user()->name }}</p>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <h6 class="font-weight-bold">Phone:</h6>
+                                                    <p class="text-muted">{{ Auth::user()->phone }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <h6 class="font-weight-bold">Address:</h6>
+                                                    <p class="text-muted">{{ Auth::user()->address }}</p>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <h6 class="font-weight-bold">City & Division:</h6>
+                                                    <p class="text-muted">{{ Auth::user()->city['name'] }} - {{ Auth::user()->postcode }}, {{ Auth::user()->division['name'] }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -87,7 +136,7 @@
                                     </div>
                                     <div>
                                         <span class="text-left">Delivery Charges</span>
-                                        <span class="text-right">৳ 10.00</span>
+                                        <span class="text-right">৳ {{ $deliveryCharge->charge ?? '130'}}</span>
                                     </div>
                                     <div>
                                         <span class="text-left">Coupon Discount</span>
@@ -103,7 +152,7 @@
                                     </div>
                                     <div class="ec-cart-summary-total">
                                         <span class="text-left">Total Amount</span>
-                                        <span class="text-right">৳ {{ number_format($total + 10, 2) }}</span>
+                                        <span class="text-right">৳ {{ number_format($total + $deliveryCharge->charge ?? '130', 2) }}</span>
                                     </div>
 
                                 </div>
@@ -125,18 +174,16 @@
                             <div class="ec-checkout-pay">
                                 <div class="ec-pay-desc">Please select the preferred payment method to use on this
                                     order.</div>
+
+                                @foreach($paymentMethods as $method)
                                 <span class="ec-pay-option">
                                     <div class="radio-button mb-3">
-                                        <input type="radio" id="pay1" name="payment" value="Cash On Delivery" wire:model="paymentMethod" checked>
-                                        <label for="pay1">Cash On Delivery</label>
+                                        <input type="radio" id="pay{{ $loop->index }}" name="payment" value="{{ $method->id }}" wire:model="paymentMethod">
+                                        <label for="pay{{ $loop->index }}">{{ $method->name }}</label>
                                     </div>
                                 </span>
-                                <span class="ec-pay-option">
-                                    <div class="radio-button mb-3">
-                                        <input type="radio" id="pay2" name="payment" value="Bkash" wire:model="paymentMethod">
-                                        <label for="pay2">Bkash</label>
-                                    </div>
-                                </span>
+                                @endforeach
+                               
                                 <span class="ec-pay-commemt">
                                     <span class="ec-pay-opt-head">Add Comments About Your Order</span>
                                     <textarea name="your-commemt" placeholder="Comments" wire:model="comment"></textarea>
@@ -150,7 +197,8 @@
                         </div>
 
                         <div class="mt-3">
-                            <button class="btn btn-primary w-100" wire:click="placeOrder">Order Now</button>
+                            <button class="btn btn-primary w-100" wire:click="placeOrder" {{ $hasOutOfStockItems ? 'disabled' : ''}}>Order Now</button>
+                            {!! $hasOutOfStockItems ? '<p class="text-danger text-center mt-2">Some items are out of stock</p>' : '' !!}
                         </div>
                     </div>
                     <!-- Sidebar Payment Block -->

@@ -40,7 +40,7 @@
                 </thead>
                 <tbody>
                     @forelse ($products as $product)
-                    <tr>
+                    <tr wire:key="product-{{ $product->id }}">
                         <th class="align-middle">{{ $loop->iteration }}</th>
                         <th class="align-middle">
                             <div style="display: flex; flex-direction: column;">
@@ -56,29 +56,63 @@
                         <td class="align-middle">
                             <a href="{{ route('admin.product.edit', $product->id) }}" wire:navigate class="btn btn-info btn-sm">Edit</a>
                             <button class="btn btn-danger btn-sm" wire:click="delete({{ $product->id }})">Delete</button>
-                            <button class="btn btn-secondary btn-sm" wire:click="toggleVariations({{ $product->id }})">
+
+                            <button
+                                class="btn btn-secondary btn-sm"
+                                wire:key="variations-button-{{ $product->id }}"
+                                wire:click="toggleVariations({{ $product->id }})">
                                 Show Variations
                             </button>
-                            <button class="btn btn-secondary btn-sm" wire:click="toggleImages({{ $product->id }})">
+
+                            <button
+                                class="btn btn-secondary btn-sm"
+                                wire:key="images-button-{{ $product->id }}"
+                                wire:click="toggleImages({{ $product->id }})">
                                 Show Gallery
+                            </button>
+
+                            <button
+                                class="btn btn-secondary btn-sm"
+                                wire:key="sizes-button-{{ $product->id }}"
+                                wire:click="toggleforSizes({{ $product->id }})">
+                                Sizes
                             </button>
                         </td>
                     </tr>
 
+                    {{-- Variations --}}
                     @if ($product->id === $selectedProductId)
-                    <tr>
+                    <tr wire:key="variations-row-{{ $product->id }}">
                         <td colspan="7">
-                            <livewire:backend.product.variations :productId="$product->id" />
+                            <livewire:backend.product.variations
+                                :productId="$product->id"
+                                wire:key="variations-component-{{ $product->id }}"
+                                wire:ignore.self />
                         </td>
                     </tr>
                     @endif
 
+                    {{-- Image Gallery --}}
                     @if ($product->id === $selectedProductIdForImages)
-                    <tr>
+                    <tr wire:key="images-row-{{ $product->id }}">
                         <td colspan="7">
-                            <livewire:backend.product.image-gallery :productId="$product->id" />
+                            <livewire:backend.product.image-gallery
+                                :productId="$product->id"
+                                wire:key="images-component-{{ $product->id }}"
+                                wire:ignore.self />
                         </td>
-                    </tr>   
+                    </tr>
+                    @endif
+
+                    @if ($product->id === $selectedProductIdForSizes)
+                    <tr wire:key="sizes-row-{{ $product->id }}">
+                        <td colspan="7">
+                            <livewire:backend.product.sizes
+                                :productId="$product->id"
+                                wire:key="sizes-component-{{ $product->id }}"
+                                wire:ignore.self />
+                        </td>
+                    </tr>
                     @endif
 
                     @empty

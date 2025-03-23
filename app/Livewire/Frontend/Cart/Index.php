@@ -3,6 +3,7 @@
 namespace App\Livewire\Frontend\Cart;
 
 use App\Models\Cart;
+use App\Models\DeliveryCharge;
 use Livewire\Component;
 
 class Index extends Component
@@ -79,6 +80,7 @@ class Index extends Component
         return view('livewire.frontend.cart.index', [
             'cartItems' => $this->cartItems,
             'total' => $this->total,
+            'deliveryCharge' => DeliveryCharge::where('city_id', auth()->user()->city_id)->first(),
         ]);
     }
 }

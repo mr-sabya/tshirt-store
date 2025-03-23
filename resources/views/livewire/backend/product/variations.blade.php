@@ -61,7 +61,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($variations as $variation)
+                            @forelse ($variations as $variation)
                             <tr>
                                 <td>{{ $variation->id }}</td>
                                 <td>{{ $variation->color->name }}</td>
@@ -75,7 +75,11 @@
                                     <button wire:click="delete({{ $variation->id }})" class="btn btn-danger btn-sm">Delete</button>
                                 </td>
                             </tr>
-                            @endforeach
+                            @empty
+                            <tr>
+                                <td colspan="4">No variations found</td>
+                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
 

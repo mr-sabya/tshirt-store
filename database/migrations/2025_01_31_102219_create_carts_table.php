@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // References the users table
             $table->foreignId('product_id')->constrained()->onDelete('cascade'); // References the products table
             $table->foreignId('product_variation_id')->nullable()->constrained()->onDelete('cascade'); // References the variations table
-            $table->foreignId('size_id')->constrained()->onDelete('cascade'); // References the sizes table
+            $table->foreignId('size_id')->nullable()->constrained()->onDelete('cascade'); // References the sizes table
             $table->integer('quantity')->default(1); // Quantity of the item in the cart
             $table->timestamps();
         });

@@ -154,5 +154,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // setting
         Route::get('/settings', [\App\Http\Controllers\Backend\SettingController::class, 'index'])->name('setting.index');
+
+        // payment methods
+        Route::get('/payment-methods', [\App\Http\Controllers\Backend\PaymentMethodController::class, 'index'])->name('payment-method.index');
+
+        // delivery charges
+        Route::get('/delivery-charges', [\App\Http\Controllers\Backend\DeliveryChargeController::class, 'index'])->name('delivery-charge.index');
     });
 });

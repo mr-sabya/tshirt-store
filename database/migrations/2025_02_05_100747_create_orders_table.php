@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('delivery_charge', 10, 2)->default(10);
             $table->decimal('discount', 10, 2)->default(0);
             $table->decimal('total', 10, 2);
-            $table->string('payment_method')->default('Cash On Delivery');
+            $table->foreignId('payment_method_id')->constrained()->onDelete('cascade');
             $table->text('comment')->nullable();
             $table->string('status')->default('pending');
             $table->timestamps();

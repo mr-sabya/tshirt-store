@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('invoice_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->decimal('amount', 10, 2);
-            $table->string('method');
+            $table->foreignId('payment_method_id')->constrained()->onDelete('cascade');
             $table->string('transaction_id')->unique();
             $table->string('status')->default('pending');
             $table->timestamp('paid_at')->nullable();

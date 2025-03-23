@@ -19,4 +19,11 @@ class Size extends Model
         'slug',
         'size',
     ];
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'product_sizes')
+            ->withPivot('is_stock', 'stock')
+            ->withTimestamps();
+    }
 }

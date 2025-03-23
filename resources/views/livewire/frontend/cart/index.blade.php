@@ -23,8 +23,20 @@
                                         <tr>
                                             <td data-label="Product" class="ec-cart-pro-name">
                                                 <a href="{{ route('product.show', $item->product->id) }}">
-                                                    <img class="ec-cart-pro-img mr-4" src="{{ url('storage/'. $item->variation->image ?? $item->product->image) }}" alt="" />
-                                                    {{ $item->product->name }}
+                                                    <div class="d-flex align-items-center">
+                                                        @if($item->variation)
+                                                        <img class="ec-cart-pro-img mr-4" src="{{ url('storage/'. $item->variation->image ?? $item->product->image) }}" alt="{{ $item->product['name'] }}" />
+                                                        @else
+                                                        <img class="ec-cart-pro-img mr-4" src="{{ url('storage/'. $item->product->image) }}" alt="{{ $item->product['name'] }}" />
+                                                        @endif
+                                                        <div>
+                                                            <p class="m-0">{{ $item->product->name }}</p>
+
+                                                            <p class="m-0 {{ $item->checkStock($item->product['id'], $item->size['id']) ? 'text-success' : 'text-danger' }}">
+                                                                {{ $item->checkStock($item->product['id'], $item->size['id']) ? 'In Stock' : 'Out of Stock' }}
+                                                            </p>
+                                                        </div>
+                                                    </div>
                                                 </a>
                                             </td>
                                             <td data-label="Price" class="ec-cart-pro-price">
@@ -85,7 +97,7 @@
                                     </div>
                                     <div>
                                         <span class="text-left">Delivery Charges</span>
-                                        <span class="text-right">৳ 10.00</span>
+                                        <span class="text-right">৳ {{ $deliveryCharge->charge ?? '130' }}</span>
                                     </div>
                                     <div>
                                         <span class="text-left">Coupon Discount</span>
@@ -99,7 +111,7 @@
                                     </div>
                                     <div class="ec-cart-summary-total">
                                         <span class="text-left">Total Amount</span>
-                                        <span class="text-right">৳ {{ number_format($total + 10, 2) }}</span>
+                                        <span class="text-right">৳ {{ number_format($total + $deliveryCharge->charge ?? '130', 2) }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -114,7 +126,7 @@
                     <img src="{{ url('assets/frontend/images/11329060.png') }}" alt="">
                     <p>No Items in your Cart</p>
                     <div class="ec-cart-update-bottom">
-                        <a href="#">Continue Shopping</a>
+                        <a href="{{ route('shop.index') }}" wire:navigate>Continue Shopping</a>
                     </div>
                 </div>
             </div>
