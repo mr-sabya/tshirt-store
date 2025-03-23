@@ -71,13 +71,16 @@ class Index extends Component
         // dd($this->cartItems);
 
         foreach ($this->cartItems as $item) {
-            // Use checkStock method to check if the product with the size is in stock
-            $stock = $item->checkStock($item->product->id, $item->size->id);
 
-            // Check if the stock is zero or the item is out of stock
-            if (!$stock) {
-                $this->hasOutOfStockItems = true; // Set flag if item is out of stock
-                break; // Exit loop early if any item is out of stock
+            if ($item->size) {
+                // Use checkStock method to check if the product with the size is in stock
+                $stock = $item->checkStock($item->product->id, $item->size->id);
+
+                // Check if the stock is zero or the item is out of stock
+                if (!$stock) {
+                    $this->hasOutOfStockItems = true; // Set flag if item is out of stock
+                    break; // Exit loop early if any item is out of stock
+                }
             }
         }
         // dd($this->hasOutOfStockItems);
@@ -129,7 +132,7 @@ class Index extends Component
             OrderItem::create([
                 'order_id' => $order->id,
                 'product_id' => $cartItem->product->id,
-                'size_id' => $cartItem->size->id,
+                'size_id' => $cartItem->size->id ?? null,
                 'product_variation_id' => $cartItem->variation->id ?? null,
                 'quantity' => $cartItem->quantity,
                 'price' => $cartItem->product->price,

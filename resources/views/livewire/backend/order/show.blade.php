@@ -50,15 +50,26 @@
                         <tr class="align-middle">
                             <td>{{ $loop->iteration }}</td>
                             <td>
+                                @if($item->productVariation)
                                 <img src="{{ url('storage', $item->productVariation['image']) }}"
                                     alt="Product Image" class="rounded-circle shadow-sm"
                                     style="width: 40px; height: 40px; object-fit: cover;">
+                                @else
+                                <img src="{{ url('storage', $item->product['image']) }}"
+                                    alt="Product Image" class="rounded-circle shadow-sm"
+                                    style="width: 40px; height: 40px; object-fit: cover;">
+                                @endif
+
                                 {{ $item->product->name }}
                             </td>
                             <td class="text-center">{{ $item->size['name'] ?? '-' }}</td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-center align-items-center">
+                                    @if($item->productVariation)
                                     <div style="width: 18px; height: 18px; border-radius: 50%; background-color: {{ $item->productVariation['color']['color'] }};"></div>
+                                    @else
+                                    <div style="width: 18px; height: 18px; border-radius: 50%; background-color: {{ $item->product['color']['color'] }};"></div>
+                                    @endif
                                 </div>
                             </td>
                             <td class="text-center">{{ $item->quantity }}</td>
@@ -82,6 +93,14 @@
                         </tr>
                     </tfoot>
                 </table>
+            </div>
+            <!-- payment method -->
+            <div class="row mt-4">
+                <div class="col">
+                    <p class="mb-1"><strong>💳 Payment Method:</strong> {{ $order->paymentMethod['name'] }}</p>
+                    <p class="mb-1"><strong>📅 Payment Date:</strong> {{ $order->payment_date }}</p>
+                    <p class="mt-1"><strong>📝 Payment Note:</strong> {{ $order->payment_note }}</p>
+                </div>
             </div>
         </div>
 

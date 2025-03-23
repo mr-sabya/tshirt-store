@@ -32,9 +32,15 @@
                                                         <div>
                                                             <p class="m-0">{{ $item->product->name }}</p>
 
+                                                            @if($item->size)
                                                             <p class="m-0 {{ $item->checkStock($item->product['id'], $item->size['id']) ? 'text-success' : 'text-danger' }}">
                                                                 {{ $item->checkStock($item->product['id'], $item->size['id']) ? 'In Stock' : 'Out of Stock' }}
                                                             </p>
+                                                            @else
+                                                            <p class="m-0 {{ $item->product->is_stock ? 'text-success' : 'text-danger' }}">
+                                                                {{ $item->product->is_stock ? 'In Stock' : 'Out of Stock' }}
+                                                            </p>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </a>
@@ -82,7 +88,50 @@
             </div>
             <!-- Sidebar Area Start -->
             <div class="ec-cart-rightside col-lg-4 col-md-12">
-                <div class="ec-sidebar-wrap">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card shadow-sm border-light rounded">
+                            <div class="card-header p-2" style="background-color: rgb(239, 117, 36);">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0 text-white">Shipping Address</h5>
+                                    <a href="{{ route('user.profile') }}" wire:navigate class="btn btn-light btn-sm" style="border-radius: 20px;">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <h6 class="font-weight-bold">Name:</h6>
+                                        <p class="text-muted">{{ Auth::user()->name }}</p>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <h6 class="font-weight-bold">Phone:</h6>
+                                        <p class="text-muted">{{ Auth::user()->phone }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <h6 class="font-weight-bold">Address:</h6>
+                                        <p class="text-muted">{{ Auth::user()->address ?? 'N/A' }}</p>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <h6 class="font-weight-bold">City & Division:</h6>
+                                        @if(Auth::user()->city)
+                                        <p class="text-muted">{{ Auth::user()->city['name'] }} - {{ Auth::user()->postcode }}, {{ Auth::user()->division['name'] }}</p>
+                                        @else
+                                        <p class="text-muted">N/A</p>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ec-sidebar-wrap mt-3">
+                    <!-- show user address -->
+
                     <!-- Sidebar Summary Block -->
                     <div class="ec-sidebar-block">
                         <div class="ec-sb-title">
@@ -97,7 +146,7 @@
                                     </div>
                                     <div>
                                         <span class="text-left">Delivery Charges</span>
-                                        <span class="text-right">৳ {{ $deliveryCharge->charge ?? '130' }}</span>
+                                        <span class="text-right">৳ {{ $deliveryCharge ? $deliveryCharge->charge : '130'}}</span>
                                     </div>
                                     <div>
                                         <span class="text-left">Coupon Discount</span>
@@ -111,8 +160,12 @@
                                     </div>
                                     <div class="ec-cart-summary-total">
                                         <span class="text-left">Total Amount</span>
-                                        <span class="text-right">৳ {{ number_format($total + $deliveryCharge->charge ?? '130', 2) }}</span>
+                                        @php
+                                        $charge = $deliveryCharge ? $deliveryCharge->charge : 130;
+                                        @endphp
+                                        <span class="text-right">৳ {{ number_format($total + $charge, 2) }}</span>
                                     </div>
+
                                 </div>
                             </div>
                         </div>

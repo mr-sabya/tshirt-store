@@ -30,9 +30,15 @@
                                                         <div>
                                                             <p class="m-0">{{ $item->product->name }}</p>
 
+                                                            @if($item->size)
                                                             <p class="m-0 {{ $item->checkStock($item->product['id'], $item->size['id']) ? 'text-success' : 'text-danger' }}">
                                                                 {{ $item->checkStock($item->product['id'], $item->size['id']) ? 'In Stock' : 'Out of Stock' }}
                                                             </p>
+                                                            @else
+                                                            <p class="m-0 {{ $item->product->is_stock ? 'text-success' : 'text-danger' }}">
+                                                                {{ $item->product->is_stock ? 'In Stock' : 'Out of Stock' }}
+                                                            </p>
+                                                            @endif
                                                         </div>
                                                     </div>
 
@@ -102,11 +108,15 @@
                                             <div class="row">
                                                 <div class="col-md-6 mb-3">
                                                     <h6 class="font-weight-bold">Address:</h6>
-                                                    <p class="text-muted">{{ Auth::user()->address }}</p>
+                                                    <p class="text-muted">{{ Auth::user()->address ?? 'N/A' }}</p>
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <h6 class="font-weight-bold">City & Division:</h6>
+                                                    @if(Auth::user()->city)
                                                     <p class="text-muted">{{ Auth::user()->city['name'] }} - {{ Auth::user()->postcode }}, {{ Auth::user()->division['name'] }}</p>
+                                                    @else
+                                                    <p class="text-muted">N/A</p>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -136,7 +146,7 @@
                                     </div>
                                     <div>
                                         <span class="text-left">Delivery Charges</span>
-                                        <span class="text-right">৳ {{ $deliveryCharge->charge ?? '130'}}</span>
+                                        <span class="text-right">৳ {{ $deliveryCharge ? $deliveryCharge->charge : '130'}}</span>
                                     </div>
                                     <div>
                                         <span class="text-left">Coupon Discount</span>
@@ -152,7 +162,10 @@
                                     </div>
                                     <div class="ec-cart-summary-total">
                                         <span class="text-left">Total Amount</span>
-                                        <span class="text-right">৳ {{ number_format($total + $deliveryCharge->charge ?? '130', 2) }}</span>
+                                        @php
+                                        $charge = $deliveryCharge ? $deliveryCharge->charge : 130;
+                                        @endphp
+                                        <span class="text-right">৳ {{ number_format($total + $charge, 2) }}</span>
                                     </div>
 
                                 </div>
@@ -183,7 +196,7 @@
                                     </div>
                                 </span>
                                 @endforeach
-                               
+
                                 <span class="ec-pay-commemt">
                                     <span class="ec-pay-opt-head">Add Comments About Your Order</span>
                                     <textarea name="your-commemt" placeholder="Comments" wire:model="comment"></textarea>

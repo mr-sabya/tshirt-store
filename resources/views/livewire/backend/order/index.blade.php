@@ -66,15 +66,25 @@
                                 @foreach($order->orderItems as $item)
                                 <tr class="align-middle">
                                     <td>
+                                        @if($item->productVariation)
                                         <img src="{{ url('storage', $item->productVariation['image']) }}"
                                             alt="Product Image" class="rounded-circle shadow-sm"
                                             style="width: 40px; height: 40px; object-fit: cover;">
+                                        @else
+                                        <img src="{{ url('storage', $item->product['image']) }}"
+                                            alt="Product Image" class="rounded-circle shadow-sm"
+                                            style="width: 40px; height: 40px; object-fit: cover;">
+                                        @endif
                                         {{ $item->product->name }}
                                     </td>
                                     <td class="text-center">{{ $item->size['name'] ?? '-' }}</td>
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center align-items-center">
+                                            @if($item->productVariation)
                                             <div style="width: 18px; height: 18px; border-radius: 50%; background-color: {{ $item->productVariation['color']['color'] }};"></div>
+                                            @else
+                                            <div style="width: 18px; height: 18px; border-radius: 50%; background-color: {{ $item->product['color']['color'] }};"></div>
+                                            @endif
                                         </div>
                                     </td>
                                     <td class="text-center">{{ $item->quantity }}</td>

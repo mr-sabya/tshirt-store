@@ -90,4 +90,10 @@ class Order extends Model
     {
         return $this->hasOne(OrderStatus::class)->latest();
     }
+
+    // payment_method
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class);
+    }
 }

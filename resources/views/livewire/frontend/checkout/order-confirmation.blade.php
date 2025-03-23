@@ -70,7 +70,7 @@
 
                                                         </th>
                                                         <td><span>{{ $item->product->name }}</span></td>
-                                                        <td><span>{{ $item->size->name }}</span></td>
+                                                        <td><span>{{ $item->size->name ?? 'N/A' }}</span></td>
                                                         <td><span>{{ $item->quantity }}</span></td>
                                                         <td><span>৳ {{ number_format($item->product->price, 2) }}</span></td>
                                                         <td><span>৳ {{ number_format($item->quantity * $item->product->price, 2) }}</span></td>

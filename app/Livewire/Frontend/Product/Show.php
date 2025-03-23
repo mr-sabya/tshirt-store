@@ -59,47 +59,30 @@ class Show extends Component
             return $this->redirect(route('login'), navigate: true);
         }
 
-        if (!$this->selectedSizeId) {
-            session()->flash('error', 'Please select a size.');
-            return;
-        }
-
+        // Get the product details
         $product = Product::find($this->productId);
 
-        if ($product) {
-            // Check if the product with the selected size (variation is optional) is already in the cart
-            $existingCartItem = Cart::where('user_id', auth()->id())
-                ->where('product_id', $this->productId)
-                ->where('size_id', $this->selectedSizeId);
-
-            if ($this->selectedVariationId) {
-                $existingCartItem->where('product_variation_id', $this->selectedVariationId);
-            }
-
-            $existingCartItem = $existingCartItem->first();
-
-            if ($existingCartItem) {
-                // If the product is already in the cart, update the quantity
-                $existingCartItem->quantity += $this->quantity;
-                $existingCartItem->save();
-            } else {
-                // If the product is not in the cart, add it
-                Cart::addItem(auth()->id(), $this->productId, $this->selectedVariationId, $this->selectedSizeId, $this->quantity);
-            }
-
-            // Dispatch event for Facebook Pixel tracking
-            $this->dispatch('addToCartPixel', [
-                'product_id' => $this->productId,
-                'name' => $product->name,
-                'price' => $product->price,
-                'quantity' => $this->quantity,
-                'currency' => $this->settings['currency'], // Change currency if needed
-            ]);
-
-            // Emit event to update the cart count in the parent component
-            $this->dispatch('cartUpdated');
-            $this->quantity = 1;
+        if (!$product) {
+            return back()->with('error', 'Product not found');
         }
+        // Add to cart logic
+        $userId = auth()->id(); // Get the current logged-in user's ID
+
+        // dd($this->selectedSizeId);
+        Cart::addItem($userId, $product->id, $this->selectedVariationId, $this->selectedSizeId, $this->quantity);
+
+        // Dispatch event for Facebook Pixel tracking
+        $this->dispatch('addToCartPixel', [
+            'product_id' => $this->productId,
+            'name' => $product->name,
+            'price' => $product->price,
+            'quantity' => $this->quantity,
+            'currency' => $this->settings['currency'], // Change currency if needed
+        ]);
+
+        // Emit event to update the cart count in the parent component
+        $this->dispatch('cartUpdated');
+        $this->quantity = 1;
     }
 
 
