@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Foreign key to users table
             $table->foreignId('product_id')->constrained()->onDelete('cascade'); // Foreign key to products table
-            $table->foreignId('product_variation_id')->constrained()->onDelete('cascade'); // Foreign key to product variations table
-            $table->foreignId('size_id')->constrained()->onDelete('cascade'); // Foreign key to sizes table
+            $table->foreignId('product_variation_id')->nullable()->constrained()->onDelete('cascade'); // Foreign key to product variations table
+            $table->foreignId('size_id')->nullable()->constrained()->onDelete('cascade'); // Foreign key to sizes table
             $table->timestamps();
         });
     }

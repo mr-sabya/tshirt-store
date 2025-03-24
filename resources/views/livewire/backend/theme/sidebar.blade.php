@@ -133,6 +133,12 @@
                     :label="'Delivery Charges'"
                     :hasSubMenu="false" />
 
+                <livewire:backend.theme.menu-item
+                    :url="'admin.hot-offer.index'"
+                    :icon="'ri-dashboard-line'"
+                    :label="'Hot Offers'"
+                    :hasSubMenu="false" />
+
 
             </ul>
         </div>

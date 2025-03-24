@@ -20,6 +20,42 @@ class Wishlist extends Model
         'size_id'
     ];
 
+    // In Wishlist.php (Model)
+    public static function addItem($userId, $productId, $productVariationId, $sizeId)
+    {
+        // Build the query to check if the product already exists in the wishlist for the user
+        $query = self::where('user_id', $userId)
+            ->where('product_id', $productId);
+
+        // If productVariationId is not null, add it to the query
+        if ($productVariationId !== null) {
+            $query->where('product_variation_id', $productVariationId);
+        }
+
+        // If sizeId is not null, add it to the query
+        if ($sizeId !== null) {
+            $query->where('size_id', $sizeId);
+        }
+
+        // Execute the query to check for an existing wishlist item
+        $existingWishlistItem = $query->first();
+
+        if (!$existingWishlistItem) {
+            // If the product with the selected variation and size is not in the wishlist, create a new entry
+            self::create([
+                'user_id' => $userId,
+                'product_id' => $productId,
+                'product_variation_id' => $productVariationId,
+                'size_id' => $sizeId,
+            ]);
+        }
+
+        if($existingWishlistItem){
+            $existingWishlistItem->delete();
+        }
+    }
+
+
     // Define the relationship to User
     public function user()
     {

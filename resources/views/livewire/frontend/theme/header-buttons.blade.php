@@ -14,10 +14,8 @@
 
     @auth
     <!-- Header wishlist Start -->
-    <a href="wishlist.html" class="ec-header-btn ec-header-wishlist">
-        <div class="header-icon"><i class="fi-rr-heart"></i></div>
-        <span class="ec-header-count">4</span>
-    </a>
+    <livewire:frontend.theme.wishlist-button />
+    
     <!-- Header wishlist End -->
     <!-- Header Cart Start -->
     <livewire:frontend.theme.cart-button />

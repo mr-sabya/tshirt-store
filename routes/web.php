@@ -160,5 +160,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // delivery charges
         Route::get('/delivery-charges', [\App\Http\Controllers\Backend\DeliveryChargeController::class, 'index'])->name('delivery-charge.index');
+        
+        // hot offers
+        Route::get('/hot-offers', [\App\Http\Controllers\Backend\HotOfferController::class, 'index'])->name('hot-offer.index');
+
     });
 });

@@ -33,7 +33,6 @@ class Cart extends Model
     }
 
     // Helper method to update or add a cart item
-    // Helper method to update or add a cart item
     public static function addItem($userId, $productId, $productVariationId, $sizeId, $quantity)
     {
         // Build the query to check if the product already exists in the cart for the user
