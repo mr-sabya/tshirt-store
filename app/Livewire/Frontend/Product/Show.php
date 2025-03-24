@@ -95,31 +95,14 @@ class Show extends Component
         // Validate if product, variation, and size are selected
         $product = Product::find($this->productId);
 
-        if (!$this->selectedSizeId) {
-            session()->flash('error', 'Please select a size.');
-            return;
-        }
-
         if ($product) {
-            // Check if the product with the selected size (variation is optional) is already in the cart
-            $existingCartItem = Cart::where('user_id', auth()->id())
-                ->where('product_id', $this->productId)
-                ->where('size_id', $this->selectedSizeId);
+            // Add to cart logic
+            $userId = auth()->id(); // Get the current logged-in user's ID
 
-            if ($this->selectedVariationId) {
-                $existingCartItem->where('product_variation_id', $this->selectedVariationId);
-            }
+            // dd($this->selectedSizeId);
+            Cart::addItem($userId, $product->id, $this->selectedVariationId, $this->selectedSizeId, $this->quantity);
 
-            $existingCartItem = $existingCartItem->first();
-
-            if ($existingCartItem) {
-                // If the product is already in the cart, update the quantity
-                $existingCartItem->quantity += $this->quantity;
-                $existingCartItem->save();
-            } else {
-                // If the product is not in the cart, add it
-                Cart::addItem(auth()->id(), $this->productId, $this->selectedVariationId, $this->selectedSizeId, $this->quantity);
-            }
+            $this->dispatch('cartUpdated');
 
             // Dispatch event for Facebook Pixel tracking (Buy Now)
             $this->dispatch('buyNowPixel', [

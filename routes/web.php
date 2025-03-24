@@ -55,6 +55,11 @@ Route::middleware(['web', 'auth'])->group(function () {
     // cart
     Route::get('cart', [\App\Http\Controllers\Frontend\CartController::class, 'index'])->name('user.cart');
 
+
+    // wishlist
+    Route::get('wishlist', [\App\Http\Controllers\Frontend\WishlistController::class, 'index'])->name('user.wishlist');
+
+
     // checkout
     Route::get('checkout', [\App\Http\Controllers\Frontend\CheckoutController::class, 'index'])->name('user.checkout');
 
