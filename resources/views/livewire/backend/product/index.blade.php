@@ -6,9 +6,9 @@
     @endif
 
     <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h4 class="m-0">Product List</h4>
-            <a href="{{ route('admin.product.create') }}" wire:navigate class="btn btn-primary">Add Product</a>
+        <div class="card-header bg-primary d-flex justify-content-between align-items-center">
+            <h4 class="m-0 text-white">Product List</h4>
+            <a href="{{ route('admin.product.create') }}" wire:navigate class="btn btn-light">Add Product</a>
         </div>
 
         <div class="card-body">
@@ -58,24 +58,31 @@
                             <button class="btn btn-danger btn-sm" wire:click="delete({{ $product->id }})">Delete</button>
 
                             <button
-                                class="btn btn-secondary btn-sm"
+                                class="btn {{ $product->id === $selectedProductId ? 'btn-primary' : 'btn-secondary' }} btn-sm"
                                 wire:key="variations-button-{{ $product->id }}"
                                 wire:click="toggleVariations({{ $product->id }})">
                                 Show Variations
                             </button>
 
                             <button
-                                class="btn btn-secondary btn-sm"
+                                class="btn {{ $product->id === $selectedProductIdForImages ? 'btn-primary' : 'btn-secondary' }} btn-sm"
                                 wire:key="images-button-{{ $product->id }}"
                                 wire:click="toggleImages({{ $product->id }})">
                                 Show Gallery
                             </button>
 
                             <button
-                                class="btn btn-secondary btn-sm"
+                                class="btn {{ $product->id === $selectedProductIdForSizes ? 'btn-primary' : 'btn-secondary' }} btn-sm"
                                 wire:key="sizes-button-{{ $product->id }}"
                                 wire:click="toggleforSizes({{ $product->id }})">
                                 Sizes
+                            </button>
+
+                            <button
+                                class="btn {{ $product->id === $selectedProductIdForInfo ? 'btn-primary' : 'btn-secondary' }} btn-sm"
+                                wire:key="info-button-{{ $product->id }}"
+                                wire:click="toggleforInfo({{ $product->id }})">
+                                More Infos
                             </button>
                         </td>
                     </tr>
@@ -83,7 +90,7 @@
                     {{-- Variations --}}
                     @if ($product->id === $selectedProductId)
                     <tr wire:key="variations-row-{{ $product->id }}">
-                        <td colspan="7">
+                        <td colspan="8">
                             <livewire:backend.product.variations
                                 :productId="$product->id"
                                 wire:key="variations-component-{{ $product->id }}"
@@ -95,7 +102,7 @@
                     {{-- Image Gallery --}}
                     @if ($product->id === $selectedProductIdForImages)
                     <tr wire:key="images-row-{{ $product->id }}">
-                        <td colspan="7">
+                        <td colspan="8">
                             <livewire:backend.product.image-gallery
                                 :productId="$product->id"
                                 wire:key="images-component-{{ $product->id }}"
@@ -106,10 +113,20 @@
 
                     @if ($product->id === $selectedProductIdForSizes)
                     <tr wire:key="sizes-row-{{ $product->id }}">
-                        <td colspan="7">
+                        <td colspan="8">
                             <livewire:backend.product.sizes
                                 :productId="$product->id"
                                 wire:key="sizes-component-{{ $product->id }}"
+                                wire:ignore.self />
+                        </td>
+                    </tr>
+                    @endif
+                    @if ($product->id === $selectedProductIdForInfo)
+                    <tr wire:key="info-row-{{ $product->id }}">
+                        <td colspan="8">
+                            <livewire:backend.product.info
+                                :productId="$product->id"
+                                wire:key="info-component-{{ $product->id }}"
                                 wire:ignore.self />
                         </td>
                     </tr>

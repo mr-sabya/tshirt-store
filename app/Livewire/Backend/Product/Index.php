@@ -17,6 +17,7 @@ class Index extends Component
     public $selectedProductId = null;
     public $selectedProductIdForImages = null;
     public $selectedProductIdForSizes = null;
+    public $selectedProductIdForInfo = null;
 
     public function toggleSort($column)
     {
@@ -33,6 +34,7 @@ class Index extends Component
         $this->selectedProductId = $this->selectedProductId === $productId ? null : $productId;
         $this->selectedProductIdForImages = null;
         $this->selectedProductIdForSizes = null;
+        $this->selectedProductIdForInfo = null;
     }
 
     public function toggleImages($productId)
@@ -40,6 +42,7 @@ class Index extends Component
         $this->selectedProductIdForImages = $this->selectedProductIdForImages === $productId ? null : $productId;
         $this->selectedProductId = null;
         $this->selectedProductIdForSizes = null;
+        $this->selectedProductIdForInfo = null;
     }
 
     public function toggleforSizes($productId)
@@ -51,6 +54,19 @@ class Index extends Component
         // Reset other variables to avoid conflicts
         $this->selectedProductId = null;
         $this->selectedProductIdForImages = null;
+        $this->selectedProductIdForInfo = null;
+    }
+
+    public function toggleforInfo($productId)
+    {
+        // Ensure selectedProductIdForSizes is set to null first
+        $this->selectedProductIdForInfo = ($this->selectedProductIdForInfo === $productId) ? null : $productId;
+
+        // dd($this->selectedProductIdForSizes);
+        // Reset other variables to avoid conflicts
+        $this->selectedProductId = null;
+        $this->selectedProductIdForImages = null;
+        $this->selectedProductIdForSizes = null;
     }
 
 

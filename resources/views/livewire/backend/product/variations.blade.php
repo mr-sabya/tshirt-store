@@ -8,8 +8,8 @@
     <div class="row">
         <div class="col-lg-4">
             <div class="card">
-                <div class="card-header">
-                    <h5>Manage Variations</h5>
+                <div class="card-header bg-primary">
+                    <h5 class="m-0 text-white">Manage Variations</h5>
                 </div>
                 <div class="card-body">
                     <form wire:submit.prevent="save">
@@ -46,8 +46,8 @@
 
         <div class="col-lg-8">
             <div class="card">
-                <div class="card-header">
-                    <h5>Variations List</h5>
+                <div class="card-header bg-primary">
+                    <h5 class="m-0 text-white">Variations List</h5>
                 </div>
                 <div class="card-body">
 

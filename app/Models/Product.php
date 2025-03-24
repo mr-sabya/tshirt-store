@@ -74,4 +74,9 @@ class Product extends Model
             ->withPivot('is_stock', 'stock')
             ->withTimestamps();
     }
+
+    public function infos()
+    {
+        return $this->hasMany(ProductInfo::class);
+    }
 }

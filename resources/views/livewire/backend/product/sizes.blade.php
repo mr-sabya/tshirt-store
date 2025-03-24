@@ -2,8 +2,8 @@
 
     <div class="col-lg-4">
         <div class="card">
-            <div class="card-header">
-                <h5>Add/Edit Product Size</h5>
+            <div class="card-header bg-primary">
+                <h5 class="m-0 text-white">Add/Edit Product Size</h5>
             </div>
             <div class="card-body">
                 <form wire:submit.prevent="{{ $updateMode ? 'update' : 'store' }}">
@@ -40,8 +40,8 @@
 
     <div class="col-lg-8">
         <div class="card">
-            <div class="card-header">
-                <h5>Product Sizes</h5>
+            <div class="card-header bg-primary">
+                <h5 class="m-0 text-white">Product Sizes</h5>
             </div>
             <div class="card-body">
                 <table class="table table-bordered mt-3">

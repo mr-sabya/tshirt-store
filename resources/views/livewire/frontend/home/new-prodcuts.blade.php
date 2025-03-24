@@ -14,7 +14,8 @@
             @foreach($products as $product)
             <livewire:frontend.components.product productId="{{ $product->id }}" />
             @endforeach
-            <div class="col-sm-12 shop-all-btn"><a href="shop-left-sidebar-col-3.html">Shop All Collection</a>
+            <div class="col-sm-12 shop-all-btn">
+                <a href="{{ route('shop.index') }}" wire:navigate>Shop All Collection</a>
             </div>
         </div>
     </div>

@@ -3,7 +3,7 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-header bg-primary text-white">
-                Upload Images
+                <h5 class="m-0 text-white">Upload Images</h5>
             </div>
             <div class="card-body">
                 @if (session()->has('message'))
@@ -36,15 +36,15 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-header bg-primary text-white">
-                Image Gallery
+                <h5 class="m-0 text-white">Image Gallery</h5>
             </div>
             <div class="card-body">
                 <div class="row">
                     @forelse ($productImages as $image)
-                    <div class="col-md-4 mb-3">
-                        <div class="card">
-                            <img src="{{ asset('storage/' . $image->image_path) }}" class="card-img-top" style="height: 150px; object-fit: cover;">
-                            <div class="card-body text-center">
+                    <div class="col-md-3 mb-3">
+                        <div class="border">
+                            <div class="p-3 text-center">
+                                <img src="{{ asset('storage/' . $image->image_path) }}" class="card-img-top" style="height: 250px; object-fit: cover;">
                                 <button class="btn btn-danger btn-sm" wire:click="deleteImage({{ $image->id }})">Delete</button>
                             </div>
                         </div>
