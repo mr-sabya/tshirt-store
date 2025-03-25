@@ -146,7 +146,11 @@
                                     </div>
                                     <div>
                                         <span class="text-left">Delivery Charges</span>
+                                        @if(Auth::user()->city)
                                         <span class="text-right">৳ {{ $deliveryCharge ? $deliveryCharge->charge : '130'}}</span>
+                                        @else
+                                        <span class="text-right text-danger"><a href="{{ route('user.profile') }}" wire:navigate>Add Delivery City</a></span>
+                                        @endif
                                     </div>
                                     <div>
                                         <span class="text-left">Coupon Discount</span>
@@ -167,7 +171,9 @@
                                         @endphp
                                         <span class="text-right">৳ {{ number_format($total + $charge, 2) }}</span>
                                     </div>
-
+                                    @if(!Auth::user()->city)
+                                    <span class="m-0">(with regular delivery charge)</span>
+                                    @endif
                                 </div>
                             </div>
                         </div>

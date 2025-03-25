@@ -31,8 +31,8 @@
                                                         <div>
                                                             <p class="m-0">{{ $item->product->name }}</p>
                                                             @if($item->size)
-                                                            <p class="m-0 {{ $item->checkStock($item->product['id'], $item->size['id']) ? 'text-success' : 'text-danger' }}">
-                                                                {{ $item->checkStock($item->product['id'], $item->size['id']) ? 'In Stock' : 'Out of Stock' }}
+                                                            <p class="m-0 {{ $item->product->getSizeStock($item->size['id']) ? 'text-success' : 'text-danger' }}">
+                                                                {{ $item->product->getSizeStock($item->size['id']) ? 'In Stock' : 'Out of Stock' }}
                                                             </p>
                                                             @else
                                                             <p class="m-0 {{ $item->product->is_stock ? 'text-success' : 'text-danger' }}">
