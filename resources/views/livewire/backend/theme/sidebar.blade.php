@@ -139,6 +139,12 @@
                     :label="'Hot Offers'"
                     :hasSubMenu="false" />
 
+                <livewire:backend.theme.menu-item
+                    :url="'admin.testimonials.index'"
+                    :icon="'ri-dashboard-line'"
+                    :label="'Testimonials'"
+                    :hasSubMenu="false" />
+
 
             </ul>
         </div>

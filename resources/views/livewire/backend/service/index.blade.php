@@ -2,8 +2,8 @@
     <!-- Form Column -->
     <div class="col-md-4">
         <div class="card shadow">
-            <div class="card-header bg-primary text-white">
-                {{ $updateMode ? 'Edit Service' : 'Add Service' }}
+            <div class="card-header bg-primary">
+                <h5 class="m-0 text-white">{{ $updateMode ? 'Edit Service' : 'Add Service' }}</h5>
             </div>
             <div class="card-body">
                 @if (session()->has('message'))
@@ -41,13 +41,13 @@
     <!-- Table Column -->
     <div class="col-md-8">
         <div class="card shadow">
-            <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
-                <span>Service List</span>
-                <input type="text" class="form-control w-25" wire:model="search" placeholder="Search...">
+            <div class="card-header bg-primary">
+                <h5 class="m-0 text-white">Service List</h5>
             </div>
             <div class="card-body">
+                <input type="text" class="form-control w-25 mb-3" wire:model="search" placeholder="Search...">
                 <table class="table table-striped">
-                    <thead class="table-dark">
+                    <thead>
                         <tr>
                             <th wire:click="sortBy('icon')" style="cursor: pointer;">Icon</th>
                             <th wire:click="sortBy('title')" style="cursor: pointer;">Title</th>

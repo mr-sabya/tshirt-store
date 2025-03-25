@@ -169,5 +169,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // hot offers
         Route::get('/hot-offers', [\App\Http\Controllers\Backend\HotOfferController::class, 'index'])->name('hot-offer.index');
 
+        // testimonials
+        Route::get('/testimonials', [\App\Http\Controllers\Backend\TestimonialController::class, 'index'])->name('testimonials.index');
+
     });
 });

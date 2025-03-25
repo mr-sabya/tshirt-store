@@ -12,75 +12,28 @@
         <div class="row">
             <div class="ec-test-outer">
                 <ul id="ec-testimonial-slider">
+                    @foreach($testimonials as $testimonial)
                     <li class="ec-test-item">
                         <i class="fi-rr-quote-right top"></i>
                         <div class="ec-test-inner">
-                            <div class="ec-test-img"><img alt="testimonial" title="testimonial"
-                                    src="{{ url('assets/frontend/images/testimonial/1.jpg') }}" /></div>
+                            <div class="ec-test-img">
+                                <img alt="testimonial" title="testimonial"
+                                    src="{{ asset('storage/' . $testimonial->image) }}" />
+                            </div>
                             <div class="ec-test-content">
-                                <div class="ec-test-desc">Lorem Ipsum is simply dummy text of the printing and
-                                    typesetting industry. Lorem Ipsum has been the industry's standard dummy text
-                                    ever since the 1500s, when an unknown printer took a galley of type and
-                                    scrambled it to make a type specimen</div>
-                                <div class="ec-test-name">John Doe</div>
-                                <div class="ec-test-designation">General Manager</div>
+                                <div class="ec-test-desc">{{ $testimonial->review }}</div>
+                                <div class="ec-test-name">{{ $testimonial->name }}</div>
+                                <div class="ec-test-designation">{{ $testimonial->position }}</div>
                                 <div class="ec-test-rating">
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
+                                    @for($i = 0; $i < 5; $i++)
+                                        <i class="ecicon eci-star {{ $i < $testimonial->rating ? 'fill' : '' }}"></i>
+                                        @endfor
                                 </div>
                             </div>
                         </div>
                         <i class="fi-rr-quote-right bottom"></i>
                     </li>
-                    <li class="ec-test-item ">
-                        <i class="fi-rr-quote-right top"></i>
-                        <div class="ec-test-inner">
-                            <div class="ec-test-img"><img alt="testimonial" title="testimonial"
-                                    src="{{ url('assets/frontend/images/testimonial/2.jpg') }}" /></div>
-                            <div class="ec-test-content">
-                                <div class="ec-test-desc">Lorem Ipsum is simply dummy text of the printing and
-                                    typesetting industry. Lorem Ipsum has been the industry's standard dummy text
-                                    ever since the 1500s, when an unknown printer took a galley of type and
-                                    scrambled it to make a type specimen</div>
-                                <div class="ec-test-name">John Doe</div>
-                                <div class="ec-test-designation">General Manager</div>
-                                <div class="ec-test-rating">
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <i class="fi-rr-quote-right bottom"></i>
-                    </li>
-                    <li class="ec-test-item">
-                        <i class="fi-rr-quote-right top"></i>
-                        <div class="ec-test-inner">
-                            <div class="ec-test-img"><img alt="testimonial" title="testimonial"
-                                    src="{{ url('assets/frontend/images/testimonial/3.jpg') }}" /></div>
-                            <div class="ec-test-content">
-                                <div class="ec-test-desc">Lorem Ipsum is simply dummy text of the printing and
-                                    typesetting industry. Lorem Ipsum has been the industry's standard dummy text
-                                    ever since the 1500s, when an unknown printer took a galley of type and
-                                    scrambled it to make a type specimen</div>
-                                <div class="ec-test-name">John Doe</div>
-                                <div class="ec-test-designation">General Manager</div>
-                                <div class="ec-test-rating">
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                    <i class="ecicon eci-star fill"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <i class="fi-rr-quote-right bottom"></i>
-                    </li>
+                    @endforeach
                 </ul>
             </div>
         </div>

@@ -33,6 +33,7 @@
 
 
     </div>
+    @auth
     <div class="ec-ratting-content">
         <h3>Add a Review</h3>
         <div class="ec-ratting-form">
@@ -56,6 +57,9 @@
             </form>
         </div>
     </div>
+    @else
+    <p>Please <a href="{{ route('login') }}" wire:navigate>login</a> to leave a review.</p>
+    @endauth
 </div>
 
 <script>
