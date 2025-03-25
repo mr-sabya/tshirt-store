@@ -6,17 +6,21 @@ use App\Models\Cart;
 use App\Models\Product;
 use App\Models\ProductVariation;
 use App\Models\Setting;
+use App\Models\Wishlist;
 use Hamcrest\Core\Set;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Show extends Component
 {
+    public $product;
     public $productId;
     public $selectedVariationId;
     public $selectedSizeId;
     public $quantity = 1;
     public $data_image, $data_image_hover;
+    public $isProductStock = true;
+    public $isInWishlist = false;
 
     public $settings;
 
@@ -36,12 +40,14 @@ class Show extends Component
         $this->settings = Setting::first();
         $this->productId = $productId;
         $this->setInitialSelections();
+        $this->checkWishlistStatus(); // Check if the product is in the wishlist
     }
 
     public function setInitialSelections()
     {
         // Get the product with its variations and sizes
         $product = Product::with(['variations', 'sizes'])->find($this->productId);
+        $this->product = $product;
 
         if ($product) {
             // Set the first variation as the default selected variation
@@ -49,6 +55,8 @@ class Show extends Component
 
             // Set the first size as the default selected size
             $this->selectedSizeId = $product->sizes->first()->id ?? null;
+
+            $this->checkStock($this->selectedSizeId);
         }
     }
 
@@ -118,8 +126,51 @@ class Show extends Component
         }
     }
 
+    public function addToWishlist()
+    {
+        if (!auth()->check()) {
+            return $this->redirect(route('login'), navigate: true);
+        }
+
+        $product = Product::find($this->productId);
+
+        if ($product) {
+            // Call the helper method to add the item to the wishlist
+            Wishlist::addItem(
+                auth()->id(),
+                $product->id,
+                $this->selectedVariationId,
+                $this->selectedSizeId
+            );
+
+            $this->dispatch('wishListUpdated');
+
+            $this->checkWishlistStatus(); // Check if the product is in the wishlist
+        } else {
+            session()->flash('error', 'Please select color and size.');
+        }
+    }
 
 
+    public function checkWishlistStatus()
+    {
+        // Build the base query
+        $query = Wishlist::where('user_id', auth()->id())
+            ->where('product_id', $this->productId);
+
+        // Conditionally add the variation check if selectedVariationId is not null
+        if ($this->selectedVariationId !== null) {
+            $query->where('product_variation_id', $this->selectedVariationId);
+        }
+
+        // Conditionally add the size check if selectedSizeId is not null
+        if ($this->selectedSizeId !== null) {
+            $query->where('size_id', $this->selectedSizeId);
+        }
+
+        // Check if the item exists in the wishlist
+        $this->isInWishlist = $query->exists();
+    }
 
     public function setSelectedVariation($variationId)
     {
@@ -130,11 +181,25 @@ class Show extends Component
             $this->data_image = url('storage', $variation->image);
             $this->data_image_hover = url('storage', $variation->image);  // You can change this to another hover image URL if needed.
         }
+        $this->checkWishlistStatus(); // Check if the product is in the wishlist
     }
 
     public function setSelectedSize($sizeId)
     {
         $this->selectedSizeId = $sizeId;
+        $this->checkStock($this->selectedSizeId);
+        $this->checkWishlistStatus(); // Check if the product is in the wishlist
+    }
+
+    public function checkStock($sizeId)
+    {
+        $stock = $this->product->getSizeStock($sizeId);
+
+        if ($stock !== false) {
+            $this->isProductStock = true;
+        } else {
+            $this->isProductStock = false;
+        }
     }
 
     public function render()

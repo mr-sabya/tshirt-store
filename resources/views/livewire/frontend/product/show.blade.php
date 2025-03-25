@@ -59,12 +59,26 @@
                                     <h5 class="ec-single-title">{{ $product->name }}</h5>
                                     <div class="ec-single-rating-wrap">
                                         <div class="ec-single-rating">
-                                            <i class="ecicon eci-star fill"></i>
-                                            <i class="ecicon eci-star fill"></i>
-                                            <i class="ecicon eci-star fill"></i>
-                                            <i class="ecicon eci-star fill"></i>
-                                            <i class="ecicon eci-star-o"></i>
+                                            @php
+                                            $averageRating = $product->averageRating(); // Get the average rating
+                                            $fullStars = floor($averageRating); // Full stars
+                                            $halfStar = ($averageRating - $fullStars) >= 0.5 ? 1 : 0; // Check if there is a half star
+                                            $emptyStars = 5 - ($fullStars + $halfStar); // Empty stars
+                                            @endphp
+
+                                            @for ($i = 1; $i <= $fullStars; $i++)
+                                                <i class="ecicon eci-star fill"></i> <!-- Full star -->
+                                                @endfor
+
+                                                @if ($halfStar)
+                                                <i class="ecicon eci-star-half"></i> <!-- Half star -->
+                                                @endif
+
+                                                @for ($i = 1; $i <= $emptyStars; $i++)
+                                                    <i class="ecicon eci-star-o"></i> <!-- Empty star -->
+                                                    @endfor
                                         </div>
+
                                         <span class="ec-read-review"><a href="#ec-spt-nav-review">Be the first to
                                                 review this product</a></span>
                                     </div>
@@ -131,14 +145,18 @@
                                             </div>
                                         </div>
                                         <div class="ec-single-cart ">
-                                            <button wire:click="addToCart" class="btn btn-primary">Add To Cart</button>
+                                            <button wire:click="addToCart" class="btn btn-primary" {{ $isProductStock ? '' : 'disabled'}}>
+                                                {{ $isProductStock ? 'Add to Cart' : 'Out of Stock'}}
+                                            </button>
                                         </div>
 
                                         <div class="ec-single-cart">
-                                            <button wire:click="buyNow" class="btn btn-primary ms-0">Buy Now</button>
+                                            <button wire:click="buyNow" class="btn btn-primary ms-0" {{ $isProductStock ? '' : 'disabled'}}>
+                                                {{ $isProductStock ? 'Order Now' : 'Out of Stock'}}
+                                            </button>
                                         </div>
                                         <div class="ec-single-wishlist">
-                                            <a class="ec-btn-group wishlist" title="Wishlist"><i class="fi-rr-heart"></i></a>
+                                            <button wire:click="addToWishlist" class="ec-btn-group wishlist {{ $isInWishlist ? 'active disabled' : '' }}" title="Wishlist"><i class="fi-rr-heart"></i></button>
                                         </div>
                                     </div>
                                     <div class="ec-single-social">
@@ -194,91 +212,7 @@
                             </div>
 
                             <div id="ec-spt-nav-review" class="tab-pane fade">
-                                <div class="row">
-                                    <div class="ec-t-review-wrapper">
-                                        <div class="ec-t-review-item">
-                                            <div class="ec-t-review-avtar">
-                                                <img src="{{ url('assets/frontend/images/review-image/1.jpg') }}" alt="" />
-                                            </div>
-                                            <div class="ec-t-review-content">
-                                                <div class="ec-t-review-top">
-                                                    <div class="ec-t-review-name">Jeny Doe</div>
-                                                    <div class="ec-t-review-rating">
-                                                        <i class="ecicon eci-star fill"></i>
-                                                        <i class="ecicon eci-star fill"></i>
-                                                        <i class="ecicon eci-star fill"></i>
-                                                        <i class="ecicon eci-star fill"></i>
-                                                        <i class="ecicon eci-star-o"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="ec-t-review-bottom">
-                                                    <p>Lorem Ipsum is simply dummy text of the printing and
-                                                        typesetting industry. Lorem Ipsum has been the industry's
-                                                        standard dummy text ever since the 1500s, when an unknown
-                                                        printer took a galley of type and scrambled it to make a
-                                                        type specimen.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="ec-t-review-item">
-                                            <div class="ec-t-review-avtar">
-                                                <img src="{{ url('assets/frontend/images/review-image/2.jpg') }}" alt="" />
-                                            </div>
-                                            <div class="ec-t-review-content">
-                                                <div class="ec-t-review-top">
-                                                    <div class="ec-t-review-name">Linda Morgus</div>
-                                                    <div class="ec-t-review-rating">
-                                                        <i class="ecicon eci-star fill"></i>
-                                                        <i class="ecicon eci-star fill"></i>
-                                                        <i class="ecicon eci-star fill"></i>
-                                                        <i class="ecicon eci-star-o"></i>
-                                                        <i class="ecicon eci-star-o"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="ec-t-review-bottom">
-                                                    <p>Lorem Ipsum is simply dummy text of the printing and
-                                                        typesetting industry. Lorem Ipsum has been the industry's
-                                                        standard dummy text ever since the 1500s, when an unknown
-                                                        printer took a galley of type and scrambled it to make a
-                                                        type specimen.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="ec-ratting-content">
-                                        <h3>Add a Review</h3>
-                                        <div class="ec-ratting-form">
-                                            <form action="#">
-                                                <div class="ec-ratting-star">
-                                                    <span>Your rating:</span>
-                                                    <div class="ec-t-review-rating">
-                                                        <i class="ecicon eci-star fill"></i>
-                                                        <i class="ecicon eci-star fill"></i>
-                                                        <i class="ecicon eci-star-o"></i>
-                                                        <i class="ecicon eci-star-o"></i>
-                                                        <i class="ecicon eci-star-o"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="ec-ratting-input">
-                                                    <input name="your-name" placeholder="Name" type="text" />
-                                                </div>
-                                                <div class="ec-ratting-input">
-                                                    <input name="your-email" placeholder="Email*" type="email"
-                                                        required />
-                                                </div>
-                                                <div class="ec-ratting-input form-submit">
-                                                    <textarea name="your-commemt"
-                                                        placeholder="Enter Your Comment"></textarea>
-                                                    <button class="btn btn-primary" type="submit"
-                                                        value="Submit">Submit</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+                                <livewire:frontend.product.rating product_id="{{ $product->id }}" />
                             </div>
                         </div>
                     </div>

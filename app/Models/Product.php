@@ -79,4 +79,42 @@ class Product extends Model
     {
         return $this->hasMany(ProductInfo::class);
     }
+
+
+    public function getSizeStock($sizeId)
+    {
+        // Check if the product exists
+        if (!$this) {
+            return false; // Product doesn't exist, return false
+        }
+
+        // Check if the product has the specified size
+        $size = $this->sizes()->where('size_id', $sizeId)->first();
+
+        // If the size is not found, return false
+        if (!$size) {
+            return false; // Size not found, return false
+        }
+
+        // Check if the size is in stock by checking the pivot table's `is_stock` field
+        return $size->pivot->is_stock ? $size->pivot->stock : false;
+    }
+
+
+    public function ratings()
+    {
+        return $this->hasMany(ProductRating::class);
+    }
+
+    // Get average rating
+    public function averageRating()
+    {
+        return $this->ratings()->avg('rating') ?? 0;
+    }
+
+    // Get total number of reviews
+    public function reviewCount()
+    {
+        return $this->ratings()->count();
+    }
 }

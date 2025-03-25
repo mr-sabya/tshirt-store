@@ -42,18 +42,34 @@
                 <div class="ec-pro-actions">
                     <a href="compare.html" class="ec-btn-group compare" title="Compare"><i class="fi fi-rr-arrows-repeat"></i></a>
                     <button title="Add To Cart" class="add-to-cart" wire:click="addToCart"><i class="fi-rr-shopping-basket"></i></button>
-                    <button wire:click="addToWishlist" class="ec-btn-group wishlist {{ $isInWishlist ? 'active disabled' : '' }}" title="Wishlist"><i class="fi-rr-heart"></i></button>
+                    <button wire:click="addToWishlist" class="ec-btn-group wishlist {{ $isInWishlist ? 'active' : '' }}" title="Wishlist"><i class="fi-rr-heart"></i></button>
                 </div>
             </div>
         </div>
         <div class="ec-pro-content ec-product-body">
             <ul class="ec-rating">
-                <li class="ecicon eci-star fill"></li>
-                <li class="ecicon eci-star fill"></li>
-                <li class="ecicon eci-star fill"></li>
-                <li class="ecicon eci-star fill"></li>
-                <li class="ecicon eci-star"></li>
+                @php
+                $averageRating = $product->averageRating(); // Get the average rating
+                $fullStars = floor($averageRating); // Full stars
+                $halfStar = ($averageRating - $fullStars) >= 0.5 ? 1 : 0; // Check if there is a half star
+                $emptyStars = 5 - ($fullStars + $halfStar); // Empty stars
+                @endphp
+
+                @for ($i = 1; $i <= $fullStars; $i++)
+                    <li class="ecicon eci-star fill">
+                    </li> <!-- Full star -->
+                    @endfor
+
+                    @if ($halfStar)
+                    <li class="ecicon eci-star-half"></li> <!-- Half star -->
+                    @endif
+
+                    @for ($i = 1; $i <= $emptyStars; $i++)
+                        <li class="ecicon eci-star">
+                        </li> <!-- Empty star -->
+                        @endfor
             </ul>
+
             <h5 class="ec-pro-title"><a href="{{ route('product.show', $product->slug) }}" wire:navigate>{{ $product->name }}</a></h5>
             <div class="ec-pro-list-desc">{{ $product->short_desc }}</div>
             <span class="ec-price">

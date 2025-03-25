@@ -111,11 +111,13 @@ class Product extends Component
             $this->data_image = url('storage/' . $variation->image);
             $this->data_image_hover = url('storage/' . $variation->image);  // You can change this to another hover image URL if needed.
         }
+        $this->checkWishlistStatus(); // Check if the product is in the wishlist
     }
 
     public function setSelectedSize($sizeId)
     {
         $this->selectedSizeId = $sizeId;
+        $this->checkWishlistStatus(); // Check if the product is in the wishlist
     }
 
     public function checkWishlistStatus()
