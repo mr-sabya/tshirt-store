@@ -18,7 +18,8 @@
         "livewire/livewire": "^3.5",
         "milon/barcode": "^12.0",
         "nesbot/carbon": "^2.67",
-        "rackbeat/laravel-ui-avatars": "^1.2"
+        "rackbeat/laravel-ui-avatars": "^1.2",
+        "spatie/laravel-sitemap": "^7.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

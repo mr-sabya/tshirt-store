@@ -145,6 +145,12 @@
                     :label="'Testimonials'"
                     :hasSubMenu="false" />
 
+                <livewire:backend.theme.menu-item
+                    :url="'admin.sitemap.index'"
+                    :icon="'ri-dashboard-line'"
+                    :label="'Generate Sitemap'"
+                    :hasSubMenu="false" />
+
 
             </ul>
         </div>

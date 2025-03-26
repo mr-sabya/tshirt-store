@@ -44,12 +44,14 @@ Route::get('privacy-policy', [\App\Http\Controllers\Frontend\PageController::cla
 Route::get('reund-policy', [\App\Http\Controllers\Frontend\PageController::class, 'refundPage'])->name('page.refund');
 
 
+
+
 Route::middleware(['web', 'auth'])->group(function () {
     Route::get('profile', [\App\Http\Controllers\Frontend\User\ProfileController::class, 'index'])->name('user.profile');
 
     // history
     Route::get('history', [\App\Http\Controllers\Frontend\User\HistoryController::class, 'index'])->name('history.index');
-    
+
     Route::get('history', [\App\Http\Controllers\Frontend\User\HistoryController::class, 'index'])->name('history.index');
 
     // cart
@@ -165,12 +167,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // delivery charges
         Route::get('/delivery-charges', [\App\Http\Controllers\Backend\DeliveryChargeController::class, 'index'])->name('delivery-charge.index');
-        
+
         // hot offers
         Route::get('/hot-offers', [\App\Http\Controllers\Backend\HotOfferController::class, 'index'])->name('hot-offer.index');
 
         // testimonials
         Route::get('/testimonials', [\App\Http\Controllers\Backend\TestimonialController::class, 'index'])->name('testimonials.index');
 
+        // site map
+        Route::get('/generate-sitemap', [\App\Http\Controllers\Backend\SitemapController::class, 'index'])->name('sitemap.index');
     });
 });
