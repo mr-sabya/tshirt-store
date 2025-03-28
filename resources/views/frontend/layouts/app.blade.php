@@ -26,9 +26,15 @@
     <!-- Add other Open Graph tags as needed -->
 
     <!-- site Favicon -->
+    @if($settings->favicon)
+    <link rel="icon" href="{{ asset('storage/' . $settings->favicon) }}" sizes="32x32" />
+    <link rel="apple-touch-icon" href="{{ asset('storage/' . $settings->favicon) }}" />
+    <meta name="msapplication-TileImage" content="{{ asset('storage/' . $settings->favicon) }}" />
+    @else
     <link rel="icon" href="{{ asset('assets/frontend/images/favicon/favicon.png') }}" sizes="32x32" />
     <link rel="apple-touch-icon" href="{{ asset('assets/frontend/images/favicon/favicon.png') }}" />
     <meta name="msapplication-TileImage" content="{{ asset('assets/frontend/images/favicon/favicon.png') }}" />
+    @endif
 
     <!-- css Icon Font -->
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/vendor/ecicons.min.css') }}" />
