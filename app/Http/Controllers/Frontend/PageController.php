@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Page;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -10,27 +11,31 @@ class PageController extends Controller
     // about page
     public function aboutPage()
     {
-        return view('frontend.pages.about');
+        $page = Page::where('slug', 'about-us')->first();
+        return view('frontend.pages.about', compact('page'));
     }
 
     // faq page
     public function faqPage()
     {
-        return view('frontend.pages.faq');
+        $page = Page::where('slug', 'faq')->first();
+        return view('frontend.pages.faq', compact('page'));
     }
 
     // contact page
     public function contactPage()
     {
-        return view('frontend.pages.contact');
+        $page = Page::where('slug', 'contact-us')->first();
+        return view('frontend.pages.contact', compact('page'));
     }
 
     // privacy & policy
     public function privacyPage()
     {
-        return view('frontend.pages.privacy');
+        $page = Page::where('slug', 'privacy-policy')->first();
+        return view('frontend.pages.privacy', compact('page'));
     }
-
+    
     // terms & conditions
     public function termsPage()
     {
@@ -39,6 +44,7 @@ class PageController extends Controller
     // refund policy
     public function refundPage()
     {
-        return view('frontend.pages.refund-privacy');
+        $page = Page::where('slug', 'refund-policy')->first();
+        return view('frontend.pages.refund-privacy', compact('page'));
     }
 }

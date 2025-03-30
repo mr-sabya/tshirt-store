@@ -7,16 +7,20 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 
-    <title>{{ $settings['site_name'] ?? 'Default Site Name' }} - Look up your style here</title>
+    @if(Route::is('home'))
+    <title>{{ $settings['site_name'] ?? 'Default Site Name' }} - {{ $settings['tagline']}}</title>
+    @else
+    <title>@yield('title') - {{ $settings['site_name']}}</title>
+    @endif
 
     @if(Route::currentRouteName() == 'product.show')
+    <!-- insert seo -->
+    @yield('seo')
+    <!-- insert seo -->
     @else
     <meta name="title" content="{{ $settings->meta_title }}" />
     <meta name="keywords" content="{{ $settings->meta_keywords }}" />
     <meta name="description" content="{{ $settings->meta_description }}" />
-    @endif
-    <link rel="canonical" href="{{ $settings['canonical_url'] ?? url()->current() }}">
-
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="{{ $settings['og_title'] ?? config('app.name') }}">
@@ -24,6 +28,9 @@
     <meta property="og:image" content="{{ asset('storage/' . ($settins['og_image'] ?? 'default-image.jpg')) }}">
     <meta property="og:type" content="{{ $settins['og_type'] ?? 'website' }}">
     <!-- Add other Open Graph tags as needed -->
+
+    @endif
+    <link rel="canonical" href="{{ $settings['canonical_url'] ?? url()->current() }}">
 
     <!-- site Favicon -->
     @if($settings->favicon)

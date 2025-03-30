@@ -628,3 +628,13 @@
     background-color: #EF7524;
     border-color: #EF7524;
 }
+
+.ec-common-wrapper h2,
+.ec-common-wrapper h3,
+.ec-common-wrapper h4{
+    margin-top: 30px;
+}
+
+.ec-common-wrapper h3{
+    font-size: 20px;
+}

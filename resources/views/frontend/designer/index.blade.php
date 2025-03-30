@@ -1,5 +1,7 @@
 @extends('frontend.layouts.app')
 
+@section('title', 'T-SHirt Builder')
+
 @section('content')
 
 <livewire:frontend.components.breadcrumb title="T-Shirt Builder" addMargin="0" />

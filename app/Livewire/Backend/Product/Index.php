@@ -7,6 +7,7 @@ use Livewire\Component;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 
+
 class Index extends Component
 {
     use WithPagination, WithoutUrlPagination;
@@ -18,6 +19,9 @@ class Index extends Component
     public $selectedProductIdForImages = null;
     public $selectedProductIdForSizes = null;
     public $selectedProductIdForInfo = null;
+    public $selectedProductIdForSeo = null;
+
+    public $productToDelete = null; // Store the product ID for deletion
 
     public function toggleSort($column)
     {
@@ -43,6 +47,7 @@ class Index extends Component
         $this->selectedProductId = null;
         $this->selectedProductIdForSizes = null;
         $this->selectedProductIdForInfo = null;
+        $this->selectedProductIdForSeo = null;
     }
 
     public function toggleforSizes($productId)
@@ -55,6 +60,7 @@ class Index extends Component
         $this->selectedProductId = null;
         $this->selectedProductIdForImages = null;
         $this->selectedProductIdForInfo = null;
+        $this->selectedProductIdForSeo = null;
     }
 
     public function toggleforInfo($productId)
@@ -67,8 +73,37 @@ class Index extends Component
         $this->selectedProductId = null;
         $this->selectedProductIdForImages = null;
         $this->selectedProductIdForSizes = null;
+        $this->selectedProductIdForSeo = null;
     }
 
+
+    public function toggleforSeo($productId)
+    {
+        // Ensure selectedProductIdForSizes is set to null first
+        $this->selectedProductIdForSeo = ($this->selectedProductIdForSeo === $productId) ? null : $productId;
+
+        // dd($this->selectedProductIdForSizes);
+        // Reset other variables to avoid conflicts
+        $this->selectedProductId = null;
+        $this->selectedProductIdForImages = null;
+        $this->selectedProductIdForSizes = null;
+        $this->selectedProductIdForInfo = null;
+    }
+
+
+    public function confirmDelete($productId)
+    {
+        $this->productToDelete = $productId; // Set product to be deleted
+    }
+
+    public function deleteProduct()
+    {
+        if ($this->productToDelete) {
+            Product::find($this->productToDelete)->delete();
+            session()->flash('message', 'Product deleted successfully.');
+            $this->productToDelete = null; // Reset
+        }
+    }
 
     public function render()
     {

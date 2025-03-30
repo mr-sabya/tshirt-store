@@ -4,9 +4,9 @@
         <div class="row">
             <div class="col-md-12 text-center">
                 <div class="section-title">
-                    <h2 class="ec-bg-title">Style 1</h2>
-                    <h2 class="ec-title">Style 1</h2>
-                    <p class="sub-title">Browse The Collection of Top Categories</p>
+                    <h2 class="ec-bg-title">Hot Offers</h2>
+                    <h2 class="ec-title">Hot Offers</h2>
+                    <p class="sub-title">Don't miss the chance to get best offer!!!</p>
                 </div>
             </div>
         </div>
@@ -29,6 +29,13 @@
                 </div>
             </div>
             @empty
+            <div class="col-lg-12 margin-b-30">
+                <div class="ec-offer-coupon">
+                    <div class="ec-cpn-title m-0">
+                        <h2 class="coupon-title m-0">No Offer Founds!</h2>
+                    </div>
+                </div>
+            </div>
             @endforelse
 
             {{ $offers->links() }}

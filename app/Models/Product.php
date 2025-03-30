@@ -28,7 +28,40 @@ class Product extends Model
         'discount',
         'supplier_id',
         'color_id',
+
+
+        // SEO Fields
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
+
+        // Open Graph (OG) Fields
+        'og_title',
+        'og_description',
+        'og_image',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($product) {
+            // Delete related variations
+            $product->variations()->delete();
+
+            // Delete related images
+            $product->images()->delete();
+
+            // Detach sizes from pivot table
+            $product->sizes()->detach();
+
+            // Delete related info records
+            $product->infos()->delete();
+
+            // Delete related ratings
+            $product->ratings()->delete();
+        });
+    }
 
     // // Define the many-to-many relationship with Size
     // public function sizes()

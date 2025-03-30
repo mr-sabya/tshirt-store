@@ -53,37 +53,53 @@
                         <td class="align-middle">{{ $product->price }}</td>
                         <td class="align-middle">{{ $product->stock }}</td>
                         <td class="align-middle">{{ $product->status ? 'Active' : 'Inactive' }}</td>
-                        <td class="align-middle">
+                        <td class="align-middle d-flex gap-2">
                             <a href="{{ route('admin.product.edit', $product->id) }}" wire:navigate class="btn btn-info btn-sm">Edit</a>
-                            <button class="btn btn-danger btn-sm" wire:click="delete({{ $product->id }})">Delete</button>
+                            <button class="btn btn-danger btn-sm" wire:click="confirmDelete({{ $product->id }})" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
 
-                            <button
-                                class="btn {{ $product->id === $selectedProductId ? 'btn-primary' : 'btn-secondary' }} btn-sm"
-                                wire:key="variations-button-{{ $product->id }}"
-                                wire:click="toggleVariations({{ $product->id }})">
-                                Show Variations
-                            </button>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <button class="dropdown-item"
+                                            wire:key="variations-button-{{ $product->id }}"
+                                            wire:click="toggleVariations({{ $product->id }})">
+                                            Variations
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item"
+                                            wire:key="images-button-{{ $product->id }}"
+                                            wire:click="toggleImages({{ $product->id }})">
+                                            Gallery
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item"
+                                            wire:key="sizes-button-{{ $product->id }}"
+                                            wire:click="toggleforSizes({{ $product->id }})">
+                                            Sizes
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item"
+                                            wire:key="info-button-{{ $product->id }}"
+                                            wire:click="toggleforInfo({{ $product->id }})">
+                                            More Infos
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item"
+                                            wire:key="seo-button-{{ $product->id }}"
+                                            wire:click="toggleforSeo({{ $product->id }})">
+                                            SEO
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
 
-                            <button
-                                class="btn {{ $product->id === $selectedProductIdForImages ? 'btn-primary' : 'btn-secondary' }} btn-sm"
-                                wire:key="images-button-{{ $product->id }}"
-                                wire:click="toggleImages({{ $product->id }})">
-                                Show Gallery
-                            </button>
-
-                            <button
-                                class="btn {{ $product->id === $selectedProductIdForSizes ? 'btn-primary' : 'btn-secondary' }} btn-sm"
-                                wire:key="sizes-button-{{ $product->id }}"
-                                wire:click="toggleforSizes({{ $product->id }})">
-                                Sizes
-                            </button>
-
-                            <button
-                                class="btn {{ $product->id === $selectedProductIdForInfo ? 'btn-primary' : 'btn-secondary' }} btn-sm"
-                                wire:key="info-button-{{ $product->id }}"
-                                wire:click="toggleforInfo({{ $product->id }})">
-                                More Infos
-                            </button>
                         </td>
                     </tr>
 
@@ -132,6 +148,17 @@
                     </tr>
                     @endif
 
+                    @if ($product->id === $selectedProductIdForSeo)
+                    <tr wire:key="seo-row-{{ $product->id }}">
+                        <td colspan="8">
+                            <livewire:backend.product.seo
+                                :productId="$product->id"
+                                wire:key="seo-component-{{ $product->id }}"
+                                wire:ignore.self />
+                        </td>
+                    </tr>
+                    @endif
+
                     @empty
                     <tr>
                         <td colspan="7" class="text-center">No products found!</td>
@@ -145,4 +172,26 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Confirmation Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this product?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" wire:click="deleteProduct" data-bs-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>

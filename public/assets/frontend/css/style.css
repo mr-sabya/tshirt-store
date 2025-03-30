@@ -18330,6 +18330,7 @@ i.ecicon.eci-star.fill {
   height: 20px;
   display: block;
   border-radius: 30px;
+  border: 1px solid #c7c7c7;
 }
 .ec-pro-color li a {
   pointer-events: none;
