@@ -39,7 +39,8 @@ class PageController extends Controller
     // terms & conditions
     public function termsPage()
     {
-        return view('frontend.pages.terms');
+        $page = Page::where('slug', 'terms-conditions')->first();
+        return view('frontend.pages.terms', compact('page'));
     }
     // refund policy
     public function refundPage()

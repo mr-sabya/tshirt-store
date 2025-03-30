@@ -12,7 +12,7 @@
                 </div>
                 <div class="card-body">
                     <p>{{ $page->sub_heading }}</p>
-                    <p>{!! Str::limit($page->text, 100) !!}</p>
+                    
                     <a href="{{ route('admin.page.edit', $page->id) }}" wire:navigate class="btn btn-primary">Edit</a>
                 </div>
             </div>
