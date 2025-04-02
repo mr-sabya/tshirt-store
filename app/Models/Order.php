@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 
 class Order extends Model
@@ -13,6 +13,11 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
+        'guest_name',
+        'guest_phone',
+        'guest_address',
+        'division_id',
+        'city_id',
         'order_id',
         'invoice_no',
         'subtotal',
@@ -24,7 +29,7 @@ class Order extends Model
         'status',
     ];
 
-    public static function boot()
+    protected static function boot()
     {
         parent::boot();
 
@@ -41,59 +46,70 @@ class Order extends Model
         });
 
         static::created(function ($order) {
-            // Step 1: Create Invoice for the order (now $order->id and $order->user_id exist)
+            // Step 1: Create Invoice for the order
             $invoice = Invoice::create([
                 'order_id' => $order->id,
-                'user_id' => $order->user_id,  // Add user_id from the order
-                'invoice_no' => $order->invoice_no, // Generate unique invoice number
+                'user_id' => $order->user_id,
+                'guest_name' => $order->guest_name,
+                'invoice_no' => $order->invoice_no,
                 'amount' => $order->total,
-                'status' => 'unpaid', // Initially set as unpaid
-                'due_date' => Carbon::now()->addDays(30), // Due date is 30 days from now
-                'paid_at' => null,  // Not yet paid
+                'status' => 'unpaid',
+                'due_date' => Carbon::now()->addDays(30),
+                'paid_at' => null,
             ]);
 
             // Step 2: Automatically create Payment for the invoice
             Payment::create([
                 'invoice_id' => $invoice->id,
-                'user_id' => $order->user_id,  // Add user_id from the order
-                'amount' => $order->total,  // Use the total amount from the order
-                'payment_method_id' => $order->payment_method_id, // Payment method from order
-                'transaction_id' => null, // Transaction ID is null initially
-                'status' => 'pending', // Initial payment status
-                'paid_at' => null,  // Not yet paid
+                'user_id' => $order->user_id,
+                'guest_name' => $order->guest_name,
+                'amount' => $order->total,
+                'payment_method_id' => $order->payment_method_id,
+                'transaction_id' => null,
+                'status' => 'pending',
+                'paid_at' => null,
             ]);
         });
     }
 
-
-
-    // Relationship with User
+    // ✅ Relationship with User (Nullable)
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withDefault();
     }
 
-    // Relationship with OrderItem
+    // ✅ Relationship with OrderItem
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
     }
 
-
+    // ✅ Relationship with OrderStatus
     public function statuses()
     {
         return $this->hasMany(OrderStatus::class);
     }
 
-    // Order model
     public function latestStatus()
     {
         return $this->hasOne(OrderStatus::class)->latest();
     }
 
-    // payment_method
+    // ✅ Payment Method Relationship
     public function paymentMethod()
     {
         return $this->belongsTo(PaymentMethod::class);
+    }
+
+    // ✅ Division Relationship
+    public function division()
+    {
+        return $this->belongsTo(Division::class);
+    }
+
+    // ✅ City Relationship
+    public function city()
+    {
+        return $this->belongsTo(City::class);
     }
 }

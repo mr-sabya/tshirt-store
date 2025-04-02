@@ -11,4 +11,10 @@ class CheckoutController extends Controller
     {
         return view('frontend.checkout.index');    
     }
+
+
+    public function guestCheckout()
+    {
+        return view('frontend.checkout.guest');    
+    }
 }

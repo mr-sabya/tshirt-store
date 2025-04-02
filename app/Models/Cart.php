@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Session;
 
 class Cart extends Model
 {
@@ -35,35 +36,57 @@ class Cart extends Model
     // Helper method to update or add a cart item
     public static function addItem($userId, $productId, $productVariationId, $sizeId, $quantity)
     {
-        // Build the query to check if the product already exists in the cart for the user
-        $existingCartItem = self::where('user_id', $userId)
-            ->where('product_id', $productId)
-            ->where(function ($query) use ($productVariationId, $sizeId) {
-                // If productVariationId is not null, check it
-                if ($productVariationId !== null) {
-                    $query->where('product_variation_id', $productVariationId);
-                }
+        if ($userId) {
+            // Build the query to check if the product already exists in the cart for the user
+            $existingCartItem = self::where('user_id', $userId)
+                ->where('product_id', $productId)
+                ->where(function ($query) use ($productVariationId, $sizeId) {
+                    // If productVariationId is not null, check it
+                    if ($productVariationId !== null) {
+                        $query->where('product_variation_id', $productVariationId);
+                    }
 
-                // If sizeId is not null, check it
-                if ($sizeId !== null) {
-                    $query->where('size_id', $sizeId);
-                }
-            })
-            ->first();
+                    // If sizeId is not null, check it
+                    if ($sizeId !== null) {
+                        $query->where('size_id', $sizeId);
+                    }
+                })
+                ->first();
 
-        if ($existingCartItem) {
-            // If the product with the selected variation and size is already in the cart, update the quantity
-            $existingCartItem->quantity += $quantity;
-            $existingCartItem->save();
+            if ($existingCartItem) {
+                // If the product with the selected variation and size is already in the cart, update the quantity
+                $existingCartItem->quantity += $quantity;
+                $existingCartItem->save();
+            } else {
+                // If the product is not in the cart, create a new entry
+                self::create([
+                    'user_id' => $userId,
+                    'product_id' => $productId,
+                    'product_variation_id' => $productVariationId,
+                    'size_id' => $sizeId,
+                    'quantity' => $quantity,
+                ]);
+            }
         } else {
-            // If the product is not in the cart, create a new entry
-            self::create([
-                'user_id' => $userId,
-                'product_id' => $productId,
-                'product_variation_id' => $productVariationId,
-                'size_id' => $sizeId,
-                'quantity' => $quantity,
-            ]);
+            // Guest User: Store in Session
+            $cart = Session::get('guest_cart', []);
+
+            // Generate a unique key for the item
+            $key = "{$productId}-{$productVariationId}-{$sizeId}";
+
+            if (isset($cart[$key])) {
+                $cart[$key]['quantity'] += $quantity;
+            } else {
+                $cart[$key] = [
+                    'product_id' => $productId,
+                    'product_variation_id' => $productVariationId,
+                    'size_id' => $sizeId,
+                    'quantity' => $quantity,
+                ];
+            }
+
+            // Store updated cart in session
+            Session::put('guest_cart', $cart);
         }
     }
 

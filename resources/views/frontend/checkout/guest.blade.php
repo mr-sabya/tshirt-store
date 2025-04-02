@@ -8,7 +8,7 @@
 <!-- Ec breadcrumb end -->
 
 <!-- Ec Shop page -->
-<livewire:frontend.checkout.index />
+<livewire:frontend.checkout.guest />
 <!-- End Shop page -->
 
 

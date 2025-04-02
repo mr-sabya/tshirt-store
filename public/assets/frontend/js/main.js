@@ -1230,7 +1230,7 @@ document.addEventListener('livewire:navigated', () => {
         /*--------------------- Copyright years JS -------------------------------- */
         var date = new Date().getFullYear();
 
-        document.getElementById("copyright_year").innerHTML = date;
+        // document.getElementById("copyright_year").innerHTML = date;
 
     })(jQuery);
 });

@@ -11,7 +11,7 @@
             <div class="ec-vendor-card-body padding-b-0">
                 <div class="page-content">
                     <div class="page-header text-blue-d2">
-                        <img src="{{ asset('assets/frontend/images/logo/logo.png') }}" alt="Site Logo">
+                        <img src="{{ asset('storage/' . $settings->logo) }}" alt="Site Logo" style="width: 150px;">
                     </div>
 
                     <div class="container px-0">
@@ -23,12 +23,12 @@
                                     <div class="col-sm-6">
                                         <div class="my-2">
                                             <span class="text-sm text-grey-m2 align-middle">To : </span>
-                                            <span class="text-600 text-110 text-blue align-middle">{{ $order->user['name'] }}</span>
+                                            <span class="text-600 text-110 text-blue align-middle">{{ $order->guest_name }}</span>
                                         </div>
                                         <div class="text-grey-m2">
-                                            <div class="my-2">{{ $order->user['address'] }}</div>
-                                            <div class="my-2">{{ $order->user['city']['name'] ?? 'N/A' }}</div>
-                                            <div class="my-2"><b class="text-600">Phone : </b>{{ $order->user['phone'] }}</div>
+                                            <div class="my-2">{{ $order->user['address'] ?? $order->guest_address }}</div>
+                                            <div class="my-2">{{ $order->city['name'] ?? 'N/A' }}</div>
+                                            <div class="my-2"><b class="text-600">Phone : </b>{{ $order->guest_phone }}</div>
                                         </div>
                                     </div>
 
@@ -91,7 +91,7 @@
                                                     <tr>
                                                         <td class="border-none m-m15" colspan="5"><span class="note-text-color">Extra note such as company or payment information...</span></td>
                                                         <td class="border-color m-m15" colspan="1"><span><strong>Total</strong></span></td>
-                                                        <td class="border-color m-m15"><span><b>৳ {{ number_format($order->total, 2) }}</b></span></td>
+                                                        <td class="border-color m-m15"><span><b>৳ {{ number_format($order->total + $order->delivery_charge, 2) }}</b></span></td>
                                                     </tr>
                                                 </tfoot>
                                             </table>

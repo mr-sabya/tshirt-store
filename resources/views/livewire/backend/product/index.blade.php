@@ -53,53 +53,54 @@
                         <td class="align-middle">{{ $product->price }}</td>
                         <td class="align-middle">{{ $product->stock }}</td>
                         <td class="align-middle">{{ $product->status ? 'Active' : 'Inactive' }}</td>
-                        <td class="align-middle d-flex gap-2">
-                            <a href="{{ route('admin.product.edit', $product->id) }}" wire:navigate class="btn btn-info btn-sm">Edit</a>
-                            <button class="btn btn-danger btn-sm" wire:click="confirmDelete({{ $product->id }})" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+                        <td class="align-middle ">
+                            <div class="d-flex gap-2">
+                                <a href="{{ route('admin.product.edit', $product->id) }}" wire:navigate class="btn btn-info btn-sm">Edit</a>
+                                <button class="btn btn-danger btn-sm" wire:click="confirmDelete({{ $product->id }})" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
 
-                            <div class="dropdown">
-                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Actions
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <button class="dropdown-item"
-                                            wire:key="variations-button-{{ $product->id }}"
-                                            wire:click="toggleVariations({{ $product->id }})">
-                                            Variations
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button class="dropdown-item"
-                                            wire:key="images-button-{{ $product->id }}"
-                                            wire:click="toggleImages({{ $product->id }})">
-                                            Gallery
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button class="dropdown-item"
-                                            wire:key="sizes-button-{{ $product->id }}"
-                                            wire:click="toggleforSizes({{ $product->id }})">
-                                            Sizes
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button class="dropdown-item"
-                                            wire:key="info-button-{{ $product->id }}"
-                                            wire:click="toggleforInfo({{ $product->id }})">
-                                            More Infos
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button class="dropdown-item"
-                                            wire:key="seo-button-{{ $product->id }}"
-                                            wire:click="toggleforSeo({{ $product->id }})">
-                                            SEO
-                                        </button>
-                                    </li>
-                                </ul>
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Actions
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <button class="dropdown-item"
+                                                wire:key="variations-button-{{ $product->id }}"
+                                                wire:click="toggleVariations({{ $product->id }})">
+                                                Variations
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button class="dropdown-item"
+                                                wire:key="images-button-{{ $product->id }}"
+                                                wire:click="toggleImages({{ $product->id }})">
+                                                Gallery
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button class="dropdown-item"
+                                                wire:key="sizes-button-{{ $product->id }}"
+                                                wire:click="toggleforSizes({{ $product->id }})">
+                                                Sizes
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button class="dropdown-item"
+                                                wire:key="info-button-{{ $product->id }}"
+                                                wire:click="toggleforInfo({{ $product->id }})">
+                                                More Infos
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button class="dropdown-item"
+                                                wire:key="seo-button-{{ $product->id }}"
+                                                wire:click="toggleforSeo({{ $product->id }})">
+                                                SEO
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-
                         </td>
                     </tr>
 

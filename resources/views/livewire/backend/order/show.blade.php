@@ -4,7 +4,7 @@
     <div class="card border-0 shadow-lg rounded-4 mb-4">
         <div class="card-header text-white d-flex justify-content-between align-items-center"
             style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); border-top-left-radius: 12px; border-top-right-radius: 12px;">
-            <strong>🔖 Order ID: {{ $order->order_id ?? $order->id }}</strong>
+            <strong>🔖 Order ID: {{ $order->order_id ?? $order->id }} {{ !$order->user_id ? '(Guest Order)' : '' }}</strong>
             <div>
                 <span class="badge px-3 py-2 fw-bold shadow-sm 
                     {{ $order->status == 'pending' ? 'bg-warning text-dark' : ($order->status == 'cancelled' ? 'bg-danger' : 'bg-success') }}">
@@ -19,15 +19,15 @@
                 <div class="col">
                     <p class="mb-1"><strong>📄 Invoice:</strong> {{ $order->invoice_no }}</p>
                     <p class="mb-1"><strong>💰 Total:</strong> ৳ {{ number_format($order->total, 2) }}</p>
-                    <p class="mt-1"><strong>📍 Address:</strong> {{ $order->user->address }},
-                        {{ $order->user->city->name ?? '-' }},
-                        {{ $order->user->division->name ?? '-' }}
+                    <p class="mt-1"><strong>📍 Address:</strong> {{ $order->user->address ?? $order->guest_address }},
+                        {{ $order->user->city->name ?? $order->city['name'] ?? '-' }},
+                        {{ $order->user->division->name ?? $order->division['name'] ?? '-' }}
                     </p>
                 </div>
                 <div class="col text-end">
-                    <p class="mb-1"><strong>👤 Customer:</strong> {{ $order->user->name }}</p>
-                    <p class="mb-1"><strong>📞 Phone:</strong> {{ $order->user->phone }}</p>
-                    <p class="mb-1"><strong>✉️ Email:</strong> {{ $order->user->email }}</p>
+                    <p class="mb-1"><strong>👤 Customer:</strong> {{ $order->user->name ?? $order->guest_name }}</p>
+                    <p class="mb-1"><strong>📞 Phone:</strong> {{ $order->user->phone ?? $order->guest_phone }}</p>
+                    <p class="mb-1"><strong>✉️ Email:</strong> {{ $order->user->email ?? 'N/A' }}</p>
                 </div>
             </div>
 

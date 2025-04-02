@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
             $table->decimal('subtotal', 10, 2);
-            $table->decimal('delivery_charge', 10, 2)->default(10);
+            $table->decimal('delivery_charge', 10, 2)->default(130);
             $table->decimal('discount', 10, 2)->default(0);
             $table->decimal('total', 10, 2);
             $table->foreignId('payment_method_id')->constrained()->onDelete('cascade');

@@ -43,7 +43,11 @@ Route::get('privacy-policy', [\App\Http\Controllers\Frontend\PageController::cla
 
 Route::get('refund-policy', [\App\Http\Controllers\Frontend\PageController::class, 'refundPage'])->name('page.refund');
 
+// checkout
+Route::get('checkout/guest', [\App\Http\Controllers\Frontend\CheckoutController::class, 'guestCheckout'])->name('guest.checkout');
 
+// order confirmation
+Route::get('order/confirmation/{orderId}/guest', [\App\Http\Controllers\Frontend\OrderConfirmationController::class, 'show'])->name('guest.order.confirmation');
 
 
 Route::middleware(['web', 'auth'])->group(function () {

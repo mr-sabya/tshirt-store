@@ -97,8 +97,16 @@ class Show extends Component
     public function buyNow()
     {
         if (!Auth::check()) {
-            session()->put('redirect_url', url()->previous());
-            return $this->redirect(route('login'), navigate: true);
+            // Store current product selection in session for guest checkout
+            session()->put('buy_now_guest', [
+                'product_id' => $this->productId,
+                'product_variation_id' => $this->selectedVariationId,
+                'size_id' => $this->selectedSizeId,
+                'quantity' => $this->quantity,
+            ]);
+
+            // Redirect guest to checkout page
+            return $this->redirect(route('guest.checkout'), navigate: true);
         }
         // Validate if product, variation, and size are selected
         $product = Product::find($this->productId);
