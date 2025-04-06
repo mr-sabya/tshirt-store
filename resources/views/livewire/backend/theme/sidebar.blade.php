@@ -23,6 +23,8 @@
                     :subMenuItems="
                     [
                         ['url' => 'admin.banner.index', 'label' => 'Banner'],
+                        ['url' => 'admin.banner.image-banner', 'label' => 'Image Banner'],
+                        ['url' => 'admin.promotion.index', 'label' => 'Promotion Banner'],
                         ['url' => 'admin.service.index', 'label' => 'Services'],
                     ]" />
 

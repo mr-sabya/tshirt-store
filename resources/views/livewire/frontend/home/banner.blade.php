@@ -48,12 +48,13 @@
             </div>
             <div class="col-lg-4 ">
                 <div class="banner-right ec-page-detail">
+                    @foreach($image_banners as $image_banner)
                     <div class="ec-cat-bnr">
-                        <a href="product-left-sidebar.html"><span></span></a>
+                        <a href="{{ $image_banner->link }}" wire:navigate>
+                            <span style="background-image: url({{ url('storage/' . $image_banner->image) }});"></span>
+                        </a>
                     </div>
-                    <div class="ec-cat-bnr">
-                        <a href="product-left-sidebar.html"><span></span></a>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

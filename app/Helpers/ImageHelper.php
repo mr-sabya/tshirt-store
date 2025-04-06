@@ -46,4 +46,22 @@ class ImageHelper
     {
         return $path ? asset($path) : asset('default-image.png');
     }
+
+    /**
+     * Delete the image from storage.
+     *
+     * @param string $imagePath
+     * @return bool
+     */
+    public static function deleteImage($imagePath)
+    {
+        // Check if the file exists in the storage
+        if (Storage::exists($imagePath)) {
+            // Delete the file from storage
+            return Storage::delete($imagePath);
+        }
+
+        // Return false if the file does not exist
+        return false;
+    }
 }

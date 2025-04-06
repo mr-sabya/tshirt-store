@@ -20,6 +20,10 @@
                     @endif
                 </a>
 
+                @if($showRemoveFromCompare)
+                <span class="ec-com-remove ec-remove-compare"><a href="javascript:void(0)" wire:click="removeFromCompare({{ $product->id }})">×</a></span>
+                @endif
+
                 <div class="barcode d-none">
                     <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($product->sku, 'C128') }}" alt="barcode" />
                     <small>{{ $product->sku }}</small>
@@ -44,7 +48,7 @@
                     <i class="fi-rr-eye"></i>
                 </a>
                 <div class="ec-pro-actions">
-                    <a href="compare.html" class="ec-btn-group compare" title="Compare"><i class="fi fi-rr-arrows-repeat"></i></a>
+                    <button wire:click="addToCompare" class="ec-btn-group compare {{ in_array($product->id, $compareList) ? 'active' : '' }}" title="Compare"><i class="fi fi-rr-arrows-repeat"></i></button>
                     <button title="Add To Cart" class="add-to-cart" wire:click="addToCart"><i class="fi-rr-shopping-basket"></i></button>
                     <button wire:click="addToWishlist" class="ec-btn-group wishlist {{ $isInWishlist ? 'active' : '' }}" title="Wishlist"><i class="fi-rr-heart"></i></button>
                 </div>
@@ -119,6 +123,9 @@
                 </div>
             </div>
         </div>
+        @if($compagePage)
+        <button class="btn btn-primary" wire:click="addToCompare" data-bs-dismiss="modal">Add To Compare</button>
+        @endif
     </div>
 </div>
 

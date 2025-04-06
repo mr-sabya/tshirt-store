@@ -49,6 +49,9 @@ Route::get('checkout/guest', [\App\Http\Controllers\Frontend\CheckoutController:
 // order confirmation
 Route::get('order/confirmation/{orderId}/guest', [\App\Http\Controllers\Frontend\OrderConfirmationController::class, 'show'])->name('guest.order.confirmation');
 
+// compare
+Route::get('compare', [\App\Http\Controllers\Frontend\CompareController::class, 'index'])->name('compare.index');
+
 
 Route::middleware(['web', 'auth'])->group(function () {
     Route::get('profile', [\App\Http\Controllers\Frontend\User\ProfileController::class, 'index'])->name('user.profile');
@@ -116,6 +119,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // banners
         Route::get('/banners', [\App\Http\Controllers\Backend\BannerController::class, 'index'])->name('banner.index');
 
+        // image banners
+        Route::get('/image-banners', [\App\Http\Controllers\Backend\BannerController::class, 'imageBanner'])->name('banner.image-banner');
+
         // orders
         Route::get('/orders', [\App\Http\Controllers\Backend\OrderController::class, 'index'])->name('order.index');
         Route::get('/orders/{orderId}', [\App\Http\Controllers\Backend\OrderController::class, 'show'])->name('order.show');
@@ -180,5 +186,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // site map
         Route::get('/generate-sitemap', [\App\Http\Controllers\Backend\SitemapController::class, 'index'])->name('sitemap.index');
+
+        // promotion
+        Route::get('/promotion', [\App\Http\Controllers\Backend\PromotionController::class, 'index'])->name('promotion.index');
     });
 });

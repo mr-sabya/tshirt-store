@@ -7,17 +7,21 @@ use Livewire\Component;
 class HeaderMenu extends Component
 {
     public $isMobile = false;
+    public $compareCount = 0;
 
-    public function mouunt($isMobile = null)
+    protected $listeners = ['compareUpdated' => 'updateCompareCount'];
+
+    public function mount($isMobile = null)
     {
-        if ($isMobile) {
-            $this->isMobile = true;
-        } else {
-            $this->isMobile = false;
-        }
+        $this->isMobile = $isMobile ? true : false;
+        $this->compareCount = count(session()->get('compare', []));
     }
 
-    
+    public function updateCompareCount()
+    {
+        $this->compareCount = count(session()->get('compare', []));
+    }
+
     public function render()
     {
         return view('livewire.frontend.theme.header-menu');

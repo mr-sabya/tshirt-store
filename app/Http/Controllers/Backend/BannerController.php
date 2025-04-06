@@ -11,4 +11,10 @@ class BannerController extends Controller
     {
         return view('backend.banner.index');    
     }
+
+    // image banner
+    public function imageBanner()
+    {
+        return view('backend.banner.image-banner');
+    }
 }

@@ -6,11 +6,8 @@
     <li><a href="{{ route('offer.index') }}" wire:navigate>Hot Offers</a></li>
 
     <li class="scroll-to">
-        <a href="javascript:void(0)">
-            <i class="fi fi-rr-sort-amount-down-alt"></i>
-            @if($isMobile == true)
-            T-Shirt Builder
-            @endif
+        <a href="{{ route('compare.index') }}" wire:navigate> 
+            <i class="fi fi-rr-arrows-repeat mr-2"></i> Compare ({{ $compareCount }})
         </a>
     </li>
 </ul>

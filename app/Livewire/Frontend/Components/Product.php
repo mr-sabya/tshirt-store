@@ -19,13 +19,35 @@ class Product extends Component
     public $data_image, $data_image_hover;
     public $isInWishlist = false;
     public $settings;
+    public $compagePage = false;
+    public $showRemoveFromCompare = false;
 
-    public function mount($productId)
+    public $compareList = [];
+
+    public function mount($productId, $compagePage = false, $showRemoveFromCompare = false)
     {
+        // Initialize settings
         $this->settings = Setting::first();
         $this->productId = $productId;
         $this->setInitialSelections();
         $this->checkWishlistStatus(); // Check if the product is in the wishlist
+
+        // Retrieve the compare list from the session
+        $this->compareList = session()->get('compare', []);
+
+        //is compare page
+        if ($compagePage) {
+            $this->compagePage = true;
+        } else {
+            $this->compagePage = false;
+        }
+
+        //show remove from compare
+        if ($showRemoveFromCompare) {
+            $this->showRemoveFromCompare = true;
+        } else {
+            $this->showRemoveFromCompare = false;
+        }
     }
 
     public function setInitialSelections()
@@ -138,6 +160,35 @@ class Product extends Component
 
         // Check if the item exists in the wishlist
         $this->isInWishlist = $query->exists();
+    }
+
+
+    // add to compare
+    public function addToCompare()
+    {
+        if (!in_array($this->productId, $this->compareList)) {
+            $this->compareList[] = $this->productId;
+            session()->put('compare', $this->compareList);
+
+            $this->dispatch('compareUpdated'); // 🚀 Emit event to update header count
+        }
+    }
+
+    public function isInCompare()
+    {
+        return in_array($this->productId, $this->compareList);
+    }
+
+    public function removeFromCompare($productId)
+    {
+        $compare = session()->get('compare', []);
+
+        if (($key = array_search($productId, $compare)) !== false) {
+            unset($compare[$key]);
+            session()->put('compare', $compare);
+        }
+
+        $this->dispatch('compareUpdated'); // ✅ Important for cross-component communication
     }
 
     public function render()
