@@ -387,13 +387,14 @@ document.addEventListener('livewire:navigated', () => {
 
         /*----------------------------- Main Slider ---------------------- */
         var EcMainSlider = new Swiper('.ec-slider.swiper-container', {
+            autoplay: false,
             loop: true,
             speed: 2000,
             effect: "slide",
-            autoplay: {
-                delay: 7000,
-                disableOnInteraction: false,
-            },
+            // autoplay: {
+            //     delay: 7000,
+            //     disableOnInteraction: false,
+            // },
             pagination: {
                 el: '.swiper-pagination',
                 clickable: true,
