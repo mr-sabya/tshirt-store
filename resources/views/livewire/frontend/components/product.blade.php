@@ -48,7 +48,7 @@
                     <i class="fi-rr-eye"></i>
                 </a>
                 <div class="ec-pro-actions">
-                    <button wire:click="addToCompare" class="ec-btn-group compare {{ in_array($product->id, $compareList) ? 'active' : '' }}" title="Compare"><i class="fi fi-rr-arrows-repeat"></i></button>
+                    <button wire:click="addToCompare" class="ec-btn-group compare {{ $this->isInCompare() ? 'active' : '' }}" title="Compare"><i class="fi fi-rr-arrows-repeat"></i></button>
                     <button title="Add To Cart" class="add-to-cart" wire:click="addToCart"><i class="fi-rr-shopping-basket"></i></button>
                     <button wire:click="addToWishlist" class="ec-btn-group wishlist {{ $isInWishlist ? 'active' : '' }}" title="Wishlist"><i class="fi-rr-heart"></i></button>
                 </div>
@@ -124,7 +124,7 @@
             </div>
         </div>
         @if($compagePage)
-        <button class="btn btn-primary" wire:click="addToCompare" data-bs-dismiss="modal">Add To Compare</button>
+        <button class="btn btn-primary" wire:click="addToCompare" data-bs-dismiss="modal" {{ $this->isInCompare() ? 'disabled' : '' }}>{{ $this->isInCompare() ? 'Added' : 'Add To Compare' }}</button>
         @endif
     </div>
 </div>

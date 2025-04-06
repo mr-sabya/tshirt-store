@@ -166,17 +166,19 @@ class Product extends Component
     // add to compare
     public function addToCompare()
     {
-        if (!in_array($this->productId, $this->compareList)) {
-            $this->compareList[] = $this->productId;
-            session()->put('compare', $this->compareList);
+        $compare = session()->get('compare', []);
 
+        if (!in_array($this->productId, $compare)) {
+            $compare[] = $this->productId;
+            session()->put('compare', $compare);
             $this->dispatch('compareUpdated'); // 🚀 Emit event to update header count
         }
     }
 
     public function isInCompare()
     {
-        return in_array($this->productId, $this->compareList);
+        $compare = session()->get('compare', []);
+        return in_array($this->productId, $compare);
     }
 
     public function removeFromCompare($productId)
@@ -187,7 +189,6 @@ class Product extends Component
             unset($compare[$key]);
             session()->put('compare', $compare);
         }
-
         $this->dispatch('compareUpdated'); // ✅ Important for cross-component communication
     }
 

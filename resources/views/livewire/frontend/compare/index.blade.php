@@ -6,7 +6,6 @@
                 <div class="ec-sidebar-wrap">
                     <div class="ec-sidebar-block">
                         <div class="ec-sidebar-block-item">
-                            <h5 class="ec-compare-title">Product <br>Specifications</h5>
                             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">Add Product</button>
                         </div>
                     </div>
@@ -106,7 +105,7 @@
 
     <!-- Modal for selecting a product -->
     <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addProductModalLabel">Select a Product</h5>
@@ -118,6 +117,8 @@
                         @foreach($products as $product)
                         <livewire:frontend.components.product productId="{{ $product->id }}" compagePage="true" />
                         @endforeach
+
+                        {{ $products->links() }}
                     </div>
                 </div>
             </div>
