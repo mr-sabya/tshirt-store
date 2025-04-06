@@ -12,7 +12,11 @@
                     @if($data_image_hover)
                     <img class="hover-image" src="{{ $data_image_hover }}" alt="Product" />
                     @else
+                    @if($product->back_image)
+                    <img class="hover-image" src="{{ url('storage/'. $product->back_image) }}" alt="Product" />
+                    @else
                     <img class="hover-image" src="{{ url('storage/'. $product->image) }}" alt="Product" />
+                    @endif
                     @endif
                 </a>
 

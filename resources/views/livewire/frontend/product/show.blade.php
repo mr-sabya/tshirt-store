@@ -15,6 +15,14 @@
                                             <img class="img-responsive" src="{{ url('storage/'. $product->image) }}"
                                                 alt="">
                                         </div>
+
+                                        @if($product->back_image)
+                                        <div class="single-slide zoom-image-hover">
+                                            <img class="img-responsive" src="{{ url('storage/'. $product->back_image) }}"
+                                                alt="">
+                                        </div>
+                                        @endif
+
                                         @if($product->variations->count() > 0)
                                         @foreach($product->variations as $variation)
                                         <div class="single-slide zoom-image-hover">
@@ -36,6 +44,14 @@
                                             <img class="img-responsive" src="{{ url('storage/'. $product->image) }}"
                                                 alt="">
                                         </div>
+
+                                        @if($product->back_image)
+                                        <div class="single-slide">
+                                            <img class="img-responsive" src="{{ url('storage/'. $product->back_image) }}"
+                                                alt="">
+                                        </div>
+                                        @endif
+
                                         @if($product->variations->count() > 0)
                                         @foreach($product->variations as $variation)
                                         <div class="single-slide">

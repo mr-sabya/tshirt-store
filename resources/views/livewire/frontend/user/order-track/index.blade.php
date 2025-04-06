@@ -11,27 +11,52 @@
         <div class="ec-trackorder-bottom">
             <div class="ec-progress-track">
                 <ul id="ec-progressbar">
-                    <li class="step0 active"><span class="ec-track-icon"> <img
-                                src="{{ url('assets/frontend/images/icons/track_1.png') }}" alt="track_order"></span><span
-                            class="ec-progressbar-track"></span><span class="ec-track-title">order
-                            <br>processed</span></li>
-                    <li class="step0 active"><span class="ec-track-icon"> <img
-                                src="{{ url('assets/frontend/images/icons/track_2.png') }}" alt="track_order"></span><span
-                            class="ec-progressbar-track"></span><span class="ec-track-title">order
-                            <br>designing</span></li>
-                    <li class="step0 active"><span class="ec-track-icon"> <img
-                                src="{{ url('assets/frontend/images/icons/track_3.png') }}" alt="track_order"></span><span
-                            class="ec-progressbar-track"></span><span class="ec-track-title">order
-                            <br>shipped</span></li>
-                    <li class="step0"><span class="ec-track-icon"> <img
-                                src="{{ url('assets/frontend/images/icons/track_4.png') }}" alt="track_order"></span><span
-                            class="ec-progressbar-track"></span><span class="ec-track-title">order <br>enroute</span></li>
-                    <li class="step0"><span class="ec-track-icon"> <img
-                                src="{{ url('assets/frontend/images/icons/track_5.png') }}" alt="track_order"></span><span
-                            class="ec-progressbar-track"></span><span class="ec-track-title">order
-                            <br>arrived</span></li>
+                    <!-- Processed -->
+                    <li class="step0 {{ in_array($order->status, ['processing', 'designing', 'printing', 'shipped', 'delivered']) ? 'active' : '' }}">
+                        <span class="ec-track-icon">
+                            <img src="{{ url('assets/frontend/images/icons/track_1.png') }}" alt="track_order">
+                        </span>
+                        <span class="ec-progressbar-track"></span>
+                        <span class="ec-track-title">Order <br>Processed</span>
+                    </li>
 
+                    <!-- Designing -->
+                    <li class="step0 {{ in_array($order->status, ['designing', 'printing', 'shipped', 'delivered']) ? 'active' : '' }}">
+                        <span class="ec-track-icon">
+                            <img src="{{ url('assets/frontend/images/icons/track_2.png') }}" alt="track_order">
+                        </span>
+                        <span class="ec-progressbar-track"></span>
+                        <span class="ec-track-title">Designing</span>
+                    </li>
+
+                    <!-- Printing -->
+                    <li class="step0 {{ in_array($order->status, ['printing', 'shipped', 'delivered']) ? 'active' : '' }}">
+                        <span class="ec-track-icon">
+                            <img src="{{ url('assets/frontend/images/icons/track_3.png') }}" alt="track_order">
+                        </span>
+                        <span class="ec-progressbar-track"></span>
+                        <span class="ec-track-title">Printing</span>
+                    </li>
+
+                    <!-- Shipped -->
+                    <li class="step0 {{ in_array($order->status, ['shipped', 'delivered']) ? 'active' : '' }}">
+                        <span class="ec-track-icon">
+                            <img src="{{ url('assets/frontend/images/icons/track_4.png') }}" alt="track_order">
+                        </span>
+                        <span class="ec-progressbar-track"></span>
+                        <span class="ec-track-title">Shipped</span>
+                    </li>
+
+                    <!-- Delivered -->
+                    <li class="step0 {{ $order->status == 'delivered' ? 'active' : '' }}">
+                        <span class="ec-track-icon">
+                            <img src="{{ url('assets/frontend/images/icons/track_5.png') }}" alt="track_order">
+                        </span>
+                        <span class="ec-progressbar-track"></span>
+                        <span class="ec-track-title">Delivered</span>
+                    </li>
                 </ul>
+
             </div>
         </div>
     </div>

@@ -1,5 +1,7 @@
 @extends('frontend.layouts.app')
 
+@section('title', 'Profile')
+
 @section('content')
 <!-- Ec breadcrumb start -->
 <livewire:frontend.components.breadcrumb title="Profile" />

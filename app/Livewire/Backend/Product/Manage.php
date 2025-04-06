@@ -18,6 +18,8 @@ class Manage extends Component
 
     public $productId;
     public $name, $slug, $sku, $price, $regular_price, $buy_price, $cost_price, $is_stock, $stock, $category_id, $image, $details, $short_desc, $status, $featured, $discount, $color_id, $supplier_id, $currentImage;
+    public $back_image; // New property for back image
+    public $existingBackImage; // Track the existing back image for deletion
     public $size_ids = [];  // Array to hold selected sizes
 
     protected $rules = [
@@ -32,6 +34,7 @@ class Manage extends Component
         'stock' => 'nullable|numeric',
         'category_id' => 'required|exists:categories,id',
         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'back_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         'details' => 'nullable|string',
         'short_desc' => 'nullable|string|max:255',
         'status' => 'required|boolean',
@@ -75,6 +78,13 @@ class Manage extends Component
                 : $this->currentImage; // Retain the existing image if no new image
         }
 
+        // for back image
+        if ($this->back_image) {
+            $backImagePath = $this->back_image
+                ? ImageHelper::uploadImage($this->back_image, 'products', $this->existingBackImage)
+                : $this->existingBackImage; // Retain the existing back image if no new image
+        }
+
         $product = Product::updateOrCreate(
             ['id' => $this->productId],
             [
@@ -89,6 +99,7 @@ class Manage extends Component
                 'stock' => $this->stock,
                 'category_id' => $this->category_id,
                 'image' => $this->image ? $imagePath : $this->currentImage,
+                'back_image' => $this->back_image ? $backImagePath : $this->existingBackImage, // Store back image
                 'details' => $this->details,
                 'short_desc' => $this->short_desc,
                 'status' => $this->status == true ? 1 : 0,
@@ -120,6 +131,7 @@ class Manage extends Component
         $this->stock = $product->stock;
         $this->category_id = $product->category_id;
         $this->currentImage = $product->image;
+        $this->existingBackImage = $product->back_image; // Load existing back image
         $this->details = $product->details;
         $this->short_desc = $product->short_desc;
 

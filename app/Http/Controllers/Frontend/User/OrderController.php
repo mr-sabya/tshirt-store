@@ -11,7 +11,7 @@ class OrderController extends Controller
     //
     public function track($orderId)
     {
-        $order = Order::findOrFail($orderId);
+        $order = Order::where('order_id', $orderId)->firstOrFail();
         return view('frontend.user.order.track', compact('order'));
     }
 }

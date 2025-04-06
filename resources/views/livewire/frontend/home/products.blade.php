@@ -12,7 +12,7 @@
         </div>
 
         <div class="row">
-            <div class="action d-flex align-items-center justify-content-center gap-2 mb-4">
+            <div class="action d-flex flex-wrap align-items-center justify-content-center gap-2 mb-4">
                 @foreach($categories as $category)
                 <button class="btn  {{ $categoryId == $category->id ? 'btn-primary' : 'btn-light' }}"
                     wire:click="getCategoryId({{ $category->id }})">
@@ -20,18 +20,20 @@
                 </button>
                 @endforeach
             </div>
-            <!-- Product Content -->
-            <div class="row">
-                @if($products && count($products) > 0)
-                @foreach($products as $product)
-                <livewire:frontend.components.product :productId="$product->id" wire:key="product-{{ $product->id }}" />
-                @endforeach
-                @else
-                <h4 class="text-center mb-5">No products found in this category.</h4>
-                @endif
-            </div>
-            <div class="col-sm-12 shop-all-btn">
-                <a href="{{ route('shop.index') }}" wire:navigate>Shop All Collection</a>
+            <div class="col-lg-12">
+                <!-- Product Content -->
+                <div class="row">
+                    @if($products && count($products) > 0)
+                    @foreach($products as $product)
+                    <livewire:frontend.components.product :productId="$product->id" wire:key="product-{{ $product->id }}" />
+                    @endforeach
+                    @else
+                    <h4 class="text-center mb-5">No products found in this category.</h4>
+                    @endif
+                </div>
+                <div class="col-sm-12 shop-all-btn">
+                    <a href="{{ route('shop.index') }}" wire:navigate>Shop All Collection</a>
+                </div>
             </div>
         </div>
     </div>

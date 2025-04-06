@@ -51,13 +51,15 @@
                     </div>
                     <div class="col-sm-12 col-lg-2 ec-footer-account">
                         <div class="ec-footer-widget">
-                            <h4 class="ec-footer-heading">Account</h4>
+                            <h4 class="ec-footer-heading">Top Categories</h4>
                             <div class="ec-footer-links">
                                 <ul class="align-items-center">
-                                    <li class="ec-footer-link"><a href="user-profile.html">My Account</a></li>
-                                    <li class="ec-footer-link"><a href="track-order.html">Order History</a></li>
-                                    <li class="ec-footer-link"><a href="wishlist.html">Wish List</a></li>
-                                    <li class="ec-footer-link"><a href="offer.html">Specials</a></li>
+                                    @foreach ($categories as $category)
+                                    <li class="ec-footer-link">
+                                        <x-link link="{{ route('shop.index') }}?category={{ $category->slug }}" wire:navigate name="{{ $category->name }}" />
+                                    </li>
+                                    @endforeach
+                                    
                                 </ul>
                             </div>
                         </div>

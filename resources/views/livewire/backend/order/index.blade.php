@@ -1,7 +1,7 @@
 <div>
     <!-- Search & Filter Section -->
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <input type="text" class="form-control w-25 shadow-sm" placeholder="🔍 Search Orders..." wire:model.debounce.300ms="search">
+        <input type="text" class="form-control w-25 shadow-sm" placeholder="🔍 Search Orders..." wire:model.live="search">
         <div class="btn-group shadow-sm">
             <button class="btn btn-light border" wire:click="filterByStatus('')">All</button>
             <button class="btn btn-warning text-dark border" wire:click="filterByStatus('pending')">Pending</button>

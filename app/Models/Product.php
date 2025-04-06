@@ -21,6 +21,7 @@ class Product extends Model
         'stock',
         'category_id',
         'image',
+        'back_image', // ✅ Added here
         'details',
         'short_desc',
         'status',

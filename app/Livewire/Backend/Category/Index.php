@@ -18,7 +18,7 @@ class Index extends Component
     public $search = '';
     public $detailsCategoryId = null; // Track the details view toggle
     public $sortBy = 'name'; // Default sorting by 'name'
-    public $sortDirection = 'asc'; // Default sorting direction
+    public $sortDirection = 'desc'; // Default sorting direction
     public $existingImage; // Track the existing image for deletion
 
     // Initial rules property declaration

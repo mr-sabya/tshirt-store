@@ -1,5 +1,7 @@
 @extends('frontend.layouts.app')
 
+@section('title', 'Order Track')
+
 @section('content')
 <!-- Ec breadcrumb start -->
 <livewire:frontend.components.breadcrumb title="History" />
@@ -15,7 +17,7 @@
             </div>
 
             <div class="ec-shop-rightside col-lg-9 col-md-12">
-                <livewire:frontend.user.order-track.index />
+                <livewire:frontend.user.order-track.index orderID="{{ $order->order_id }}" />
             </div>
         </div>
     </div>

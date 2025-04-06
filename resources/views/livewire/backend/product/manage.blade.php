@@ -84,7 +84,7 @@
                             <label for="details">Product Details</label>
                             <livewire:quill-text-editor
                                 id="details"
-                                wire:model.live="details"
+                                wire:model="details"
                                 theme="snow" />
                             @error('details') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
@@ -156,6 +156,21 @@
 
                         </div>
 
+                        <!-- back image -->
+                        <div class="form-group mb-3">
+                            <label for="image">Product Back Image</label>
+                            <div class="image-preview">
+                                @if ($back_image)
+                                <img src="{{ $back_image->temporaryUrl() }}" style="height: 100%; width: auto;">
+                                @elseif($existingBackImage)
+                                <img src="{{ url('storage/'. $existingBackImage) }}" style="height: 100%; width: auto;">
+                                @endif
+                            </div>
+                            <input type="file" id="image" class="form-control" wire:model="back_image">
+                            @error('back_image') <span class="text-danger">{{ $message }}</span> @enderror
+
+                        </div>
+
                         <div class="form-group mb-3">
                             <label for="featured">Featured?</label>
                             <input type="checkbox" id="featured" wire:model="featured">
@@ -167,7 +182,7 @@
                             <input type="checkbox" id="is_stock" wire:model="is_stock">
                             @error('is_stock') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-                        
+
                         <div class="form-group mb-3">
                             <label for="product_status">Active?</label>
                             <input type="checkbox" id="product_status" wire:model="status">

@@ -23,12 +23,12 @@
                                     <div class="col-sm-6">
                                         <div class="my-2">
                                             <span class="text-sm text-grey-m2 align-middle">To : </span>
-                                            <span class="text-600 text-110 text-blue align-middle">{{ $order->guest_name }}</span>
+                                            <span class="text-600 text-110 text-blue align-middle">{{ $order->user['name'] ?? $order->guest_name }}</span>
                                         </div>
                                         <div class="text-grey-m2">
                                             <div class="my-2">{{ $order->user['address'] ?? $order->guest_address }}</div>
                                             <div class="my-2">{{ $order->city['name'] ?? 'N/A' }}</div>
-                                            <div class="my-2"><b class="text-600">Phone : </b>{{ $order->guest_phone }}</div>
+                                            <div class="my-2"><b class="text-600">Phone : </b>{{ $order->user['phone'] ?? $order->guest_phone }}</div>
                                         </div>
                                     </div>
 

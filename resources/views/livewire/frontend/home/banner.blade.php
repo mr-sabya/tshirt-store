@@ -8,10 +8,10 @@
                     <div class="row">
                         <div class="col-xl-6 col-lg-7 col-md-7 col-sm-7 align-self-center">
                             <div class="ec-slide-content slider-animation">
-                                <h1 class="ec-slide-title">New Fashion Collection</h1>
-                                <h2 class="ec-slide-stitle">Sale Offer</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do</p>
-                                <a href="#" class="btn btn-lg btn-secondary">Order Now</a>
+                                <h1 class="ec-slide-title">{{ $banner->heading }}</h1>
+                                <h2 class="ec-slide-stitle">{{ $banner->offer_text }}</h2>
+                                <p>{{ $banner->text }}</p>
+                                <a href="{{ route('product.show', $banner->product['slug'])}}" wire:navigate class="btn btn-lg btn-secondary">Order Now</a>
                             </div>
                         </div>
                     </div>
