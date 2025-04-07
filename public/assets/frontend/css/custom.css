@@ -5,7 +5,51 @@
 .banner .banner-right {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.banner .banner-right .ec-banner-right {}
+
+.banner .banner-right .ec-banner-right .image {
+    position: relative;
+    height: 250px;
+    width: 100%;
+}
+
+.banner .banner-right .ec-banner-right .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.banner .banner-right .ec-banner-right .image .text h3 {
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 0;
+    /* font-weight: 600; */
+    
+}
+
+.banner .banner-right .ec-banner-right .image .text .ec-cat-btn a{
+    color: #fff;
+    text-decoration: underline;
+}
+
+.banner .banner-right .ec-banner-right .image .text .ec-cat-btn a:hover {
+    color: #EF7524;
+}
+
+
+.banner .banner-right .ec-banner-right .image .text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    /* transform: translate(-50%, -50%); */
+    text-align: center;
+    width: 100%;
+    background: #33333398;
+    padding: 10px;
 }
 
 .ec-slide-item {

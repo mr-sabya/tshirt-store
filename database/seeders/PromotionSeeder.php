@@ -19,7 +19,7 @@ class PromotionSeeder extends Seeder
             'offer_text' => 'Special Offer Text',
             'offer_image' => 'path_to_offer_image.jpg',
             'offer_description' => 'This is a description of the special offer.',
-            'product_id' => 1,  // Assuming you have a product with ID 1
+            'product_id' => 3,  // Assuming you have a product with ID 1
             'background_image' => 'path_to_background_image.jpg',
         ]);
     }

@@ -19,7 +19,7 @@
                     <div class="ec-compare-inner">
                         <div class="row">
                             @forelse($compareProducts as $product)
-                            <livewire:frontend.components.product productId="{{ $product->id }}" showRemoveFromCompare="true"/>
+                            <livewire:frontend.components.product productId="{{ $product->id }}" showRemoveFromCompare="true" />
                             @empty
                             <div class="col-12">
                                 <h4>No products in compare list.</h4>
@@ -104,7 +104,7 @@
     </div>
 
     <!-- Modal for selecting a product -->
-    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -113,13 +113,13 @@
                 </div>
                 <div class="modal-body">
                     <!-- Product selection (you can customize this to load products dynamically) -->
-                    <div>
+                    <div class="row">
                         @foreach($products as $product)
                         <livewire:frontend.components.product productId="{{ $product->id }}" compagePage="true" />
                         @endforeach
 
-                        {{ $products->links() }}
                     </div>
+                    {{ $products->links() }}
                 </div>
             </div>
         </div>

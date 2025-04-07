@@ -49,10 +49,18 @@
             <div class="col-lg-4 ">
                 <div class="banner-right ec-page-detail">
                     @foreach($image_banners as $image_banner)
-                    <div class="ec-cat-bnr">
-                        <a href="{{ $image_banner->link }}" wire:navigate>
-                            <span style="background-image: url({{ url('storage/' . $image_banner->image) }});"></span>
-                        </a>
+                    <div class="ec-banner-right">
+                        <div class="image">
+                            <img class="img-fluid" src="{{ asset('storage/' . $image_banner->image) }}" alt="Banner" />
+                            <div class="text">
+                                <h3 class="ec-cat-title">{{ $image_banner->title }}</h3>
+
+                                <div class="ec-cat-btn">
+                                    <a href="{{ $image_banner->link }}" wire:navigate>Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     @endforeach
                 </div>

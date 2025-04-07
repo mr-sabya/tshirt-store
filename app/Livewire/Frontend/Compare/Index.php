@@ -9,19 +9,22 @@ class Index extends Component
 {
     public $selectedProductId;
     public $compareProducts = [];
+    protected $listeners = ['compareUpdated' => 'refreshCompareList'];
+
 
     public function mount()
     {
         $compare = session()->get('compare', []);
         $this->compareProducts = Product::whereIn('id', $compare)->get();
+        $this->refreshCompareList();
     }
 
-    protected $listeners = ['compareUpdated' => 'refreshCompareList'];
 
     public function refreshCompareList()
     {
         $compare = session()->get('compare', []);
         $this->compareProducts = Product::whereIn('id', $compare)->get();
+        $this->dispatch('$refresh');
     }
 
     public function selectProduct($productId)
