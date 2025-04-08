@@ -53,4 +53,10 @@ class Blog extends Model
             'whatsapp' => "https://api.whatsapp.com/send?text={$title}%20{$url}",
         ];
     }
+
+    // comments
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

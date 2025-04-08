@@ -42,4 +42,18 @@ class BlogController extends Controller
         $blog = Blog::findOrFail($id);
         return view('backend.blog.edit', compact('blog'));
     }
+
+
+    // comments
+    /**
+     * Show the comments for the specified blog.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function comments($id)
+    {
+        $blog = Blog::findOrFail($id);
+        return view('backend.blog.comment', compact('blog'));
+    }
 }

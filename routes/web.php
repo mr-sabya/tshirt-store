@@ -198,5 +198,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/blogs', [\App\Http\Controllers\Backend\BlogController::class, 'index'])->name('blog.index');
         Route::get('/blogs/create', [\App\Http\Controllers\Backend\BlogController::class, 'create'])->name('blog.create');
         Route::get('/blogs/{id}/edit', [\App\Http\Controllers\Backend\BlogController::class, 'edit'])->name('blog.edit');
+
+        // comments
+        Route::get('/blogs/{id}/comments', [\App\Http\Controllers\Backend\BlogController::class, 'comments'])->name('blog.comments');
     });
 });

@@ -7,9 +7,12 @@ use App\Models\Category;
 use App\Models\Size;
 use App\Models\Color;
 use App\Models\Product;
+use Livewire\WithoutUrlPagination;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
+    use WithPagination, WithoutUrlPagination;
     public $categoryFilter = []; // Store selected category ids
     public $sizeFilter = [];     // Store selected size ids
     public $colorFilter = [];    // Store selected color ids

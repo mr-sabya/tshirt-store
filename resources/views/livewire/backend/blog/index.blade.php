@@ -61,6 +61,8 @@
                         <td>{{ $blog->created_at->format('Y-m-d') }}</td>
                         <td>
                             <a href="{{ route('admin.blog.edit', $blog->id) }}" wire:navigate class="btn btn-sm btn-primary">Edit</a>
+                            <button wire:click="duplicate({{$blog->id}})" class="btn btn-sm btn-primary">Duplicate</button>
+                            <a href="{{ route('admin.blog.comments', $blog->id) }}" wire:navigate class="btn btn-sm btn-primary">Comments</a>
                             <a href="#" class="btn btn-sm btn-danger">Delete</a>
                         </td>
                     </tr>
