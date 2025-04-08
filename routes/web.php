@@ -52,6 +52,10 @@ Route::get('order/confirmation/{orderId}/guest', [\App\Http\Controllers\Frontend
 // compare
 Route::get('compare', [\App\Http\Controllers\Frontend\CompareController::class, 'index'])->name('compare.index');
 
+// blog
+Route::get('blog', [\App\Http\Controllers\Frontend\BlogController::class, 'index'])->name('blog.index');
+Route::get('blog/{slug}', [\App\Http\Controllers\Frontend\BlogController::class, 'show'])->name('blog.show');
+
 
 Route::middleware(['web', 'auth'])->group(function () {
     Route::get('profile', [\App\Http\Controllers\Frontend\User\ProfileController::class, 'index'])->name('user.profile');
@@ -189,5 +193,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // promotion
         Route::get('/promotion', [\App\Http\Controllers\Backend\PromotionController::class, 'index'])->name('promotion.index');
+
+        // blog
+        Route::get('/blogs', [\App\Http\Controllers\Backend\BlogController::class, 'index'])->name('blog.index');
+        Route::get('/blogs/create', [\App\Http\Controllers\Backend\BlogController::class, 'create'])->name('blog.create');
+        Route::get('/blogs/{id}/edit', [\App\Http\Controllers\Backend\BlogController::class, 'edit'])->name('blog.edit');
     });
 });

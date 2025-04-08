@@ -41,6 +41,18 @@
                     ]" />
 
 
+                <livewire:backend.theme.menu-item
+                    :url="''"
+                    :icon="'ri-layout-3-line'"
+                    :label="'Blog'"
+                    :hasSubMenu="true"
+                    :subMenuItems="
+                    [
+                        ['url' => 'admin.blog.index', 'label' => 'Blogs'],
+                        ['url' => 'admin.blog.create', 'label' => 'Add Blog'],
+                    ]" />
+
+
 
                 <li class="menu-title">Pages</li>
 
