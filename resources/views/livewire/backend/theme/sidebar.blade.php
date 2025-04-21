@@ -87,6 +87,12 @@
                     ]" />
 
                 <livewire:backend.theme.menu-item
+                    :url="'admin.customization-category.index'"
+                    :icon="'ri-dashboard-line'"
+                    :label="'Customization Category'"
+                    :hasSubMenu="false" />
+
+                <livewire:backend.theme.menu-item
                     :url="'admin.order.index'"
                     :icon="'ri-dashboard-line'"
                     :label="'Orders'"

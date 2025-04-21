@@ -189,5 +189,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // promotion
         Route::get('/promotion', [\App\Http\Controllers\Backend\PromotionController::class, 'index'])->name('promotion.index');
+
+        // customization categories
+        Route::get('/customization-categories', [\App\Http\Controllers\Backend\CustomizationCategoryController::class, 'index'])->name('customization-category.index');
     });
 });

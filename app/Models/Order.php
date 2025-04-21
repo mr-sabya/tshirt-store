@@ -84,6 +84,11 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
+    public function customizations()
+    {
+        return $this->hasMany(OrderCustomization::class);
+    }
+
     // ✅ Relationship with OrderStatus
     public function statuses()
     {
