@@ -193,5 +193,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // promotion
         Route::get('/promotion', [\App\Http\Controllers\Backend\PromotionController::class, 'index'])->name('promotion.index');
+
+        // blog
+        Route::get('/blog', [\App\Http\Controllers\Backend\BlogController::class, 'index'])->name('blog.index');
+        Route::get('/blog/create', [\App\Http\Controllers\Backend\BlogController::class, 'create'])->name('blog.create');
+        Route::get('/blog/{id}/edit', [\App\Http\Controllers\Backend\BlogController::class, 'edit'])->name('blog.edit');
+
+        // comments 
+        Route::get('blog/comments/{id}', [\App\Http\Controllers\Backend\BlogController::class, 'comments'])->name('blog.comments');
+
+        // customization categories
+        Route::get('/customization-categories', [\App\Http\Controllers\Backend\CustomizationCategoryController::class, 'index'])->name('customization-category.index');
     });
 });

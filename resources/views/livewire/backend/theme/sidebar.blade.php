@@ -84,6 +84,7 @@
                         ['url' => 'admin.category.index', 'label' => 'Category'],
                         ['url' => 'admin.size.index', 'label' => 'Size'],
                         ['url' => 'admin.color.index', 'label' => 'Color'],
+                        ['url' => 'admin.customization-category.index', 'label' => 'Customization Category'],
                     ]" />
 
                 <livewire:backend.theme.menu-item
@@ -97,12 +98,7 @@
                         ['url' => 'admin.expense.index', 'label' => 'Expense'],
                     
                     ]" />
-
-                <livewire:backend.theme.menu-item
-                    :url="'admin.customization-category.index'"
-                    :icon="'ri-dashboard-line'"
-                    :label="'Customization Category'"
-                    :hasSubMenu="false" />
+                    
 
                 <livewire:backend.theme.menu-item
                     :url="'admin.order.index'"
