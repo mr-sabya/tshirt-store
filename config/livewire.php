@@ -156,5 +156,5 @@ return [
     |
     */
 
-    'pagination_theme' => 'bootstrap',
+    'pagination_theme' => 'bootstrap', // bootstrap, tailwind, tailwind-2, tailwind-3, tailwind-4, bulma, foundation, vuetify, bootstrap-4, bootstrap-5
 ];

@@ -40,7 +40,7 @@
                                         <x-link link="{{ route('page.faq') }}" name="FAQ" />
                                     </li>
                                     <li class="ec-footer-link">
-                                        <x-link link="#" name="Delivery Information" />
+                                        <x-link link="{{ route('blog.index')}}" name="Blog" />
                                     </li>
                                     <li class="ec-footer-link">
                                         <x-link link="{{ route('page.contact') }}" name="Contact Us" />

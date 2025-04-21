@@ -739,3 +739,7 @@
 .ec-common-wrapper h3 {
     font-size: 20px;
 }
+
+.ec-sidebar-block .ec-pro-title a:hover{
+    color: #EF7524;
+}

@@ -113,7 +113,7 @@ class Manage extends Component
 
         session()->flash('message', $this->productId ? 'Product updated successfully.' : 'Product created successfully.');
 
-        return redirect()->route('admin.product.index');
+        return $this->redirect(route('admin.product.index'), navigate: true);
     }
 
     public function loadProduct($id)

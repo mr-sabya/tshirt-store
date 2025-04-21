@@ -52,6 +52,10 @@ Route::get('order/confirmation/{orderId}/guest', [\App\Http\Controllers\Frontend
 // compare
 Route::get('compare', [\App\Http\Controllers\Frontend\CompareController::class, 'index'])->name('compare.index');
 
+// blog
+Route::get('blog', [\App\Http\Controllers\Frontend\BlogController::class, 'index'])->name('blog.index');
+Route::get('blog/{slug}', [\App\Http\Controllers\Frontend\BlogController::class, 'show'])->name('blog.show');
+
 
 Route::middleware(['web', 'auth'])->group(function () {
     Route::get('profile', [\App\Http\Controllers\Frontend\User\ProfileController::class, 'index'])->name('user.profile');
@@ -189,8 +193,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // promotion
         Route::get('/promotion', [\App\Http\Controllers\Backend\PromotionController::class, 'index'])->name('promotion.index');
-
-        // customization categories
-        Route::get('/customization-categories', [\App\Http\Controllers\Backend\CustomizationCategoryController::class, 'index'])->name('customization-category.index');
     });
 });
