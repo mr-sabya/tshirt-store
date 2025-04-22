@@ -57,6 +57,10 @@ Route::get('blog', [\App\Http\Controllers\Frontend\BlogController::class, 'index
 Route::get('blog/{slug}', [\App\Http\Controllers\Frontend\BlogController::class, 'show'])->name('blog.show');
 
 
+// custom order
+Route::get('custom-order/{name}', [\App\Http\Controllers\Frontend\CustomOrderController::class, 'index'])->name('custom-order.index');
+
+
 Route::middleware(['web', 'auth'])->group(function () {
     Route::get('profile', [\App\Http\Controllers\Frontend\User\ProfileController::class, 'index'])->name('user.profile');
 
@@ -116,6 +120,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // design
         Route::get('/designs', [\App\Http\Controllers\Backend\Tshirt\DesignController::class, 'index'])->name('design.index');
+
+        // design category
+        Route::get('/design-categories', [\App\Http\Controllers\Backend\Tshirt\DesignCategoryController::class, 'index'])->name('design-category.index');
 
         // tshirt
         Route::get('/tshirts', [\App\Http\Controllers\Backend\Tshirt\TshirtController::class, 'index'])->name('tshirt.index');

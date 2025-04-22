@@ -9,7 +9,15 @@ class OrderCustomization extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['order_id', 'position', 'image_path', 'notes'];
+    protected $fillable = [
+        'order_id',
+        'customization_category_id',
+        'customization_option_id',
+        'product_option_id',
+        'design_id',
+        'image',
+        'notes',
+    ];
 
     public function order()
     {

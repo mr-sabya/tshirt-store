@@ -7,6 +7,22 @@
             </div>
             <div class="card-body">
                 <form wire:submit.prevent="{{ $isEdit ? 'update' : 'save' }}">
+
+                    <!-- design categories -->
+                    <div class="mb-3">
+                        <label for="design_category_id" class="form-label fw-semibold">Design Category</label>
+                        <select id="design_category_id" wire:model="design_category_id" class="form-select">
+                            <option value="">Select Category</option>
+                            @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('design_category_id')
+                        <span class="text-danger small">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+
                     <div class="mb-3">
                         <label for="name" class="form-label fw-semibold">Design Name</label>
                         <input type="text" id="name" wire:model="name" class="form-control" wire:keyup="generateSlug" />
@@ -38,6 +54,7 @@
                         </div>
 
                         <input type="file" id="image" wire:model="image" class="form-control" accept="image/*" />
+                        <small>Pleaser add png image***</small>
                         @error('image')
                         <span class="text-danger small">{{ $message }}</span>
                         @enderror
@@ -78,18 +95,49 @@
                             <img src="{{ url('storage/'. $design->image) }}" alt="{{ $design->name }}" class="card-img-top" style="height: 200px; object-fit: cover;">
 
                             <!-- Card Content -->
-                            <div class="card-body">
+                            <div class="card-body pb-0">
+                                <p class="m-0">
+                                    <span class="badge {{ $design->published ? 'bg-primary' : 'bg-danger' }}">
+                                        {{ $design->published ? 'Published' : 'Unpublished' }}
+                                    </span>
+                                </p>
+
                                 <h5 class="card-title">{{ $design->name }}</h5>
-                                <p class="card-text text-muted">Slug: {{ $design->slug }}</p>
+                                <p class="card-text text-muted m-0">Slug: {{ $design->slug }}</p>
+
+                                <!-- user link -->
+                                <p class="m-0">
+                                    User:
+                                    <a href="{{ route('admin.user.show', $design->user->id) }}" class="text-decoration-none">
+                                        {{ $design->user->name }}
+                                    </a>
+                                </p>
+                                <p>
+                                    Category: {{ $design->designCategory->name }}
+                                </p>
+                                <div class="d-flex justify-content-between border-top pt-2">
+                                    <p class="m-0">
+                                        Created: {{ $design->created_at->format('d M Y') }}
+                                    </p>
+                                    <p class="m-0">
+                                        Published: {{ $design->published_at->format('d M Y') }}
+                                    </p>
+                                </div>
+
                             </div>
 
                             <!-- Card Actions -->
                             <div class="card-footer d-flex justify-content-between">
-                                <button wire:click="edit({{ $design->id }})" class="btn btn-primary btn-sm">
-                                    <i class="ri-pencil-line"></i> Edit
-                                </button>
-                                <button wire:click="delete({{ $design->id }})" class="btn btn-danger btn-sm">
-                                    <i class="ri-delete-bin-line"></i> Delete
+                                <div>
+                                    <button wire:click="edit({{ $design->id }})" class="btn btn-primary btn-sm">
+                                        <i class="ri-pencil-line"></i> Edit
+                                    </button>
+                                    <button wire:click="delete({{ $design->id }})" class="btn btn-danger btn-sm">
+                                        <i class="ri-delete-bin-line"></i> Delete
+                                    </button>
+                                </div>
+                                <button wire:click="togglePublish({{ $design->id }})" class="btn {{ $design->published ? 'btn-secondary' : 'btn-info' }} btn-sm">
+                                    <i class="{{ $design->published ? 'ri-download-2-line' : 'ri-upload-2-line' }}"></i> {{ $design->published ? 'Unpublish' : 'Publish' }}
                                 </button>
                             </div>
                         </div>

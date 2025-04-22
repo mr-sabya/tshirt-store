@@ -14,8 +14,13 @@ return new class extends Migration
         Schema::create('order_customizations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id')->constrained()->onDelete('cascade');
-            $table->string('position'); // e.g., front_side, back_side, left_sleeve
-            $table->string('image_path')->nullable(); // or any file/url/text related to design
+            $table->foreignId('customization_category_id')->constrained()->onDelete('cascade');
+            $table->foreignId('customization_option_id')->constrained()->onDelete('cascade');
+            $table->foreignId('product_option_id')->constrained()->onDelete('cascade');
+            
+            $table->foreignId('design_id')->nullable()->constrained()->onDelete('cascade');
+            
+            $table->string('image')->nullable(); // or any file/url/text related to design
             $table->text('notes')->nullable();
             $table->timestamps();
         });

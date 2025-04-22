@@ -743,3 +743,22 @@
 .ec-sidebar-block .ec-pro-title a:hover{
     color: #EF7524;
 }
+
+.custom-order-category{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.custom-order-category .item{
+    width: 80px;
+}
+
+.design .design-card{
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}

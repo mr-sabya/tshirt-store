@@ -2,6 +2,7 @@
     <li><a href="{{ route('home') }}" wire:navigate>Home</a></li>
     <li><a href="{{ route('category.index') }}" wire:navigate>Categories</a></li>
     <li><a href="{{ route('shop.index') }}" wire:navigate>Products</a></li>
+    <li><a href="{{ route('custom-order.index', 'tshirt') }}" wire:navigate>Custom Order</a></li>
     <li><a href="{{ route('custom-design.index') }}" wire:navigate>T-Shirt Builder</a></li>
     <li><a href="{{ route('offer.index') }}" wire:navigate>Hot Offers</a></li>
 

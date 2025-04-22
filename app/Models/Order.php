@@ -12,6 +12,8 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
+        'order_type',
+        'customization_category',
         'user_id',
         'guest_name',
         'guest_phone',

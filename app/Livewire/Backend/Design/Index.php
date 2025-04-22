@@ -4,6 +4,7 @@ namespace App\Livewire\Backend\Design;
 
 use App\Helpers\ImageHelper;
 use App\Models\Design;
+use App\Models\DesignCategory;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
@@ -14,14 +15,9 @@ class Index extends Component
 {
     use WithFileUploads, WithPagination, WithoutUrlPagination;
 
-    public $name, $slug, $image, $isEdit = false, $designId, $currentImage = '';
+    public $name, $slug, $image, $isEdit = false, $designId, $currentImage = '', $design_category_id;
     public $search = '', $sortBy = 'id', $sortDirection = 'asc';
 
-    protected $rules = [
-        'name' => 'required|string|max:255',
-        'slug' => 'required|unique:designs,slug|max:255',
-        'image' => 'required|image|max:1024', // Max 1MB image
-    ];
 
     public function generateSlug()
     {
@@ -31,7 +27,8 @@ class Index extends Component
     // Function to handle the CRUD operations
     public function save()
     {
-        $validatedData = $this->validate([
+        $this->validate([
+            'design_category_id' => 'required|exists:design_categories,id',
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:designs,slug',
             'image' => 'required|image|max:2048',
@@ -45,6 +42,10 @@ class Index extends Component
             'name' => $this->name,
             'slug' => $this->slug,
             'image' => $imagePath,
+            'design_category_id' => $this->design_category_id,
+            'user_id' => auth()->id(), // Assuming you have user authentication
+            'published' => true, // Default value
+            'published_at' => now(), // Default value
         ]);
 
         session()->flash('message', 'Design created successfully!');
@@ -55,6 +56,7 @@ class Index extends Component
     {
         $design = Design::findOrFail($id);
         $this->designId = $design->id;
+        $this->design_category_id = $design->design_category_id;
         $this->name = $design->name;
         $this->slug = $design->slug;
         $this->currentImage = $design->image;
@@ -63,8 +65,9 @@ class Index extends Component
 
     public function update()
     {
-        $validatedData = $this->validate([
+        $this->validate([
             'name' => 'required|string|max:255',
+            'design_category_id' => 'required|exists:design_categories,id',
             'slug' => 'required|string|max:255|unique:designs,slug,' . $this->designId,
             'image' => 'nullable|image|max:2048',
         ]);
@@ -80,6 +83,8 @@ class Index extends Component
 
         $design->name = $this->name;
         $design->slug = $this->slug;
+        $design->design_category_id = $this->design_category_id;
+        
         $design->save();
 
         session()->flash('message', 'Design updated successfully!');
@@ -100,6 +105,18 @@ class Index extends Component
         $this->currentImage = '';
         $this->designId = '';
         $this->isEdit = false;
+        $this->design_category_id = '';
+    }
+
+    // publish/unpublish design
+    public function togglePublish($id)
+    {
+        $design = Design::findOrFail($id);
+        $design->published = !$design->published;
+        $design->published_at = $design->published ? now() : null;
+        $design->save();
+
+        session()->flash('message', 'Design ' . ($design->published ? 'published' : 'unpublished') . ' successfully!');
     }
 
     // Render method added at the bottom
@@ -113,7 +130,8 @@ class Index extends Component
             ->paginate(10);
 
         return view('livewire.backend.design.index', [
-            'designs' => $designs
+            'designs' => $designs,
+            'categories' => DesignCategory::all(),
         ]);
     }
 }

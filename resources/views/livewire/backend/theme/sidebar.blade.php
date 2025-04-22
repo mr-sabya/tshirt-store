@@ -64,6 +64,7 @@
                     :subMenuItems="
                     [
                         ['url' => 'admin.tshirt.category.index', 'label' => 'Category'],
+                        ['url' => 'admin.design-category.index', 'label' => 'Design Category'],
                         ['url' => 'admin.design.index', 'label' => 'Design'],
                         ['url' => 'admin.tshirt.index', 'label' => 'T-Shirt'],
                     ]" />
