@@ -67,7 +67,7 @@
     <link rel="stylesheet" id="bg-switcher-css" href="{{ asset('assets/frontend/css/backgrounds/bg-4.css') }}" />
 
     <!-- Meta Pixel Code -->
-    <script data-navigate-once>
+    <script>
         ! function(f, b, e, v, n, t, s) {
             if (f.fbq) return;
             n = f.fbq = function() {
@@ -86,11 +86,11 @@
             s.parentNode.insertBefore(t, s)
         }(window, document, 'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '1096595042239828');
+        fbq('init', '998094272520377');
         fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=1096595042239828&ev=PageView&noscript=1" /></noscript>
+            src="https://www.facebook.com/tr?id=998094272520377&ev=PageView&noscript=1" /></noscript>
     <!-- End Meta Pixel Code -->
 
 

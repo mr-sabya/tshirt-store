@@ -7,11 +7,14 @@
                     <h2 class="ec-bg-title">Log In</h2>
                     <h2 class="ec-title">Log In</h2>
                     <p class="sub-title mb-3">Best place to buy and sell digital products</p>
+
+
                 </div>
             </div>
             <div class="ec-login-wrapper">
                 <div class="ec-login-container">
                     <div class="ec-login-form">
+
                         <!-- Livewire Login Form -->
                         <form wire:submit.prevent="login">
                             <span class="ec-login-wrap">
@@ -19,6 +22,7 @@
                                     <label>Phone Number*</label>
                                     <input type="text" class="m-0" wire:model="phone" placeholder="Enter your phone number" required />
                                     @error('phone') <span class="text-danger">{{ $message }}</span> @enderror
+                                    @if (session('message'))<span class="text-danger"> {{ session('message') }}</span>@endif
                                 </div>
                             </span>
 

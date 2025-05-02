@@ -1,5 +1,7 @@
 @extends('frontend.layouts.app')
 
+@section('title', 'Login')
+
 @section('content')
 <!-- Ec breadcrumb start -->
 <livewire:frontend.components.breadcrumb title="Login" />

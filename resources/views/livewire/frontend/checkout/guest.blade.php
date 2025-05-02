@@ -147,18 +147,18 @@
                                         <span class="text-right">৳ {{ $deliveryCharge }}</span>
 
                                     </div>
-                                    <div>
+                                    <!-- <div>
                                         <span class="text-left">Coupon Discount</span>
                                         <span class="text-right">
-                                            <a class="ec-cart-coupan" wire:click.prevent="applyCoupon">Apply Coupon</a>
+                                            <a class="ec-cart-coupan" >Apply Coupon</a>
                                         </span>
                                     </div>
                                     <div class="ec-cart-coupan-content">
                                         <form class="ec-cart-coupan-form" name="ec-cart-coupan-form" method="post" action="#">
-                                            <input class="ec-coupan" type="text" placeholder="Enter Your Coupon Code" wire:model="couponCode">
+                                            <input class="ec-coupan" type="text" placeholder="Enter Your Coupon Code" >
                                             <button class="ec-coupan-btn button btn-primary" type="submit">Apply</button>
                                         </form>
-                                    </div>
+                                    </div> -->
                                     <div class="ec-cart-summary-total">
                                         <span class="text-left">Total Amount</span>
                                         <span class="text-right">৳ {{ number_format($total + $deliveryCharge, 2) }}</span>
@@ -180,6 +180,7 @@
                             <label for="pay{{ $loop->index }}">{{ $method->name }}</label>
                         </div>
                         @endforeach
+                        
                         <textarea name="comment" placeholder="Comments" class="form-control mt-2" wire:model="comment"></textarea>
                         <span class="ec-pay-agree">
                             <input type="checkbox" id="isAgree" value="" wire:model="isAgreed">
@@ -193,3 +194,24 @@
         </div>
     </div>
 </section>
+
+<script>
+    document.addEventListener('livewire:init', function() {
+        Livewire.on('orderPlacedPixel', (data) => {
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Purchase', {
+                    value: data.total,
+                    currency: data.currency,
+                    contents: data.products.map(product => ({
+                        id: product.id,
+                        name: product.name,
+                        quantity: product.quantity,
+                        price: product.price
+                    })),
+                    content_type: 'product'
+                });
+                console.log("Facebook Pixel Purchase event fired", data);
+            }
+        });
+    });
+</script>

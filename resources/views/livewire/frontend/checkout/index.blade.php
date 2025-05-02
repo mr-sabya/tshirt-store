@@ -152,18 +152,18 @@
                                         <span class="text-right text-danger"><a href="{{ route('user.profile') }}" wire:navigate>Add Delivery City</a></span>
                                         @endif
                                     </div>
-                                    <div>
+                                    <!-- <div>
                                         <span class="text-left">Coupon Discount</span>
                                         <span class="text-right">
-                                            <a class="ec-cart-coupan" wire:click.prevent="applyCoupon">Apply Coupon</a>
+                                            <a class="ec-cart-coupan" >Apply Coupon</a>
                                         </span>
                                     </div>
                                     <div class="ec-cart-coupan-content">
                                         <form class="ec-cart-coupan-form" name="ec-cart-coupan-form" method="post" action="#">
-                                            <input class="ec-coupan" type="text" placeholder="Enter Your Coupon Code" wire:model="couponCode">
+                                            <input class="ec-coupan" type="text" placeholder="Enter Your Coupon Code" >
                                             <button class="ec-coupan-btn button btn-primary" type="submit">Apply</button>
                                         </form>
-                                    </div>
+                                    </div> -->
                                     <div class="ec-cart-summary-total">
                                         <span class="text-left">Total Amount</span>
                                         @php

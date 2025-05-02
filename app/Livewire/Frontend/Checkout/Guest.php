@@ -39,6 +39,8 @@ class Guest extends Component
         }
 
         $this->divisions = Division::all();
+
+        $this->paymentMethod = PaymentMethod::where('is_active', 1)->first()->id;
     }
 
 
@@ -101,10 +103,11 @@ class Guest extends Component
         $this->dispatch('orderPlacedPixel', [
             'order_id' => $order->id,
             'total' => $this->total,
-            'currency' => $this->settings['currency'], // Adjust currency if needed
+            'currency' => $this->settings['currency'],
             'products' => [
                 [
-                    'product_id' => $this->product->id,
+                    'id' => $this->product->id,
+                    'name' => $this->product->name, // assuming you have this field
                     'quantity' => session('buy_now_guest')['quantity'],
                     'price' => $this->product->price,
                 ]

@@ -35,7 +35,7 @@ class Login extends Component
             return $this->redirect($redirectUrl, navigate: true);  // Adjust the redirect route as needed
         } else {
             // Login failed
-            session()->flash('message', 'Invalid credentials');
+            session()->flash('message', 'Phone Number or Password does not match');
         }
     }
 
